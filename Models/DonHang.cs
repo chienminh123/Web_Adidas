@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Web_Adidas.Data
+namespace Web_Adidas.Models
 {
     [Table("DonHang")]
     public class DonHang
@@ -11,8 +11,8 @@ namespace Web_Adidas.Data
         [Required]
         public string MaNguoiDung { get; set; }
         public DateTime NgayTaoDonHang { get; set; } = DateTime.UtcNow;
-        [Required]
-        public int MaTrangThaiDonHang { get; set; }
+        //[Required]
+        //public int MaTrangThaiDonHang { get; set; }
         public bool DaXoa { get; set; } = false;
         public TrangThaiDonHang TrangThaiDonHang { get; set; }
         public List<ChiTietDonHang> ChiTietDonHangs { get; set; }

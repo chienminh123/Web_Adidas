@@ -1,18 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Web_Adidas.Models;
 
-namespace Web_Adidas.Data
+namespace Web_Adidas.Models
 {
     [Table("ChiTietDonHang")]
     public class ChiTietDonHang
     {
         [Key]
         public int MaChiTietDonHAng { get; set; }
-        [Required]
-        public int MaDonHang { get; set; }
-        [Required]
-        public int MaSanPham { get; set; }
+        //[Required]
+        //public int MaDonHang { get; set; }
+        //[Required]
+        //public int MaSanPham { get; set; }
         [Required]
         public int SoLuong { get; set; }
         [Required]

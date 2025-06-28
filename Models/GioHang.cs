@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Web_Adidas.Data
+namespace Web_Adidas.Models
 {
     [Table("GioHang")]
     public class GioHang
