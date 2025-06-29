@@ -9,14 +9,12 @@
     <link rel="stylesheet" href="~/Web_Adidas.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header >
+        <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web_Adidas</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a href="/">
+                    <img class="header__logo" src="~/img/adidas.png" alt="Adidas Logo">
+                </a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -26,18 +24,40 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
-            </div>
+            
+                <nav class="header__nav">
+                    <a class="header__link" href="#">GIẦY</a>
+                    <a class="header__link" href="#">DÉP</a>
+                    <a class="header__link" href="#">QUẦN ÁO</a>
+                </nav>
+                <div class="header__actions">
+                    <div class="header__search">
+                        <input class="header__search-input" type="text" placeholder="tìm kiếm">
+                        <button class="header__search-button"><img src="~/img/search.png" alt="Search"></button>
+                    </div>
+                    <div class="header__icons">
+                        <a class="header__icon-link" href="#"><img class="header__icon" src="~/img/user.png" alt="Account"></a>
+                        <a class="header__icon-link" href="#"><img class="header__icon" src="~/img/shopping-bag.png" alt="Cart"></a>
+                    </div>
+                        
+                     <partial name="_LoginPartial" />
+                </div>
+                </div>
         </nav>
+        
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    
+    
 
     <footer class="border-top footer text-muted">
+        
         <div class="container">
             &copy; 2025 - Web_Adidas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

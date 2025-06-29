@@ -238,7 +238,7 @@ namespace Web_Adidas.Data.Migrations
                     b.Property<int>("DonHangMaDonHang")
                         .HasColumnType("int");
 
-                    b.Property<int>("SachMaSanPham")
+                    b.Property<int>("SanPhamMaSanPham")
                         .HasColumnType("int");
 
                     b.Property<int>("SoLuong")
@@ -248,7 +248,7 @@ namespace Web_Adidas.Data.Migrations
 
                     b.HasIndex("DonHangMaDonHang");
 
-                    b.HasIndex("SachMaSanPham");
+                    b.HasIndex("SanPhamMaSanPham");
 
                     b.ToTable("ChiTietDonHang");
                 });
@@ -282,6 +282,28 @@ namespace Web_Adidas.Data.Migrations
                     b.ToTable("ChiTietGioHang");
                 });
 
+            modelBuilder.Entity("Web_Adidas.Models.DanhGiaPhanHoi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ChiTietDonHangMaChiTietDonHAng")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhanHoi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChiTietDonHangMaChiTietDonHAng");
+
+                    b.ToTable("DanhGiaPhanHoi");
+                });
+
             modelBuilder.Entity("Web_Adidas.Models.DonHang", b =>
                 {
                     b.Property<int>("MaDonHang")
@@ -293,12 +315,30 @@ namespace Web_Adidas.Data.Migrations
                     b.Property<bool>("DaXoa")
                         .HasColumnType("bit");
 
+                    b.Property<string>("DiaChi")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("MaNguoiDung")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayTaoDonHang")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("PTThanhToan")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("SDT")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("ThanhToan")
+                        .HasColumnType("bit");
 
                     b.Property<int>("TrangThaiDonHangMaTrangThaiDonHang")
                         .HasColumnType("int");
@@ -456,15 +496,15 @@ namespace Web_Adidas.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Web_Adidas.Models.SanPham", "Sach")
+                    b.HasOne("Web_Adidas.Models.SanPham", "SanPham")
                         .WithMany("ChiTietDonHangs")
-                        .HasForeignKey("SachMaSanPham")
+                        .HasForeignKey("SanPhamMaSanPham")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DonHang");
 
-                    b.Navigation("Sach");
+                    b.Navigation("SanPham");
                 });
 
             modelBuilder.Entity("Web_Adidas.Models.ChiTietGioHang", b =>
@@ -484,6 +524,17 @@ namespace Web_Adidas.Data.Migrations
                     b.Navigation("GioHang");
 
                     b.Navigation("SanPham");
+                });
+
+            modelBuilder.Entity("Web_Adidas.Models.DanhGiaPhanHoi", b =>
+                {
+                    b.HasOne("Web_Adidas.Models.ChiTietDonHang", "ChiTietDonHang")
+                        .WithMany()
+                        .HasForeignKey("ChiTietDonHangMaChiTietDonHAng")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChiTietDonHang");
                 });
 
             modelBuilder.Entity("Web_Adidas.Models.DonHang", b =>
