@@ -16,3 +16,140 @@ html {
 body {
   margin-bottom: 60px;
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Sora", sans-serif;
+    background: #FFFFFF;
+}
+
+.container {
+    width: 1170px;
+    max-width: calc(100% - 48px);
+    margin: 0 auto;
+}
+
+/*Common*/
+a {
+    text-decoration: none;
+}
+
+/*Header*/
+.header {
+    background: #FFFFFF;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.header__container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header__logo {
+    width: 50px;
+    height: auto;
+}
+
+.header__nav {
+    display: flex;
+    gap: 60px;
+}
+
+.header__link {
+    color: #000000;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header__search {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.header__action {
+    position: relative;
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.header__search-input {
+    border: none;
+    padding: 5px 10px;
+    outline: none;
+    font-size: 14px;
+}
+
+.header__search-button {
+    background: transparent;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #000;
+}
+
+    .header__search-button img {
+        width: 16px;
+        height: 16px;
+    }
+
+.header__icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header__icon-link {
+    text-decoration: none;
+}
+
+.header__icon {
+    width: 24px;
+    height: 24px;
+}
+
+.header__login {
+    padding: 4px 21px;
+    color: #c9d2da;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+    .header__login:hover {
+        text-decoration: underline;
+        color: #c9d2da;
+    }
+
+registerSubmit {
+    padding: 4px 21px;
+    border-radius: 99px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: #fff;
+    background-color: #000000;
+}
+
+registerSubmit:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    color: #fff;
+}

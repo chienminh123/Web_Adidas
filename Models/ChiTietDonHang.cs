@@ -16,7 +16,7 @@ namespace Web_Adidas.Models
         public int SoLuong { get; set; }
         [Required]
         public double DonGia { get; set; }
-        public SanPham Sach { get; set; }
+        public SanPham SanPham { get; set; }
         public DonHang DonHang { get; set; }
     }
 }

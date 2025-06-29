@@ -17,5 +17,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<GioHang> DbSetGioHang { get; set; }
     public DbSet<SanPham> DbSetSanPham { get; set; }
     public DbSet<TheLoai> DbSetTheLoai { get; set; }
+    public DbSet<DanhGiaPhanHoi> DbSetDanhGiaPhanHoi { get; set; }
     public DbSet<TrangThaiDonHang> DbSetTrangThaiDonHang { get; set; }
 }
