@@ -3,29 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Web_Adidas</title>
+    <title>@ViewData["Title"]  - Shop Sports & Originals | adidas VN</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Web_Adidas.styles.css" asp-append-version="true" />
+
+    @* Favicon *@
+    <link rel="icon" type="image/png" href="~/favicons/favicon.ico">
+
+    @* Font chữ *@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header >
-        <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
+    <header class="header" >
+       
+            
                 <a href="/">
                     <img class="header__logo" src="~/img/adidas.png" alt="Adidas Logo">
-                </a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            
+                </a>    
                 <nav class="header__nav">
                     <a class="header__link" href="#">GIẦY</a>
                     <a class="header__link" href="#">DÉP</a>
@@ -39,12 +37,13 @@
                     <div class="header__icons">
                         <a class="header__icon-link" href="#"><img class="header__icon" src="~/img/user.png" alt="Account"></a>
                         <a class="header__icon-link" href="#"><img class="header__icon" src="~/img/shopping-bag.png" alt="Cart"></a>
+                        <span class="cart-count">1</span>
                     </div>
                         
                      <partial name="_LoginPartial" />
                 </div>
-                </div>
-        </nav>
+                
+        
         
     </header>
     
