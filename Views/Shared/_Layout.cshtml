@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Web_Adidas.styles.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/Web_Adidas.styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     @* Favicon *@
     <link rel="icon" type="image/png" href="~/favicons/favicon.ico">
@@ -18,52 +20,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header" >
-       
-            
-                <a href="/">
-                    <img class="header__logo" src="~/img/adidas.png" alt="Adidas Logo">
-                </a>    
-                <nav class="header__nav">
-                    <a class="header__link" href="#">GIẦY</a>
-                    <a class="header__link" href="#">DÉP</a>
-                    <a class="header__link" href="#">QUẦN ÁO</a>
-                </nav>
-                <div class="header__actions">
-                    <div class="header__search">
-                        <input class="header__search-input" type="text" placeholder="tìm kiếm">
-                        <button class="header__search-button"><img src="~/img/search.png" alt="Search"></button>
-                    </div>
-                    <div class="header__icons">
-                        <a class="header__icon-link" href="#"><img class="header__icon" src="~/img/user.png" alt="Account"></a>
-                        <a class="header__icon-link" href="#"><img class="header__icon" src="~/img/shopping-bag.png" alt="Cart"></a>
-                        <span class="cart-count">1</span>
-                    </div>
-                        
-                     <partial name="_LoginPartial" />
+    <div class="wrapper">
+        <header class="header">
+            <a href="/">
+                <img class="header__logo" src="~/img/adidas.png" alt="Adidas Logo">
+            </a>
+            <nav class="header__nav">
+                <a class="header__link" href="#">GIẦY</a>
+                <a class="header__link" href="#">DÉP</a>
+                <a class="header__link" href="#">QUẦN ÁO</a>
+            </nav>
+            <div class="header__actions">
+                <div class="header__search">
+                    <input class="header__search-input" type="text" placeholder="tìm kiếm">
+                    <button class="header__search-button">
+                        <img src="~/img/search.png" alt="Search">
+                    </button>
                 </div>
-                
-        
-        
-    </header>
-    
+                <div class="header__icons">
+                    <a class="header__icon-link" href="#">
+                        <img class="header__icon" src="~/img/user.png" alt="Account">
+                    </a>
+                    <a class="header__icon-link" href="#">
+                        <img class="header__icon" src="~/img/shopping-bag.png" alt="Cart">
+                    </a>
+                    <span class="cart-count">1</span>
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </header>
+
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
         </div>
-    
-    
 
-    <footer class="border-top footer text-muted">
-        
-        <div class="container">
-            &copy; 2025 - Web_Adidas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-col footer-logo">
+                    <img src="~/img/footer-01.jpg" alt="Adidas Logo">
+                    <p>Adidas – Khơi nguồn cảm hứng thể thao và phong cách sống hiện đại.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>HỖ TRỢ</h3>
+                    <ul>
+                        <li><a href="#">Trung tâm trợ giúp</a></li>
+                        <li><a href="#">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>VỀ ADIDAS</h3>
+                    <ul>
+                        <li><a href="#">Câu chuyện thương hiệu</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                        <li><a href="#">Cửa hàng</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>THEO DÕI CHÚNG TÔI</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/adidasVN/?brand_redir=182162001806727#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/adidas/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/c/adidas" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Adidas Vietnam. Bản quyền thuộc về Adidas.
+            </div>
+        </footer>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
