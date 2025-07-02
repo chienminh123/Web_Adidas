@@ -22,14 +22,139 @@
 <body>
     <div class="wrapper">
         <header class="header">
+            @* Logo *@
             <a href="/">
                 <img class="header__logo" src="~/img/adidas.png" alt="Adidas Logo">
             </a>
-            <nav class="header__nav">
-                <a class="header__link" href="#">GIẦY</a>
-                <a class="header__link" href="#">DÉP</a>
-                <a class="header__link" href="#">QUẦN ÁO</a>
+
+            @* Nav *@
+            <nav class="nav">
+                <ul>
+                    
+                    <li class="nav__item nav__item--has-dropdown">
+                        <a href="#!">
+                            GIẦY
+                            <span class="underline"></span>
+                        </a>
+                        <div class="shoe-dropdown">
+                            <div class="shoe-card">
+                                <div class="shoe-label">SAMBA</div>
+                                <img src="~/img/Giay_Samba_OG_trang_IF3814_01_standard_11zon.jpg" alt="Samba">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">GAZELLE</div>
+                                <img src="~/img/Giay_Gazelle_Indoor_mau_xanh_la_JI2062_01_standard_11zon.jpg" alt="Gazelle">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">ADIZERO</div>
+                                <img src="~/img/Giay_Adizero_EVO_SL_DJen_JP7147_01_00_standard_11zon.jpg" alt="Adizero">      
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">SUPERSTAR</div>
+                                <img src="~/img/Giay_Superstar_trang_JP9678_01_00_standard_11zon.jpg" alt="Superstar">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">SPORT</div>
+                                <img src="~/img/Giay_san_co_nhan_tao_Predator_Pro_trang_JI1181_01_00_standard_hover_11zon.jpg" alt="Sport">                           
+                            </div>
+                            <div class="shoe-view-all">
+                                <a href="#">Xem tất cả</a>
+                            </div>
+                        </div>
+                        
+                    </li>
+
+
+                    <li class="nav__item nav__item--has-dropdown">
+                        <a href="#!">
+                            DÉP
+                            <span class="underline"></span>
+                        </a>
+                        <div class="shoe-dropdown">
+                            <div class="shoe-card">
+                                <div class="shoe-label">SAMBA</div>
+                                <img src="~/img/header_samba_11zon.jpg" alt="Samba">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">GAZELLE</div>
+                                <img src="~/img/header_gazelle_11zon.jpg" alt="Gazelle">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">CAMPUS</div>
+                                <img src="~/img/header_campus_11zon.jpg" alt="Campus">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">SPEZIAL</div>
+                                <img src="~/img/header_spezial_11zon.jpg" alt="Spezial">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">SUPERSTAR</div>
+                                <img src="~/img/header_superstar_11zon.jpg" alt="Superstar">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav__item nav__item--has-dropdown">
+                        <a href="#!">
+                            QUẦN
+                            <span class="underline"></span>
+                        </a>
+                        <div class="shoe-dropdown">
+                            <div class="shoe-card">
+                                <div class="shoe-label">SAMBA</div>
+                                <img src="~/img/header_samba_11zon.jpg" alt="Samba">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">GAZELLE</div>
+                                <img src="~/img/header_gazelle_11zon.jpg" alt="Gazelle">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">CAMPUS</div>
+                                <img src="~/img/header_campus_11zon.jpg" alt="Campus">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">SPEZIAL</div>
+                                <img src="~/img/header_spezial_11zon.jpg" alt="Spezial">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">SUPERSTAR</div>
+                                <img src="~/img/header_superstar_11zon.jpg" alt="Superstar">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav__item nav__item--has-dropdown">
+                        <a href="#!">
+                            ÁO
+                            <span class="underline"></span>
+                        </a>
+                        <div class="shoe-dropdown">
+                            <div class="shoe-card">
+                                <div class="shoe-label">SAMBA</div>
+                                <img src="~/img/header_samba_11zon.jpg" alt="Samba">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">GAZELLE</div>
+                                <img src="~/img/header_gazelle_11zon.jpg" alt="Gazelle">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">CAMPUS</div>
+                                <img src="~/img/header_campus_11zon.jpg" alt="Campus">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">SPEZIAL</div>
+                                <img src="~/img/header_spezial_11zon.jpg" alt="Spezial">
+                            </div>
+                            <div class="shoe-card">
+                                <div class="shoe-label">SUPERSTAR</div>
+                                <img src="~/img/header_superstar_11zon.jpg" alt="Superstar">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </nav>
+
+            @* Action *@
             <div class="header__actions">
                 <div class="header__search">
                     <input class="header__search-input" type="text" placeholder="tìm kiếm">
