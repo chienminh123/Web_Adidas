@@ -25,6 +25,7 @@
     </form>
 
 </div>
+@* Lấy thông tin của 1 loại sản phẩm *@
 <div>
 
 
@@ -33,10 +34,10 @@
         string anh = "";
         @foreach (var sp in Model.SanPhams)
         {
-            if (anh.CompareTo(sp.HinhAnh)!=0)
+            @if (anh.CompareTo(sp.HinhAnh)!=0)
             {
                 <div class="card" style="width: 18rem;">
-                    <img src="~/img/samba/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
+                    <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                     <div class="card-body">
                         <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
                         <p class="card-text">@(sp.Gia)</p>

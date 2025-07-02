@@ -7,17 +7,14 @@ namespace Web_Adidas.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    //private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
 
     public HomeController(ApplicationDbContext context)
     {
         _context = context;
     }
-    //public HomeController(ILogger<HomeController> logger)
-    //{
-    //    _logger = logger;
-    //}
+  
 
     public IActionResult Index()
     {
@@ -27,12 +24,19 @@ public class HomeController : Controller
         };
         return View(model);
     }
+    public IActionResult SamBa()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+    public IActionResult TrangSanPham()
+    {
+        return View();
+    }
 
-
-    //public IActionResult Index()
-    //{
-    //    return View();
-    //}
 
     public IActionResult Privacy()
     {

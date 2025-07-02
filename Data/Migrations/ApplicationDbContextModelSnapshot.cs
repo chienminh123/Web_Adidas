@@ -388,6 +388,9 @@ namespace Web_Adidas.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
+
                     b.Property<string>("TenSanPham")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");

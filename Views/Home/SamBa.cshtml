@@ -1,0 +1,200 @@
+﻿
+@model TheLoai
+@{
+    ViewData["Title"] = "SamBa";
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+}
+@* <i class="bi bi-arrow-return-left">Back</i> *@
+
+<a asp-controller="Home" asp-action="Index">Home</a>
+<p>@ViewData["Title"]</p>
+<select class="form-select" aria-label="Default select example">
+    <option selected>Bộ lọc </option>
+    <option value="1">Giá (Thấp -> Cao)</option>
+    <option value="2">Giá (Cao -> Thấp)</option>
+</select>
+<div>
+    @* ảnh của quảng cáo của samba  *@
+</div>
+
+<div>
+    <p>SamBa Jane</p>
+    <div>
+       
+            @if (Model != null && Model.SanPhams != null)
+            {
+                string anh = "";
+                string ten = "Giay_Samba_Jane";
+                @foreach (var sp in Model.SanPhams)
+                {
+                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                    {
+                    <a class="header__link" asp-controller="Home" asp-action="TrangSanPham">
+                        <div class="card" style="width: 18rem;">
+                            <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="SamBa Jane">
+                            <div class="card-body">
+                                <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
+                                <p class="card-text">@(sp.Gia)</p>
+                                <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                            </div>
+                        </div>
+                        
+                    </a>
+                    anh = sp.HinhAnh;
+                    }
+                    
+
+                }
+            }
+            else
+            {
+                <p>Không có sản phẩm để hiển thị.</p>
+            }
+        
+        
+    </div>
+</div>
+
+<div>
+    <p>SamBa LT </p>
+    <div>
+
+        @if (Model != null && Model.SanPhams != null)
+        {
+            string anh = "";
+            string ten = "Giay_Samba_LT";
+            @foreach (var sp in Model.SanPhams)
+            {
+                if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                {
+                 <a class="header__link" asp-controller="Home" asp-action="TrangSanPham">
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="SamBa LT">
+                        <div class="card-body">
+                            <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
+                            <p class="card-text">@(sp.Gia)</p>
+                            <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                        </div>
+                    </div>
+                 </a>
+                    anh = sp.HinhAnh;
+                }
+
+            }
+        }
+        else
+        {
+            <p>Không có sản phẩm để hiển thị.</p>
+        }
+    </div>
+</div>
+<div>
+    <p>Samba_OG </p>
+    <div>
+
+        @if (Model != null && Model.SanPhams != null)
+        {
+            string anh = "";
+            string ten = "Giay_Samba_OG";
+            @foreach (var sp in Model.SanPhams)
+            {
+                if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                {
+                 <a class="header__link" asp-controller="Home" asp-action="TrangSanPham">
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba_OG">
+                        <div class="card-body">
+                            <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
+                            <p class="card-text">@(sp.Gia)</p>
+                            <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                        </div>
+                    </div>
+                 </a>
+                    anh = sp.HinhAnh;
+                }
+
+            }
+        }
+        else
+        {
+            <p>Không có sản phẩm để hiển thị.</p>
+        }
+    </div>
+</div>
+<div>
+    @* ảnh của quảng cáo của samba  *@
+</div>
+<div>
+    <p>Samba_Sambae</p>
+    <div>
+
+        @if (Model != null && Model.SanPhams != null)
+        {
+            string anh = "";
+            string ten = "Giay_Sambae";
+            @foreach (var sp in Model.SanPhams)
+            {
+
+                if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                {
+                    <a class="header__link" asp-controller="Home" asp-action="TrangSanPham">
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba_Sambae">
+                        <div class="card-body">
+                            <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
+                            <p class="card-text">@(sp.Gia)</p>
+                            <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                        </div>
+                    </div>
+                    </a>
+                    anh = sp.HinhAnh;
+                }
+
+            }
+        }
+        else
+        {
+            <p>Không có sản phẩm để hiển thị.</p>
+        }
+    </div>
+</div>
+<div>
+    <p>Trainer_Samba_Low</p>
+    <div>
+
+        @if (Model != null && Model.SanPhams != null)
+        {
+            string anh = "";
+            string ten = "Giay_Trainer_Samba_Low";
+            @foreach (var sp in Model.SanPhams)
+            {
+                if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                {
+                 <a class="header__link" asp-controller="Home" asp-action="TrangSanPham">
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Trainer_Samba_Low">
+                        <div class="card-body">
+                            <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
+                            <p class="card-text">@(sp.Gia)</p>
+                            <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                        </div>
+                    </div>
+                 </a>
+                    anh = sp.HinhAnh;
+                }
+
+            }
+        }
+        else
+        {
+            <p>Không có sản phẩm để hiển thị.</p>
+        }
+    </div>
+</div>
+

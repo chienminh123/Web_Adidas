@@ -28,7 +28,8 @@ namespace Web_Adidas.repositories
                                                       Gia = Sp.Gia,
                                                       TenSanPham = Sp.TenSanPham,
                                                       TheLoai = Sp.TheLoai,
-                                                      TenTheLoai = Sp.TenTheLoai
+                                                      TenTheLoai = Sp.TenTheLoai,
+                                                      SoLuong = Sp.SoLuong
                                                   }).ToListAsync();  
 
             return sanPham;
