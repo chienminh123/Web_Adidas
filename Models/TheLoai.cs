@@ -10,6 +10,6 @@ namespace Web_Adidas.Models
         public int MaTheLoai { get; set; }
         [MaxLength(50)]
         public string? TenTheLoai { get; set; }
-        public List<SanPham> SanPhams { get; set; }
+        public List<SanPham>? SanPhams { get; set; }
     }
 }

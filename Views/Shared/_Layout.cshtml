@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,6 +27,7 @@
             <a href="/">
                 <img class="header__logo" src="~/img/adidas.png" alt="Adidas Logo">
             </a>
+
 
             @* Nav *@
             <nav class="nav">
@@ -152,6 +154,7 @@
                         </div>
                     </li>
                 </ul>
+
             </nav>
 
             @* Action *@
@@ -163,8 +166,8 @@
                     </button>
                 </div>
                 <div class="header__icons">
-                    <a class="header__icon-link" href="#">
-                        <img class="header__icon" src="~/img/user.png" alt="Account">
+                    <a class="header__icon-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" >
+                        <img class="header__icon" src="~/img/user.png" alt="Hello @User.Identity?.Name!">
                     </a>
                     <a class="header__icon-link" href="#">
                         <img class="header__icon" src="~/img/shopping-bag.png" alt="Cart">
@@ -175,6 +178,8 @@
             </div>
         </header>
 
+   
+    
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()

@@ -1,8 +1,58 @@
-﻿@{
+﻿@model TheLoai
+
+@{
     ViewData["Title"] = "adidas Vietnam Online";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form>
+        <div class="col-12">
+            @* <label> *@
+            @*     Bộ sưu tập  *@
+            @* </label> *@
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Bộ sưu tập</option>
+                <option value="1">Giày Samba</option>
+                <option value="2">Giày Gazelle</option>
+                <option value="3">Giày Spezial</option>
+                <option value="4">Giày Superstar</option>
+                <option value="5">Dép </option>
+                <option value="6">Quần áo</option>
+            </select>
+        </div>
+
+    </form>
+
 </div>
+@* Lấy thông tin của 1 loại sản phẩm *@
+<div>
+
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        @foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh)!=0)
+            {
+                <div class="card" style="width: 18rem;">
+                    <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
+                    <div class="card-body">
+                        <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
+                        <p class="card-text">@(sp.Gia)</p>
+                        <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                    </div>
+                </div>
+                anh = sp.HinhAnh;
+            }
+            
+        }
+    }
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+    
+</div>
+

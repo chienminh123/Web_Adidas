@@ -13,7 +13,10 @@ namespace Web_Adidas.Models
         public string? TenSanPham  { get; set; }
         public string Size { get; set; }
         [Required]
+        public int SoLuong { get; set; }
+        [Required]
         public double Gia { get; set; }
+
         public string? HinhAnh { get; set; }
         //[Required]
         //public int MaTheLoai { get; set; }
