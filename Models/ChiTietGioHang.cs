@@ -8,17 +8,14 @@ namespace Web_Adidas.Models
     {
         [Key]
         public int MaChiTietGioHang { get; set; }
-        //[Required]
-        //public int MaGioHang { get; set; }
-        //[Required]
-        //public int MaSanPhan { get; set; }
+       
         [Required]
         public int SoLuong { get; set; }
         [Required]
         public double DonGia { get; set; }
 
-        public GioHang GioHang { get; set; }
-        public SanPham SanPham { get; set; }
+        public GioHang MaGioHang { get; set; }
+        public SanPham MaSanPham { get; set; }
 
     }
 }

@@ -7,7 +7,7 @@ namespace Web_Adidas.Models
     public class DonHang
     {
         [Key]
-        public int MaDonHang { get; set; }
+        public string MaDonHang { get; set; }
         [Required]
         public string MaNguoiDung { get; set; }
         public DateTime NgayTaoDonHang { get; set; } = DateTime.UtcNow;

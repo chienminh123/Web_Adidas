@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Web_Adidas.Data;
 using Web_Adidas.Models;
+using Web_Adidas.repositories;
 
 namespace Web_Adidas.Controllers;
 
@@ -9,6 +10,7 @@ public class HomeController : Controller
 {
     //private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
+    private readonly IHomeRepository _homeRepository;
 
     public HomeController(ApplicationDbContext context)
     {
@@ -36,6 +38,18 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult AddToCart()
+    {
+        var model = new GioHang
+        {
+            ChiTietGioHangs = _context.DbSetChiTietGioHang.ToList() ?? new List<ChiTietGioHang>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+
+
+
+
 
 
     public IActionResult Privacy()
