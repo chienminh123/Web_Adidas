@@ -33,7 +33,7 @@ a {
 .header {
     font-family: "Sora", sans-serif;
     background: #FFFFFF;
-    height: 80px;
+    height: 51px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,23 +47,152 @@ a {
     height: auto;
 }
 
-.header__nav {
+.nav ul {
     display: flex;
-    gap: 30px;
-    padding: 20px 30px;
+    
+    
 }
 
-.header__link {
+.nav a {
     color: #000000;
     font-size: 18px;
     text-decoration: none;
     font-weight: 500;
+    padding: 8px 21px ;
     transition: 0.25s;
 }
 
-    .header__link:hover {
-        transform: scale(1.1);
+.nav__item {
+    position: relative;
+}
+
+    
+    .nav__item a {
+        position: relative;
+        display: inline-block;
+        padding: 8px 21px;
+        font-weight: 500;
+        font-size: 18px;
+        color: #000;
+        text-decoration: none;
     }
+
+        .nav__item a .underline {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 2px;
+            background-color: #171100;
+            margin: 6px auto 0;
+            border-radius: 1px;
+            opacity: 0;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.3s ease;
+        }
+
+
+.nav__item--has-dropdown:hover .underline {
+    opacity: 1;
+}
+
+.nav__item--has-dropdown {
+    position: relative;
+}
+
+.shoe-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    padding: 20px;
+    margin-top: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transform: translateX(-130px);
+}
+
+
+.nav__item--has-dropdown:hover .shoe-dropdown {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.shoe-card {
+    position: relative;
+    display: inline-block;
+    width: 180px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+    .shoe-card img {
+        width: 100%;
+        height: auto;
+       
+        object-fit: cover;
+        display: block;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        margin-top: 30px;
+    }
+
+
+.shoe-label {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 6px;
+    border-radius: 4px;
+    z-index: 2;
+}
+
+.shoe-view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 100%;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.shoe-view-all a {
+    text-decoration: none;
+    color: #000;
+}
+
+.shoe-view-all:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+}
+
+
+/*.shoe-card:hover .shoe-label {
+    opacity: 1;
+}*/
 
 .header__actions {
     display: flex;
@@ -140,10 +269,10 @@ a {
     transition: 0.25s;
 }
 
-    .header__login:hover {
+.header__login:hover {
         text-decoration: underline;
         color: #000;
-    }
+}
 
 .header__signup {
     padding: 4px 21px;
@@ -518,7 +647,7 @@ a {
     color: #fff;
     font-family: sans-serif;
     font-size: 14px;
-    padding: 40px 20px;
+    padding: 20px 20px;
 }
 
 .footer-container {
@@ -559,8 +688,9 @@ a {
 }
 
     .footer-logo img {
-        max-width: 150px;
+        max-width: 80px;
         height: auto;
+        object-fit: cover;
         border-radius: 8px;
         display: block;
         margin: 0 auto 10px;
