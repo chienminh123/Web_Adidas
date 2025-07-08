@@ -23,7 +23,7 @@ namespace Web_Adidas.Data
             var nguoidungtrongCSDL = await quanlyNguoidung.FindByEmailAsync(quantri.Email);
             if(nguoidungtrongCSDL is null)
             {
-                var ketqua = await quanlyNguoidung.CreateAsync(quantri, "admin@12345");
+                var ketqua = await quanlyNguoidung.CreateAsync(quantri, "Admin@12345");
                 if (ketqua.Succeeded)
                 {
                     await quanlyNguoidung.AddToRoleAsync(quantri, Roles.Admin.ToString());

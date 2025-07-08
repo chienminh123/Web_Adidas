@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Web_Adidas.Data;
 using Web_Adidas.Models;
@@ -10,21 +12,26 @@ public class HomeController : Controller
 {
     //private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
-    private readonly IHomeRepository _homeRepository;
+    
 
-    public HomeController(ApplicationDbContext context)
+
+    public HomeController(ApplicationDbContext context, IcartRepository cartRepository)
     {
         _context = context;
+        
     }
-  
+
 
     public IActionResult Index()
     {
         var model = new TheLoai
         {
             SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
-        };
+        }
+        ;
         return View(model);
+        //return View();
+
     }
     public IActionResult SamBa()
     {
@@ -38,14 +45,10 @@ public class HomeController : Controller
     {
         return View();
     }
-    public IActionResult AddToCart()
-    {
-        var model = new GioHang
-        {
-            ChiTietGioHangs = _context.DbSetChiTietGioHang.ToList() ?? new List<ChiTietGioHang>() // Khởi tạo danh sách rỗng nếu null
-        };
-        return View(model);
-    }
+   
+    
+
+    
 
 
 

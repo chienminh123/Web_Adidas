@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Web_Adidas.repositories
 {
-    public class HomeRepo
+    public class HomeRepo :IHomeRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -34,6 +34,9 @@ namespace Web_Adidas.repositories
 
             return sanPham;
         }
-
+        public async Task<IEnumerable<TheLoai>> TheLoais()
+        {
+            return await _dbContext.DbSetTheLoai.ToListAsync();
+        }
     }
 }

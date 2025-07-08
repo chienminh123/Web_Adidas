@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Web_Adidas.Data;
+using Web_Adidas.repositories;
 
 namespace Web_Adidas;
 
@@ -11,7 +12,6 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
@@ -19,11 +19,13 @@ public class Program
 
         builder.Services
             .AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
         builder.Services.AddControllersWithViews();
-
+        builder.Services.AddScoped<IcartRepository, CartRepo>();
+        builder.Services.AddScoped<IHomeRepository, HomeRepo>();
         var app = builder.Build();
         using (var scope = app.Services.CreateScope())
         {

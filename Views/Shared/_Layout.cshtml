@@ -38,29 +38,45 @@
                             GIẦY
                             <span class="underline"></span>
                         </a>
-                        <div class="shoe-dropdown">
-                            <div class="shoe-card">
-                                <div class="shoe-label">SAMBA</div>
-                                <img src="~/img/Giay_Samba_OG_trang_IF3814_01_standard_11zon.jpg" alt="Samba">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">GAZELLE</div>
-                                <img src="~/img/Giay_Gazelle_Indoor_mau_xanh_la_JI2062_01_standard_11zon.jpg" alt="Gazelle">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">ADIZERO</div>
-                                <img src="~/img/Giay_Adizero_EVO_SL_DJen_JP7147_01_00_standard_11zon.jpg" alt="Adizero">      
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">SUPERSTAR</div>
-                                <img src="~/img/Giay_Superstar_trang_JP9678_01_00_standard_11zon.jpg" alt="Superstar">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">SPORT</div>
-                                <img src="~/img/Giay_san_co_nhan_tao_Predator_Pro_trang_JI1181_01_00_standard_hover_11zon.jpg" alt="Sport">                           
-                            </div>
+                        <div class="shoe-dropdown" >
+
+                            <a class="header__link" asp-controller="Home" asp-action="SamBa">
+                                <div class="shoe-card">
+                                    <div class="shoe-label">SAMBA</div>
+                                    <img src="~/img/Giay_Samba_OG_trang_IF3814_01_standard_11zon.jpg" alt="Samba">
+                                </div>
+                            </a>
+
+                            <a class="header__link" asp-controller="Home" asp-action="SamBa">
+                                <div class="shoe-card">
+                                    <div class="shoe-label">GAZELLE</div>
+                                    <img src="~/img/Giay_Gazelle_Indoor_mau_xanh_la_JI2062_01_standard_11zon.jpg" alt="Gazelle">
+                                </div>
+                            </a>
+
+                            <a class="header__link" asp-controller="Home" asp-action="SamBa">
+                                <div class="shoe-card">
+                                    <div class="shoe-label">ADIZERO</div>
+                                    <img src="~/img/Giay_Adizero_EVO_SL_DJen_JP7147_01_00_standard_11zon.jpg" alt="Adizero">      
+                                </div>
+                            </a>
+
+                            <a class="header__link" asp-controller="Home" asp-action="SamBa">
+                                <div class="shoe-card">
+                                    <div class="shoe-label">SUPERSTAR</div>
+                                    <img src="~/img/Giay_Superstar_trang_JP9678_01_00_standard_11zon.jpg" alt="Superstar">
+                                </div>
+                            </a>
+
+                            <a class="header__link" asp-controller="Home" asp-action="SamBa">
+                                <div class="shoe-card">
+                                    <div class="shoe-label">SPORT</div>
+                                    <img src="~/img/Giay_san_co_nhan_tao_Predator_Pro_trang_JI1181_01_00_standard_hover_11zon.jpg" alt="Sport">                           
+                                </div>
+                            </a>
+
                             <div class="shoe-view-all">
-                                <a href="#">Xem tất cả</a>
+                                <a class="header__link" asp-controller="Home" asp-action="SamBa">Xem tất cả</a>
                             </div>
                         </div>
                         
@@ -169,7 +185,7 @@
                     <a class="header__icon-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" >
                         <img class="header__icon" src="~/img/user.png" alt="Hello @User.Identity?.Name!">
                     </a>
-                    <a class="header__icon-link" href="#">
+                    <a class="header__icon-link" asp-controller="Cart" asp-action="ViewCart">
                         <img class="header__icon" src="~/img/shopping-bag.png" alt="Cart">
                     </a>
                     <span class="cart-count">1</span>

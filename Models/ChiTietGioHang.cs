@@ -14,8 +14,15 @@ namespace Web_Adidas.Models
         [Required]
         public double DonGia { get; set; }
 
-        public GioHang MaGioHang { get; set; }
-        public SanPham MaSanPham { get; set; }
+        public int MaGioHang { get; set; }
+        public int MaSanPham { get; set; }
+
+        // Navigation properties: Tham chiếu đến các đối tượng liên quan
+        [ForeignKey("MaGioHang")]
+        public GioHang GioHang { get; set; }
+
+        [ForeignKey("MaSanPham")]
+        public SanPham SanPham { get; set; }
 
     }
 }
