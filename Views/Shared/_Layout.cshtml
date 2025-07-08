@@ -22,7 +22,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <header class="header">
+        <header class="header fixed">
             @* Logo *@
             <a href="/">
                 <img class="header__logo" src="~/img/adidas.png" alt="Adidas Logo">
@@ -40,9 +40,12 @@
                         </a>
                         <div class="shoe-dropdown">
                             <div class="shoe-card">
-                                <div class="shoe-label">SAMBA</div>
-                                <img src="~/img/Giay_Samba_OG_trang_IF3814_01_standard_11zon.jpg" alt="Samba">
+                                <a asp-controller="Home" asp-action="SamBa">
+                                    <div class="shoe-label">SAMBA</div>
+                                    <img src="~/img/Giay_Samba_OG_trang_IF3814_01_standard_11zon.jpg" alt="Samba">
+                                </a>
                             </div>
+                            
                             <div class="shoe-card">
                                 <div class="shoe-label">GAZELLE</div>
                                 <img src="~/img/Giay_Gazelle_Indoor_mau_xanh_la_JI2062_01_standard_11zon.jpg" alt="Gazelle">
@@ -180,7 +183,7 @@
 
    
     
-        <div class="container">
+        <div class="main-content">    
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
