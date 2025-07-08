@@ -4,45 +4,80 @@
     ViewData["Title"] = "adidas Vietnam Online";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <form>
-        <div class="col-12">
-            @* <label> *@
-            @*     Bộ sưu tập  *@
-            @* </label> *@
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Bộ sưu tập</option>
-                <option value="1">Giày Samba</option>
-                <option value="2">Giày Gazelle</option>
-                <option value="3">Giày Spezial</option>
-                <option value="4">Giày Superstar</option>
-                <option value="5">Dép </option>
-                <option value="6">Quần áo</option>
-            </select>
-        </div>
+@* <div class="text-center"> *@
+@*     <form> *@
+@*         <div class="col-12"> *@
+@*             @* <label> *@ 
+@*             @*     Bộ sưu tập  *@ 
+@*             @* </label> *@ 
+@*             <select class="form-select" aria-label="Default select example"> *@
+@*                 <option selected>Bộ sưu tập</option> *@
+@*                 <option value="1">Giày Samba</option> *@
+@*                 <option value="2">Giày Gazelle</option> *@
+@*                 <option value="3">Giày Spezial</option> *@
+@*                 <option value="4">Giày Superstar</option> *@
+@*                 <option value="5">Dép </option> *@
+@*                 <option value="6">Quần áo</option> *@
+@*             </select> *@
+@*         </div> *@
 
-    </form>
-
-</div>
+@*     </form> *@
+@* </div> *@
 @* Lấy thông tin của 1 loại sản phẩm *@
-<div>
 
+<div class="banner-container">
+    <section class="banner">
+        <video class="banner__video"
+               autoplay
+               muted
+               loop
+               playsinline
+               poster="~/img/poster.jpg">
+            <source src="~/video/FW_25_Low_Profile_Onsite_SEA_Masthead_SEA_DT_2880x1280_1_0d96f00db9 (1).mp4"
+                    type="video/mp4" />
+            Trình duyệt của bạn không hỗ trợ video.
+        </video>
 
-    @if (Model != null && Model.SanPhams != null)
-    {
-        string anh = "";
-        @foreach (var sp in Model.SanPhams)
+         
+             <div class="banner__box"> 
+                 <h2 class="banner__box-title">LOW PROFILE IN DESIGN.</h2> 
+               <p class="banner__box-text">
+                <span class="banner__box-line">
+                    Khai phá nền văn hóa mới từ dòng chảy thể thao. Phong
+                </span>
+                <span class="banner__box-line">
+                    cách cổ điển. Tinh thần tiên phong.
+                </span>
+            </p> 
+                <a href="#!" class="banner__button">
+                    MUA NGAY
+                </a> 
+             </div>
+    </section>
+</div>
+
+@{
+    var products = Model?.SanPhams?.Take(4).ToList() ?? new List<SanPham>();
+}
+
+<div class="product-section">
+    <div class="section-header">
+        <h2>Adicolor</h2>
+        <a href="#">View All</a>
+    </div>
+    <div class="product-list">
+        @if (Model != null && Model.SanPhams != null)
         {
-            @if (anh.CompareTo(sp.HinhAnh)!=0)
+            foreach (var sp in Model.SanPhams.Take(4))
             {
+
             
 
-                <div class="card" style="width: 18rem;">
-                   <a class="header__link" asp-controller="Home" asp-action="TrangSanPham">
+                <div >
+                   <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
                        <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                     </a>
-                    <div class="card-body">
+                    <div class="product-info">
                         <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
                         <p class="card-text">@(sp.Gia)</p>
                         <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
@@ -50,15 +85,14 @@
                 </div>
            
                 anh = sp.HinhAnh;
+
             }
-            
         }
-    }
-    else
-    {
-        <p>Không có sản phẩm để hiển thị.</p>
-    }
-    
+        else
+        {
+            <p>Không có sản phẩm để hiển thị.</p>
+        }
+    </div>
 </div>
 @section Scripts {
     <script>
@@ -90,5 +124,9 @@
         });
     </script>
 }
+
+
+
+
 
 

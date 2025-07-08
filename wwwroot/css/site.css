@@ -11,6 +11,12 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
 }
 
 .wrapper {
@@ -33,7 +39,7 @@ a {
 .header {
     font-family: "Sora", sans-serif;
     background: #FFFFFF;
-    height: 51px;
+    height: 65px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -41,6 +47,12 @@ a {
     border-bottom: 1px solid #e5e5e5;
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+    .header.fixed {
+        position: sticky;
+        top: -5px;
+        z-index: 5;
+    }
 
 .header__logo {
     width: 50px;
@@ -80,8 +92,8 @@ a {
         .nav__item a .underline {
             position: absolute;
             display: block;
-            width: 20px;
-            height: 2px;
+            width: 30px;
+            height: 4px;
             background-color: #171100;
             margin: 6px auto 0;
             border-radius: 1px;
@@ -292,6 +304,15 @@ a {
 }
 
 /*Login*/
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f8f8f8;
+}
+
 .login-container {
     display: flex;
     background: #fff;
@@ -301,6 +322,7 @@ a {
     max-width: 900px;
     width: 100%;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    transform: translateY(-50px);
 }
 
 .login-box {
@@ -420,6 +442,7 @@ a {
     max-width: 900px;
     width: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-50px);
 }
 
 .signup-box {  
@@ -633,9 +656,180 @@ a {
         background-color: #333;
     }
 
+/*Main*/
+
+.banner-container {
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.banner__video {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.banner__box {
+    position: absolute;
+    z-index: 2;
+    top: 450px;
+    left: 100px;
+}
+
+.banner__box-title{
+    display: inline-block;
+    font-weight: bold;
+    padding: 10px 10px;
+    background: #fff;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.banner__box-text {
+/*    background: #fff;
+    padding: 5px 5px;
+    width: 400px;
+    font-size: 14px;
+    line-height: 1.5;*/
+    margin-bottom: 20px;
+}
+
+.banner__box-line {
+    display: block;
+    background-color: white;
+    color: #000;
+    padding: 3px 5px;
+    width: max-content;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.banner__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    border: 1px solid #000;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+    .banner__button:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+/*Main content*/
+.product-section {
+    margin: 40px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .section-header h2 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .section-header a {
+        font-size: 14px;
+        color: #000;
+        text-decoration: underline;
+    }
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+    .product-info h5 {
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+.price {
+    color: #E91E63;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.btn-add {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+    .btn-add:hover {
+        background: #333;
+    }
+
+
+
+
+
+
+
+
+
+
+
 /* Footer */
-
-
 .footer * {
     margin: 0;
     padding: 0;
