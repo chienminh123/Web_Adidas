@@ -7,14 +7,20 @@ namespace Web_Adidas.Models
     public class DonHang
     {
         [Key]
-        public int MaDonHang { get; set; }
+        public string MaDonHang { get; set; }
         [Required]
         public string MaNguoiDung { get; set; }
         public DateTime NgayTaoDonHang { get; set; } = DateTime.UtcNow;
-        //[Required]
-        //public int MaTrangThaiDonHang { get; set; }
+        // Foreign Key property: Khóa ngoại tới TrangThaiDonHang
+        [Required]
+        public int MaTrangThaiDonHang { get; set; } // Đã sửa tên thuộc tính để rõ ràng hơn
+
         public bool DaXoa { get; set; } = false;
+
+        // Navigation property: Tham chiếu đến đối tượng TrangThaiDonHang
+        [ForeignKey("MaTrangThaiDonHang")]
         public TrangThaiDonHang TrangThaiDonHang { get; set; }
+
         [Required]
         [MaxLength(200)]
         public string? DiaChi { get; set; }
@@ -25,6 +31,8 @@ namespace Web_Adidas.Models
         [MaxLength(20)]
         public string? PTThanhToan { get; set; }
         public bool ThanhToan { get; set; } = false;
-        public List<ChiTietDonHang> ChiTietDonHangs { get; set; }
+
+        // Navigation collection: Một đơn hàng có thể có nhiều chi tiết đơn hàng
+        public List<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
     }
 }

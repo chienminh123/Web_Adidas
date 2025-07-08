@@ -1,26 +1,36 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using Web_Adidas.Data;
+using Web_Adidas.repositories;
 
 namespace Web_Adidas;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+        builder.Services
+            .AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
         builder.Services.AddControllersWithViews();
-
+        builder.Services.AddScoped<IcartRepository, CartRepo>();
+        builder.Services.AddScoped<IHomeRepository, HomeRepo>();
         var app = builder.Build();
+        using (var scope = app.Services.CreateScope())
+        {
+            await DataSeed.KhoiTaoDL(scope.ServiceProvider);
+        }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
