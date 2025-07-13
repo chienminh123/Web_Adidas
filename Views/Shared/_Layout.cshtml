@@ -48,24 +48,36 @@
                             </div>
                             
                             <div class="shoe-card">
-                                <div class="shoe-label">GAZELLE</div>
-                                <img src="~/img/Giay_Gazelle_Indoor_mau_xanh_la_JI2062_01_standard_11zon.jpg" alt="Gazelle">
+                                <a asp-controller="Home" asp-action="Gazelle">
+                                    <div class="shoe-label">GAZELLE</div>
+                                    <img src="~/img/Giay_Gazelle_Indoor_mau_xanh_la_JI2062_01_standard_11zon.jpg" alt="Gazelle">
+                                </a>
+                                
                             </div>
                             <div class="shoe-card">
-                                <div class="shoe-label">ADIZERO</div>
-                                <img src="~/img/Giay_Adizero_EVO_SL_DJen_JP7147_01_00_standard_11zon.jpg" alt="Adizero">      
+                                <a asp-controller="Home" asp-action="Adizero">
+                                    <div class="shoe-label">ADIZERO</div>
+                                    <img src="~/img/Giay_Adizero_EVO_SL_DJen_JP7147_01_00_standard_11zon.jpg" alt="Adizero">
+                                </a>
+                                      
                             </div>
                             <div class="shoe-card">
-                                <div class="shoe-label">SUPERSTAR</div>
-                                <img src="~/img/Giay_Superstar_trang_JP9678_01_00_standard_11zon.jpg" alt="Superstar">
+                                <a asp-controller="Home" asp-action="Superstar">
+                                    <div class="shoe-label">SUPERSTAR</div>
+                                    <img src="~/img/Giay_Superstar_trang_JP9678_01_00_standard_11zon.jpg" alt="Superstar">
+                                </a>
+                                
                             </div>
                             <div class="shoe-card">
-                                <div class="shoe-label">SPORT</div>
-                                <img src="~/img/Giay_san_co_nhan_tao_Predator_Pro_trang_JI1181_01_00_standard_hover_11zon.jpg" alt="Sport">                           
+                                <a asp-controller="Home" asp-action="Sports">
+                                    <div class="shoe-label">SPORT</div>
+                                    <img src="~/img/Giay_san_co_nhan_tao_Predator_Pro_trang_JI1181_01_00_standard_hover_11zon.jpg" alt="Sport">
+                                </a>
+                                                           
                             </div>
 
                             <div class="shoe-view-all">
-                                <a class="header__link" asp-controller="Home" asp-action="SamBa">Xem tất cả</a>
+                                <a asp-controller="Home" asp-action="All_SanPham">Xem tất cả</a>
                             </div>
                         </div>
                         
@@ -73,60 +85,39 @@
 
 
                     <li class="nav__item nav__item--has-dropdown">
-                        <a href="#!">
-                            DÉP
-                            <span class="underline"></span>
-                        </a>
+                       
+                            <a href="#">
+                                DÉP
+                                <span class="underline"></span>
+                            </a>
+                        
+                       
                         <div class="shoe-dropdown">
-                            <div class="shoe-card">
-                                <div class="shoe-label">SAMBA</div>
-                                <img src="~/img/header_samba_11zon.jpg" alt="Samba">
+                            <div class="shoe-card" asp->
+                                <a asp-controller="Home" asp-action="Dep">
+                                    <div class="shoe-label">Dép </div>
+                                    <img src="~/img/Adifom_Superstar_Mule_Slides_Tur1.png" alt="Dep">
+                                </a>
+                                
                             </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">GAZELLE</div>
-                                <img src="~/img/header_gazelle_11zon.jpg" alt="Gazelle">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">CAMPUS</div>
-                                <img src="~/img/header_campus_11zon.jpg" alt="Campus">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">SPEZIAL</div>
-                                <img src="~/img/header_spezial_11zon.jpg" alt="Spezial">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">SUPERSTAR</div>
-                                <img src="~/img/header_superstar_11zon.jpg" alt="Superstar">
-                            </div>
+                            
                         </div>
                     </li>
 
                     <li class="nav__item nav__item--has-dropdown">
-                        <a href="#!">
+                        <a href="#">
                             QUẦN
                             <span class="underline"></span>
                         </a>
                         <div class="shoe-dropdown">
                             <div class="shoe-card">
-                                <div class="shoe-label">SAMBA</div>
-                                <img src="~/img/header_samba_11zon.jpg" alt="Samba">
+                                <a asp-controller="Home" asp-action="Quan">
+                                    <div class="shoe-label">QUẦN</div>
+                                    <img src="~/img/Adicolor_Denim_3-Stripes_Track_P2.png" alt="Quan">
+                                </a>
+                                
                             </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">GAZELLE</div>
-                                <img src="~/img/header_gazelle_11zon.jpg" alt="Gazelle">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">CAMPUS</div>
-                                <img src="~/img/header_campus_11zon.jpg" alt="Campus">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">SPEZIAL</div>
-                                <img src="~/img/header_spezial_11zon.jpg" alt="Spezial">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">SUPERSTAR</div>
-                                <img src="~/img/header_superstar_11zon.jpg" alt="Superstar">
-                            </div>
+                            
                         </div>
                     </li>
 
@@ -137,25 +128,13 @@
                         </a>
                         <div class="shoe-dropdown">
                             <div class="shoe-card">
-                                <div class="shoe-label">SAMBA</div>
-                                <img src="~/img/header_samba_11zon.jpg" alt="Samba">
+                                <a asp-controller="Home" asp-action="Ao">
+                                    <div class="shoe-label">ÁO </div>
+                                    <img src="~/img/Camo_Jacket_Green_JD5417_01_layd.png" alt="Ao">
+                                </a>
+                                
                             </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">GAZELLE</div>
-                                <img src="~/img/header_gazelle_11zon.jpg" alt="Gazelle">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">CAMPUS</div>
-                                <img src="~/img/header_campus_11zon.jpg" alt="Campus">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">SPEZIAL</div>
-                                <img src="~/img/header_spezial_11zon.jpg" alt="Spezial">
-                            </div>
-                            <div class="shoe-card">
-                                <div class="shoe-label">SUPERSTAR</div>
-                                <img src="~/img/header_superstar_11zon.jpg" alt="Superstar">
-                            </div>
+                            
                         </div>
                     </li>
                 </ul>
@@ -163,6 +142,8 @@
             </nav>
 
             @* Action *@
+            
+            
             <div class="header__actions">
                 <div class="header__search">
                     <input class="header__search-input" type="text" placeholder="tìm kiếm">
@@ -177,13 +158,41 @@
                     <a class="header__icon-link" asp-controller="Cart" asp-action="ViewCart">
                         <img class="header__icon" src="~/img/shopping-bag.png" alt="Cart">
                     </a>
-                    <span class="cart-count">1</span>
+                    <span class="cart-count">0</span>
                 </div>
                 <partial name="_LoginPartial" />
             </div>
+            
         </header>
+        <script>
+            // Hàm cập nhật số lượng giỏ hàng
+            function updateCartCount() {
+                fetch('/Cart/GetCartItemCount')
+                    .then(response => {
+                        if (!response.ok) {
+                            // Xử lý các phản hồi không thành công, ví dụ: chuyển hướng đến trang đăng nhập nếu không được ủy quyền
+                            if (response.status === 401) {
+                                window.location.href = '/Identity/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                            }
+                            throw new Error('Network response was not ok.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const cartCountSpan = document.querySelector('.cart-count');
+                        if (cartCountSpan) {
+                            cartCountSpan.textContent = data.totalCartItems;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('There was a problem fetching the cart count:', error);
+                    });
+            }
 
-   
+            // Gọi hàm khi trang tải
+            document.addEventListener('DOMContentLoaded', updateCartCount);
+            
+        </script>
     
         <div class="main-content">    
             <main role="main" class="pb-3">
@@ -234,6 +243,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 
 </html>

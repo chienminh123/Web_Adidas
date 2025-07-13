@@ -1,0 +1,389 @@
+﻿@model TheLoai
+@{
+    ViewData["Title"] = "ALL";
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+}
+@* <i class="bi bi-arrow-return-left">Back</i> *@
+
+<a asp-controller="Home" asp-action="Index">Home</a>
+<p>@ViewData["Title"]</p>
+<select class="form-select" aria-label="Default select example">
+    <option selected>Bộ lọc </option>
+    <option value="1">Giá (Thấp -> Cao)</option>
+    <option value="2">Giá (Cao -> Thấp)</option>
+</select>
+<div>
+    @* ảnh của quảng cáo của samba  *@
+    <p>SamBa</p>
+</div>
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 1)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+    
+    else
+    {
+    <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+<p>gazelle</p>
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai == 2)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Giay/Gazelle/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Gazelle">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+<p>adizero</p>
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+       
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 3)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+<p>superstar</p>
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 4)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Giay/Superstar/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Superstar">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+<p>Sports</p>
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 5)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Giay/The_Thao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Bong ro">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai == 6)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Giay/The_Thao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="ChayBo">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 7)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Giay/The_Thao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="DaBong">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+<p>Dep</p>
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 8)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Dep/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="dep">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+<p>ao</p>
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 9)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Ao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Ao">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+<p>quan</p>
+<div>
+
+    @if (Model != null && Model.SanPhams != null)
+    {
+        string anh = "";
+        
+        foreach (var sp in Model.SanPhams)
+        {
+            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 13)
+            {
+                <div>
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <img src="~/img/Quan/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="quan">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            }
+            anh = sp.HinhAnh;
+        }
+
+
+    }
+
+    else
+    {
+        <p>Không có sản phẩm để hiển thị.</p>
+    }
+</div>
+@section Scripts {
+    <script>
+            $(document).ready(function () {
+                $('.add-to-cart-btn').click(function () {
+                    var spId = $(this).data('spid');
+                    $.ajax({
+                        url: '@Url.Action("AddItemToCart", "Cart")', // Gọi CartController
+                        type: 'POST',
+                        data: { spId: spId, soLuong: 1 },
+                        success: function (response) {
+                            if (response.success) {
+                                alert(response.message);
+                                // Có thể cập nhật số lượng giỏ hàng ở đây nếu muốn
+                            } else {
+                                alert(response.message || "Có lỗi xảy ra.");
+                            }
+                        },
+                        error: function (xhr) {
+                            if (xhr.status === 401) {
+                                alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
+                                window.location.href = '/Account/Login';
+                            } else {
+                                alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
+                            }
+                        }
+                    });
+                });
+        });
+    </script>
+}

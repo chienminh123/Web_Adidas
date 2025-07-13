@@ -46,9 +46,7 @@ namespace Web_Adidas.repositories
 
             return cart;
 
-            //var cart = await _dbContext.DbSetGioHang.FirstOrDefaultAsync(u => u.MaNguoiDung == userId);
-
-            //return cart;
+           
         }
 
         private string GetUserId()
@@ -107,7 +105,7 @@ namespace Web_Adidas.repositories
                         MaGioHang = cart.MaGioHang,
                         MaSanPham = spId,
                         SoLuong = SoLuong,
-                        DonGia = product.Gia*cartItem.SoLuong
+                        DonGia = product.Gia*SoLuong
                     };
                     _dbContext.DbSetChiTietGioHang.Add(cartItem);
                 }
@@ -129,7 +127,7 @@ namespace Web_Adidas.repositories
             }
         }
 
-        public async Task<int> DeleteItem(int spId)
+        public async Task<int> DecreaseItem(int spId)
         {
             string userId = GetUserId();
             if (string.IsNullOrEmpty(userId))
@@ -165,7 +163,48 @@ namespace Web_Adidas.repositories
                     cartItem.DonGia = cartItem.SoLuong * cartItem.SanPham.Gia;
                 }
 
-                //_dbContext.DbSetChiTietGioHang.Remove(cartItem);
+                
+                await _dbContext.SaveChangesAsync();
+
+                // Trả về số lượng item còn lại trong giỏ hàng sau khi xóa
+                return await getCartItemCount(userId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi xóa sản phẩm khỏi giỏ hàng: {ex.Message}");
+                return 0; // Báo hiệu lỗi
+            }
+        }
+        public async Task<int> DeleteItem(int spId)
+        {
+            string userId = GetUserId();
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new UnauthorizedAccessException("Người dùng chưa đăng nhập.");
+            }
+
+            try
+            {
+                var cart = await getCart(userId);
+                if (cart == null)
+                {
+                    Console.WriteLine($"Không tìm thấy giỏ hàng cho người dùng: {userId}");
+                    return 0; // Giỏ hàng không tồn tại
+                }
+
+                // Tìm chi tiết giỏ hàng cần xóa dựa trên MaGioHang của giỏ và MaSanPham của sản phẩm
+                var cartItem = await _dbContext.DbSetChiTietGioHang
+                                .FirstOrDefaultAsync(ci => ci.MaGioHang == cart.MaGioHang && ci.MaSanPham == spId);
+
+                if (cartItem == null)
+                {
+                    Console.WriteLine($"Sản phẩm với ID {spId} không tìm thấy trong giỏ hàng của người dùng {userId}.");
+                    return 0; // Sản phẩm không có trong giỏ hàng
+                }
+                else 
+                {
+                    _dbContext.DbSetChiTietGioHang.Remove(cartItem);
+                }
                 await _dbContext.SaveChangesAsync();
 
                 // Trả về số lượng item còn lại trong giỏ hàng sau khi xóa
@@ -193,42 +232,7 @@ namespace Web_Adidas.repositories
         /// <returns>Tổng số lượng sản phẩm.</returns>
         public async Task<int> getCartItemCount(string userId)
         {
-            //try
-            //{
-            //    // Lấy giỏ hàng của người dùng.
-            //    var cart = await _dbContext.DbSetGioHang.FirstOrDefaultAsync(c => c.MaNguoiDung == userId);
-            //    if (cart == null)
-            //    {
-            //        Console.WriteLine($"[getCartItemCount] Không tìm thấy giỏ hàng cho người dùng: {userId}");
-            //        return 0; // Giỏ hàng không tồn tại, trả về 0.
-            //    }
-
-            //    // Kiểm tra nếu MaGioHang của giỏ hàng là giá trị mặc định (0) hoặc không hợp lệ.
-            //    // Điều này có thể xảy ra nếu giỏ hàng vừa được tạo nhưng chưa được lưu đúng cách hoặc có vấn đề về ID.
-            //    if (cart.MaGioHang <= 0) // Giả định MaGioHang là int và có giá trị dương
-            //    {
-            //        Console.WriteLine($"[getCartItemCount] MaGioHang không hợp lệ cho giỏ hàng của người dùng {userId}: {cart.MaGioHang}");
-            //        return 0;
-            //    }
-
-            //    // Ghi log giá trị MaGioHang để kiểm tra
-            //    Console.WriteLine($"[getCartItemCount] Đang lấy số lượng cho MaGioHang: {cart.MaGioHang}");
-
-            //    // Đếm tổng số lượng sản phẩm trong giỏ hàng đó.
-            //    // Sử dụng (int?) để đảm bảo SumAsync trả về 0 nếu không có phần tử nào khớp, thay vì ném lỗi.
-            //    var itemCount = await _dbContext.DbSetChiTietGioHang
-            //        .Where(ci => ci.MaGioHang == cart.MaGioHang)
-            //        .SumAsync(ci => (int?)ci.SoLuong ?? 0);
-
-            //    return itemCount;
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Ghi log lỗi chi tiết hơn nếu có vấn đề trong quá trình lấy số lượng sản phẩm.
-            //    Console.WriteLine($"[Lỗi tại getCartItemCount] {ex.Message}");
-            //    Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-            //    return 0; // Trả về 0 để báo hiệu lỗi.
-            //}
+         
             if (string.IsNullOrEmpty(userId))
             {
                 userId = GetUserId();
@@ -271,7 +275,8 @@ namespace Web_Adidas.repositories
                 }
 
                 // Lấy trạng thái đơn hàng "Chờ xử lý".
-                var trangthaidonhang = await _dbContext.DbSetTrangThaiDonHang.FirstOrDefaultAsync(s => s.TenTrangThaiDonHang == "Chờ xử lý ");
+                var trangthaidonhang = await _dbContext.DbSetTrangThaiDonHang.FirstOrDefaultAsync(s => s.TenTrangThaiDonHang == "Chờ xử lý");
+
                 if (trangthaidonhang is null)
                 {
                     throw new InvalidOperationException("Không tìm thấy trạng thái đơn hàng 'Chờ xử lý'.");

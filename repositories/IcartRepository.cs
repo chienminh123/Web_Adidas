@@ -7,10 +7,11 @@ namespace Web_Adidas.repositories
     {
         Task<int> AddItem(int spId,int SoLuong);
         Task<int> DeleteItem(int spId);
-       
-        Task<GioHang> getCart(string userId);
+        Task<int> DecreaseItem(int spId);
+        
+         Task<GioHang> getCart(string userId);
         Task<int> getCartItemCount(string userId);
         Task<bool> CheckOut(CheckOut model);
-      
+        //Task<string> GetUserId();
     }
 }

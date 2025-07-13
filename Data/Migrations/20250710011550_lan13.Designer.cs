@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web_Adidas.Data;
 
@@ -11,9 +12,10 @@ using Web_Adidas.Data;
 namespace Web_Adidas.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250710011550_lan13")]
+    partial class lan13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,8 +233,9 @@ namespace Web_Adidas.Data.Migrations
                     b.Property<double>("DonGia")
                         .HasColumnType("float");
 
-                    b.Property<int>("MaDonHang")
-                        .HasColumnType("int");
+                    b.Property<string>("MaDonHang")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("MaSanPham")
                         .HasColumnType("int");
@@ -286,7 +289,7 @@ namespace Web_Adidas.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("MaChiTietDonHAng")
+                    b.Property<int>("ChiTietDonHangMaChiTietDonHAng")
                         .HasColumnType("int");
 
                     b.Property<string>("PhanHoi")
@@ -295,18 +298,15 @@ namespace Web_Adidas.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MaChiTietDonHAng");
+                    b.HasIndex("ChiTietDonHangMaChiTietDonHAng");
 
                     b.ToTable("DanhGiaPhanHoi");
                 });
 
             modelBuilder.Entity("Web_Adidas.Models.DonHang", b =>
                 {
-                    b.Property<int>("MaDonHang")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDonHang"), 1L, 1);
+                    b.Property<string>("MaDonHang")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("DaXoa")
                         .HasColumnType("bit");
@@ -529,7 +529,7 @@ namespace Web_Adidas.Data.Migrations
                 {
                     b.HasOne("Web_Adidas.Models.ChiTietDonHang", "ChiTietDonHang")
                         .WithMany()
-                        .HasForeignKey("MaChiTietDonHAng")
+                        .HasForeignKey("ChiTietDonHangMaChiTietDonHAng")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

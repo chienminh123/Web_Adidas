@@ -15,7 +15,7 @@ namespace Web_Adidas.Models
         public double DonGia { get; set; }
         // Foreign Key properties: Khóa ngoại tới SanPham và DonHang
         public int MaSanPham { get; set; }
-        public string MaDonHang { get; set; } // MaDonHang là string trong DonHang
+        public int MaDonHang { get; set; } // MaDonHang là string trong DonHang
 
         // Navigation properties: Tham chiếu đến các đối tượng liên quan
         [ForeignKey("MaSanPham")]

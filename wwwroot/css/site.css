@@ -804,7 +804,7 @@ a {
     margin-bottom: 10px;
 }
 
-.btn-add {
+.add-to-cart-btn {
     background: #000;
     color: #fff;
     border: none;
@@ -815,7 +815,7 @@ a {
     transition: background 0.3s ease;
 }
 
-    .btn-add:hover {
+    .add-to-cart-btn:hover {
         background: #333;
     }
 

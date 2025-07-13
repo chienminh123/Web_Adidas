@@ -1,0 +1,27 @@
+﻿@model DonHang
+@{
+    ViewData["Title"] = "Lịch sử mua hàng ";
+}
+<p>@ViewData["Title"]</p>
+@if (Model != null && Model.ChiTietDonHangs != null && Model.ChiTietDonHangs.Any())
+{
+    <div>
+        @foreach(var item in Model.ChiTietDonHangs)
+        {
+            <div>
+                <h1>Mã đơn hàng : @item.MaDonHang</h1>
+                <h2>Ngày đặt hàng : @item.DonHang.NgayTaoDonHang</h2>
+                <h2>Phương thức thanh toán : @item.DonHang.PTThanhToan</h2>
+                <button type="button"
+                        class="btn btn-danger remove-item-btn ms-3"
+                        data-spid="@item.MaSanPham">
+                    Xóa
+                </button>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">Lịch sử mua hàng của bạn đang trống.</div>
+}
