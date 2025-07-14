@@ -41,6 +41,70 @@ public class HomeController : Controller
         };
         return View(model);
     }
+    public IActionResult Gazelle()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+    public IActionResult Adizero()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+    public IActionResult Superstar()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+    public IActionResult Sports()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+    public IActionResult Dep()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+    public IActionResult Quan()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+    public IActionResult Ao()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
+    public IActionResult All_SanPham()
+    {
+        var model = new TheLoai
+        {
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+        };
+        return View(model);
+    }
     public IActionResult TrangSanPham()
     {
         return View();

@@ -34,9 +34,6 @@ namespace Web_Adidas.repositories
 
             return sanPham;
         }
-        public async Task<IEnumerable<TheLoai>> TheLoais()
-        {
-            return await _dbContext.DbSetTheLoai.ToListAsync();
-        }
+        
     }
 }

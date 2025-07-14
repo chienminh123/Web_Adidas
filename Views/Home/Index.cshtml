@@ -4,26 +4,7 @@
     ViewData["Title"] = "adidas Vietnam Online";
 }
 
-@* <div class="text-center"> *@
-@*     <form> *@
-@*         <div class="col-12"> *@
-@*             @* <label> *@ 
-@*             @*     Bộ sưu tập  *@ 
-@*             @* </label> *@ 
-@*             <select class="form-select" aria-label="Default select example"> *@
-@*                 <option selected>Bộ sưu tập</option> *@
-@*                 <option value="1">Giày Samba</option> *@
-@*                 <option value="2">Giày Gazelle</option> *@
-@*                 <option value="3">Giày Spezial</option> *@
-@*                 <option value="4">Giày Superstar</option> *@
-@*                 <option value="5">Dép </option> *@
-@*                 <option value="6">Quần áo</option> *@
-@*             </select> *@
-@*         </div> *@
 
-@*     </form> *@
-@* </div> *@
-@* Lấy thông tin của 1 loại sản phẩm *@
 
 <div class="banner-container">
     <section class="banner">
@@ -56,9 +37,7 @@
     </section>
 </div>
 
-@{
-    var products = Model?.SanPhams?.Take(4).ToList() ?? new List<SanPham>();
-}
+
 
 <div class="product-section">
     <div class="section-header">
@@ -68,21 +47,27 @@
     <div class="product-list">
         @if (Model != null && Model.SanPhams != null)
         {
-            foreach (var sp in Model.SanPhams.Take(4))
+            string anh = "";
+            string ten = "Giay_Samba_Jane";
+            foreach (var sp in Model.SanPhams)
             {
+                @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                {
+                    <div>
+                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                            <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
+                        </a>
+                        <div class="product-info">
+                            <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
 
-            
-
-                <div >
-                   <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                       <img src="~/img/Giay/Bo_suu_tap/Samba/Jane/Better Scarlet  Team Victory Red  Gum/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
-                    </a>
-                    <div class="product-info">
-                        <h5 class="card-title">@(sp.TenSanPham ?? "Không có tên")</h5>
-                        <p class="card-text">@(sp.Gia)</p>
-                        <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            <p class="price">@sp.Gia.ToString("N0") VND</p>
+                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
                         </div>
-                </div>
+                    </div>
+                }
+
+
+        
            
                 anh = sp.HinhAnh;
 
@@ -94,39 +79,35 @@
         }
     </div>
 </div>
-@section Scripts {
+@section Scripts{
     <script>
-            $(document).ready(function () {
-                $('.add-to-cart-btn').click(function () {
-                    var spId = $(this).data('spid');
-                    $.ajax({
-                        url: '@Url.Action("AddItemToCart", "Cart")', // Gọi CartController
-                        type: 'POST',
-                        data: { spId: spId, soLuong: 1 },
-                        success: function (response) {
-                            if (response.success) {
-                                alert(response.message);
-                                // Có thể cập nhật số lượng giỏ hàng ở đây nếu muốn
-                            } else {
-                                alert(response.message || "Có lỗi xảy ra.");
-                            }
-                        },
-                        error: function (xhr) {
-                            if (xhr.status === 401) {
-                                alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
-                                window.location.href = '/Account/Login';
-                            } else {
-                                alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
-                            }
+        $(document).ready(function () {
+            $('.add-to-cart-btn').click(function () {
+                var spId = $(this).data('spid');
+                $.ajax({
+                    url: '@Url.Action("AddItemToCart", "Cart")',
+                    type: 'POST',
+                    data: { spId: spId, soLuong: 1 }, // Gửi số lượng là 1
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            // Có thể cập nhật số lượng giỏ hàng ở đây nếu muốn
+                        } else {
+                            alert(response.message || "Có lỗi xảy ra.");
                         }
-                    });
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
+                            window.location.href = '/Account/Login';
+                        } else {
+                            alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
+                        }
+                    }
                 });
+            });
         });
+        
     </script>
+
 }
-
-
-
-
-
-
