@@ -1,0 +1,39 @@
+﻿@model CheckOut
+
+@{
+    ViewData["Title"] = "Thanh toán";
+}
+
+<h2>Thông tin thanh toán</h2>
+
+<form asp-action="Checkout" asp-controller="Cart" method="post" class="mt-4">
+    <div class="mb-3">
+        <label asp-for="name" class="form-label">Họ và tên</label>
+        <input asp-for="name" class="form-control" required />
+        <span asp-validation-for="name" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="Sdt" class="form-label">Số điện thoại</label>
+        <input asp-for="Sdt" class="form-control" required />
+        <span asp-validation-for="Sdt" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DiaChi" class="form-label">Địa chỉ nhận hàng</label>
+        <input asp-for="DiaChi" class="form-control" required />
+        <span asp-validation-for="DiaChi" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PtThanhToan" class="form-label">Phương thức thanh toán</label>
+        <div>
+            <input type="radio" asp-for="PtThanhToan" value="Cash" required />
+            <label for="pm-cash">Tiền mặt</label>
+            
+        </div>
+        
+        <span asp-validation-for="PtThanhToan" class="text-danger"></span>
+    </div>
+        <button type="submit" >Đặt hàng</button>
+   
+</form>
+

@@ -27,10 +27,10 @@ public class Program
         builder.Services.AddScoped<IcartRepository, CartRepo>();
         builder.Services.AddScoped<IHomeRepository, HomeRepo>();
         var app = builder.Build();
-        using (var scope = app.Services.CreateScope())
-        {
-            await DataSeed.KhoiTaoDL(scope.ServiceProvider);
-        }
+        //using (var scope = app.Services.CreateScope())
+        //{
+        //    await DataSeed.KhoiTaoDL(scope.ServiceProvider);
+        //}
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
