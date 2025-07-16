@@ -2,41 +2,67 @@
 
 @{
     ViewData["Title"] = "Thanh toán";
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+
+    @section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    }
+
+    // Font chu
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap"
+          rel="stylesheet" />
 }
 
-<h2>Thông tin thanh toán</h2>
+<h2 class="checkout__title">THANH TOÁN ĐƠN HÀNG</h2>
 
-<form asp-action="Checkout" asp-controller="Cart" method="post" class="mt-4">
+<div class="checkout__container">
+    <div class="checkout__info">
+        <h3 class="checkout__info-title">Thông tin thanh toán</h3>
+        <form asp-action="Checkout" asp-controller="Cart" method="post" class="checkout__form mt-4">
+            <div class="checkout__field mb-3">
+                <label asp-for="name" class="checkout__label form-label">Họ và tên</label>
+                <input asp-for="name" class="checkout__input form-control" required />
+                <span asp-validation-for="name" class="checkout__error text-danger"></span>
+            </div>
 
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label">Họ và tên</label>
-        <input asp-for="Name" class="form-control" required />
-        <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="checkout__field mb-3">
+                <label asp-for="Sdt" class="checkout__label form-label">Số điện thoại</label>
+                <input asp-for="Sdt" class="checkout__input form-control" required />
+                <span asp-validation-for="Sdt" class="checkout__error text-danger"></span>
+            </div>
+
+            <div class="checkout__field mb-3">
+                <label asp-for="DiaChi" class="checkout__label form-label">Địa chỉ nhận hàng</label>
+                <input asp-for="DiaChi" class="checkout__input form-control" required />
+                <span asp-validation-for="DiaChi" class="checkout__error text-danger"></span>
+            </div>
+
+            <div class="checkout__field mb-3">
+                <label asp-for="PtThanhToan" class="checkout__label form-label">Phương thức thanh toán</label>
+                <div class="checkout__payment-options">
+                    <div class="checkout__payment-option">
+                        <input type="radio" asp-for="PtThanhToan" value="Cash" id="pm-cash" required />
+                        <label for="pm-cash" class="checkout__payment-label">Thanh toán khi nhận hàng (COD)</label>
+                    </div>
+                    <div class="checkout__payment-option">
+                        <input type="radio" asp-for="PtThanhToan" value="Online" id="pm-online" />
+                        <label for="pm-online" class="checkout__payment-label">Chuyển khoản ngân hàng</label>
+                    </div>
+                </div>
+                <span asp-validation-for="PtThanhToan" class="checkout__error text-danger"></span>
+            </div>
+        </form>
+        <button type="submit" class="checkout-item-btn">XÁC NHẬN ĐẶT HÀNG</button>
     </div>
-    
-    <div class="mb-3">
-        <label asp-for="Sdt" class="form-label">Số điện thoại</label>
-        <input asp-for="Sdt" class="form-control" required />
-        <span asp-validation-for="Sdt" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="DiaChi" class="form-label">Địa chỉ nhận hàng</label>
-        <input asp-for="DiaChi" class="form-control" required />
-        <span asp-validation-for="DiaChi" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="PtThanhToan" class="form-label">Phương thức thanh toán</label>
-        <div>
-            <input type="radio" asp-for="PtThanhToan" value="Cash" required />
-            <label for="pm-cash">Tiền mặt</label>
-            
-        </div>
-        
-        <span asp-validation-for="PtThanhToan" class="text-danger"></span>
-    </div>
-    <button type="submit" class="checkout-item-btn ms-3">Đặt hàng</button>
-   
-</form>
+
+
 @section Scripts {
     <script>
                 $(document).ready(function () {

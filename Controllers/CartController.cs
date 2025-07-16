@@ -35,6 +35,14 @@ namespace Web_Adidas.Controllers
 
         public IActionResult ThanhToan()
         {
+
+
+
+            return View();
+        }
+
+        public IActionResult Checkout()
+        {
             return View();
         }
 

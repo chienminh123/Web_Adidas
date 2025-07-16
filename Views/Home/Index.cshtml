@@ -50,7 +50,7 @@
         {
             string anh = "";
             string ten = "Giay_Samba_Jane";
-            foreach (var sp in Model.SanPhams)
+            @foreach (var sp in Model.SanPhams)
             {
                 @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
                 {

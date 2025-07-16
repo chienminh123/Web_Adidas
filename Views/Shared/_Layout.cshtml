@@ -164,7 +164,6 @@
             </div>
          
         </header>
-        @section Scripts {
             <script>
                 function updateCartCount() {
                     fetch('/Cart/GetCartItemCount')
@@ -192,7 +191,6 @@
                 // Gọi hàm khi trang tải
                 document.addEventListener('DOMContentLoaded', updateCartCount);
             </script>
-        }
     
         <div class="main-content">    
             <main role="main" class="pb-3">
@@ -241,10 +239,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
-
-       <script src="~/js/site.js" asp-append-version="true"></script>
-    
+       <script src="~/js/site.js" asp-append-version="true"></script>   
     @await RenderSectionAsync("Scripts", required: false)
     
 </body>
