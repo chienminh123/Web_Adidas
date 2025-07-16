@@ -34,9 +34,17 @@ namespace Web_Adidas.Controllers
 
         public IActionResult ThanhToan()
         {
+
+
+
             return View();
         }
-        
+
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
         [Authorize] // Yêu cầu người dùng đăng nhập để xem giỏ hàng
         public async Task<IActionResult> ViewCart()
         {
