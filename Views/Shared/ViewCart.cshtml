@@ -1,186 +1,149 @@
 ﻿@using System.Security.Claims
 @model GioHang
+
 @{
     ViewData["Title"] = "ViewCart";
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
-}
-<h1>Giỏ hàng  </h1>
-
-@if (Model != null && Model.ChiTietGioHangs != null && Model.ChiTietGioHangs.Any())
-{
-
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    <div class="cart-list">
-
-        @foreach (var item in Model.ChiTietGioHangs)
-        {
-            int chon = item.SanPham.MaTheLoai;
-
-                <div class="cart-item d-flex align-items-center border-bottom py-3 mb-2">
-                    <div class="cart-img me-3">
-                    @switch (chon)
-                    {
-                        case 1:
-                            {
-                                <img src="~/img/Giay/Samba/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 2:
-                            {
-                                <img src="~/img/Giay/Gazelle/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 3:
-                            {
-                                <img src="~/img/Giay/Adizero/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 4:
-                            {
-                                <img src="~/img/Giay/Superstar/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 5 or 6 or 7:
-                            {
-                                <img src="~/img/Giay/The_Thao/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        
-                        case 8:
-                            {
-                                <img src="~/img/Dep/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 9:
-                            {
-                                <img src="~/img/Ao/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 13:
-                            {
-                                <img src="~/img/Quan/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                    }
-                    
-                    
-                             
-                    </div>
-                    <div class="flex-grow-1">
-                        <h5>@item.SanPham.TenSanPham</h5>
-                        <div>Giá: @item.SanPham.Gia.ToString("N0") VND</div>
-                    <td>
-                        <button class="btn-qty" data-action="decrease" data-id="@item.MaSanPham">-</button>
-                        <span class="cart-qty" id="qty-@item.MaSanPham">@item.SoLuong</span>
-                        <button class="btn-qty" data-action="increase" data-id="@item.MaSanPham">+</button>
-                    </td>
-                        <div class="fw-bold">Tổng: @item.DonGia.ToString("N0") VND</div>
-                    </div>
-                    <button type="button"
-                            class="btn btn-danger remove-item-btn ms-3"
-                            data-spid="@item.MaSanPham">
-                        Xóa
-                    </button>
-                </div>
-            
-            
-            
-        }
-    </div>
-}
-else
-{
-    <div class="alert alert-info">Giỏ hàng của bạn đang trống.</div>
-}
-<form asp-action="ThanhToan" asp-controller="Cart">
-    <button type="submit">Thanh toán</button>
-</form>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('.remove-item-btn').click(function () {
-                var spId = $(this).data('spid');
-                var $itemRow = $(this).closest('.flex.items-center');
-                $.ajax({
-                    url: '@Url.Action("RemoveItemFromCart", "Cart")',
-                    type: 'POST',
-                    data: { spId: spId },
-                    success: function (response) {
-                        if (response.success) {
-                            alert(response.message);
-                            // Xóa phần tử sản phẩm khỏi giao diện
-                            $itemRow.remove();
-                            location.reload();
-                        } else {
-                            alert(response.message || "Có lỗi xảy ra.");
-                        }
-                    }
-                    
-                });
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('.btn-qty').click(function () {
-                var spId = $(this).data('id');
-                var action = $(this).data('action');
-                var url = '';
-                if (action === 'increase') {
-                    url = '/Cart/AddItemToCart';
-                } else if (action === 'decrease') {
-                    url = '/Cart/DecreaseItemFromCart';
-                }
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: { spId: spId },
-                    success: function (response) {
-                        if (response.success) {
-                            // Cập nhật số lượng trên giao diện
-                            if (action == 'increase') {
-                                var qty = parseInt($('#qty-' + spId).text()) + 1;
-                                $('#qty-' + spId).text(qty);
-                            } else if (action == 'decrease') {
-                                var qty = parseInt($('#qty-' + spId).text()) - 1;
-                                if (qty > 0) {
-                                    $('#qty-' + spId).text(qty);
-                                } else {
-                                    // Nếu số lượng = 0 thì có thể xóa dòng sản phẩm khỏi bảng
-                                    location.reload();
-                                }
-                            }
-                        } else {
-                            alert(response.message || "Có lỗi xảy ra.");
-                        }
-                    },
-                    error: function () {
-                        alert("Có lỗi xảy ra khi cập nhật số lượng.");
-                    }
-                });
-            });
-        });
-    </script>
+    @section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     
+    }
+
+    // <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" /> 
+
+    // Font chu
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap"
+          rel="stylesheet" />
 }
+
+<main class="cart">
+    <h1 class="cart__title">GIỎ HÀNG CỦA BẠN</h1>
+
+    @if (Model != null && Model.ChiTietGioHangs != null && Model.ChiTietGioHangs.Any())
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        <!-- Tổng cộng -->
+        <p class="cart__total-text">
+            TỔNG CỘNG (@Model.ChiTietGioHangs.Count sản phẩm)
+            <span class="cart__total-price">
+                @Model.ChiTietGioHangs.Sum(x => x.DonGia).ToString("N0") đ
+            </span>
+        </p>
+
+        <p class="cart__note">
+            Các mặt hàng trong giỏ hàng của bạn không được bảo lưu — hãy kiểm tra ngay để đặt hàng.
+        </p>
+
+        <div class="cart__content">
+            <div class="cart__left">
+                @foreach (var item in Model.ChiTietGioHangs)
+                {
+                    int chon = item.SanPham.MaTheLoai;
+                    <div class="cart-item">
+                        <div class="cart-item__image">
+                            @switch (chon)
+                            {
+                                case 1:
+                                    <img src="~/img/Giay/Samba/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
+                                    break;
+                                case 2:
+                                    <img src="~/img/Giay/Gazelle/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
+                                    break;
+                                case 3:
+                                    <img src="~/img/Giay/Adizero/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
+                                    break;
+                                case 4:
+                                    <img src="~/img/Giay/Superstar/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
+                                    break;
+                                case 5 or 6 or 7:
+                                    <img src="~/img/Giay/The_Thao/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
+                                    break;
+                                case 8:
+                                    <img src="~/img/Dep/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
+                                    break;
+                                case 9:
+                                    <img src="~/img/Ao/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
+                                    break;
+                                case 13:
+                                    <img src="~/img/Quan/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
+                                    break;
+                            }
+                        </div>
+                        <div class="cart-item__details">
+                            <div class="cart-item__top">
+                                <h2 class="cart-item__name">@item.SanPham.TenSanPham</h2>
+                                <span class="cart-item__price">
+                                    @item.SanPham.Gia.ToString("N0") đ
+                                </span>
+                            </div>
+                            
+                            @* <p class="cart-item__desc"> *@
+                            @*     @item.SanPham.MoTa *@
+                            @* </p> *@
+                            <p class="cart-item__size">
+                                Kích cỡ: @item.SanPham.Size UK
+                            </p>
+                           
+                            <div class="cart-item__quantity">
+                                <button type="button"
+                                        class="cart-item__quantity-btn"
+                                        data-action="decrease"
+                                        data-id="@item.MaSanPham">
+                                    &minus;
+                                </button>
+                                <span class="cart-item__quantity-value" id="qty-@item.MaSanPham">
+                                    @item.SoLuong
+                                </span>
+                                <button type="button"
+                                        class="cart-item__quantity-btn"
+                                        data-action="increase"
+                                        data-id="@item.MaSanPham">
+                                    &plus;
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button"
+                                class="cart-item__remove"
+                                data-spid="@item.MaSanPham">
+                            &times;
+                        </button>
+                    </div>
+                }
+            </div>
+
+            <div class="cart__right">
+                <h3 class="cart-summary__title">TÓM TẮT ĐƠN HÀNG</h3>
+                <div class="cart-summary__row">
+                    <span>@Model.ChiTietGioHangs.Count sản phẩm</span>
+                    <span>@Model.ChiTietGioHangs.Sum(x => x.DonGia).ToString("N0") đ</span>
+                </div>
+                <div class="cart-summary__row">
+                    <span>Giao hàng</span>
+                    <span>Miễn phí</span>
+                </div>
+                <div class="cart-summary__total">
+                    <span>Tổng</span>
+                    <span>@Model.ChiTietGioHangs.Sum(x => x.DonGia).ToString("N0") đ</span>
+                </div>
+                <form asp-action="ThanhToan" asp-controller="Cart">
+                    <button type="submit" class="cart-summary__checkout-btn">
+                        THANH TOÁN
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">Giỏ hàng của bạn đang trống.</div>
+    }
+</main>
+
 

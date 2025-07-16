@@ -2,8 +2,9 @@
 
 namespace Web_Adidas.Models
 {
-    public class CheckOut
+    public class CheckOut 
     {
+
         [Required]
         [MaxLength(100)]
         public string? name { get; set; }
@@ -15,5 +16,7 @@ namespace Web_Adidas.Models
         public string? DiaChi { get; set; }
         [Required]
         public string? PtThanhToan { get; set; }
+        //public virtual ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; }
+        
     }
 }

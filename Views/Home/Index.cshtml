@@ -49,11 +49,11 @@
         {
             string anh = "";
             string ten = "Giay_Samba_Jane";
-            foreach (var sp in Model.SanPhams)
+            @foreach (var sp in Model.SanPhams)
             {
                 @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
                 {
-                    <div>
+                    <div class="product-item">
                         <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                         </a>
@@ -69,7 +69,7 @@
 
         
            
-                @* anh = sp.HinhAnh; *@
+                 anh = sp.HinhAnh; 
 
             }
         }
