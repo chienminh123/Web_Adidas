@@ -212,7 +212,7 @@
                     $.ajax({
                         url: '@Url.Action("AddItemToCart", "Cart")',
                         type: 'POST',
-                        data: { spId: spId, soLuong: 1 }, // Gửi số lượng là 1
+                        data: { spId: spId, soLuong: 1 }, 
                         success: function (response) {
                             if (response.success) {
                                 alert(response.message);
