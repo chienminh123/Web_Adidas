@@ -11,7 +11,7 @@
     @* <link rel="stylesheet" href="~/Web_Adidas.styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
+    
     @* Favicon *@
     <link rel="icon" type="image/png" href="~/favicons/favicon.ico">
 
@@ -162,37 +162,37 @@
                 </div>
                 <partial name="_LoginPartial" />
             </div>
-            
+         
         </header>
-        <script>
-            // Hàm cập nhật số lượng giỏ hàng
-            function updateCartCount() {
-                fetch('/Cart/GetCartItemCount')
-                    .then(response => {
-                        if (!response.ok) {
-                            // Xử lý các phản hồi không thành công, ví dụ: chuyển hướng đến trang đăng nhập nếu không được ủy quyền
-                            if (response.status === 401) {
-                                window.location.href = '/Identity/Account/Login'; // Chuyển hướng đến trang đăng nhập
+        @section Scripts {
+            <script>
+                function updateCartCount() {
+                    fetch('/Cart/GetCartItemCount')
+                        .then(response => {
+                            if (!response.ok) {
+                                // Xử lý các phản hồi không thành công, ví dụ: chuyển hướng đến trang đăng nhập nếu không được ủy quyền
+                                if (response.status === 401) {
+                                    window.location.href = '/Identity/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                                }
+                                throw new Error('Network response was not ok.');
                             }
-                            throw new Error('Network response was not ok.');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        const cartCountSpan = document.querySelector('.cart-count');
-                        if (cartCountSpan) {
-                            cartCountSpan.textContent = data.totalCartItems;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('There was a problem fetching the cart count:', error);
-                    });
-            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const cartCountSpan = document.querySelector('.cart-count');
+                            if (cartCountSpan) {
+                                cartCountSpan.textContent = data.totalCartItems;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('There was a problem fetching the cart count:', error);
+                        });
+                }
 
-            // Gọi hàm khi trang tải
-            document.addEventListener('DOMContentLoaded', updateCartCount);
-            
-        </script>
+                // Gọi hàm khi trang tải
+                document.addEventListener('DOMContentLoaded', updateCartCount);
+            </script>
+        }
     
         <div class="main-content">    
             <main role="main" class="pb-3">
@@ -241,7 +241,10 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+
+       <script src="~/js/site.js" asp-append-version="true"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
     
 </body>

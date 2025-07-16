@@ -5,13 +5,17 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+    // @section Scripts {
+        
+    //     <script src="~/js/site.js" asp-append-version="true"></script>
+    // }
 }
 <h1>Giỏ hàng  </h1>
-
+<a asp-controller="Home" asp-action="LichSuDatHang" >Lịch sử mua hàng </a>
 @if (Model != null && Model.ChiTietGioHangs != null && Model.ChiTietGioHangs.Any())
 {
 
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+   
     <div class="cart-list">
 
         @foreach (var item in Model.ChiTietGioHangs)
@@ -86,11 +90,12 @@
                     </div>
                     <div class="flex-grow-1">
                         <h5>@item.SanPham.TenSanPham</h5>
+                        <div>@item.SanPham.Size</div>
                         <div>Giá: @item.SanPham.Gia.ToString("N0") VND</div>
                     <td>
                         <button class="btn-qty" data-action="decrease" data-id="@item.MaSanPham">-</button>
                         <span class="cart-qty" id="qty-@item.MaSanPham">@item.SoLuong</span>
-                        <button class="btn-qty" data-action="increase" data-id="@item.MaSanPham">+</button>
+                        <button class="btn-qty" data-id="@item.MaSanPham" data-action="increase">+</button>
                     </td>
                         <div class="fw-bold">Tổng: @item.DonGia.ToString("N0") VND</div>
                     </div>
@@ -161,10 +166,13 @@ else
                             if (action == 'increase') {
                                 var qty = parseInt($('#qty-' + spId).text()) + 1;
                                 $('#qty-' + spId).text(qty);
+                                location.reload();
                             } else if (action == 'decrease') {
                                 var qty = parseInt($('#qty-' + spId).text()) - 1;
                                 if (qty > 0) {
                                     $('#qty-' + spId).text(qty);
+                                    
+                                    location.reload();
                                 } else {
                                     // Nếu số lượng = 0 thì có thể xóa dòng sản phẩm khỏi bảng
                                     location.reload();

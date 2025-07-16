@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+   
 }
 <a asp-controller="Home" asp-action="Index">Home</a>
 <p>@ViewData["Title"]</p>
@@ -49,11 +50,11 @@
 </div>
 @section Scripts {
     <script>
-            $(document).ready(function () {
+        $(document).ready(function () {
                 $('.add-to-cart-btn').click(function () {
                     var spId = $(this).data('spid');
                     $.ajax({
-                        url: '@Url.Action("AddItemToCart", "Cart")', // Gọi CartController
+                        url: '@Url.Action("AddItemToCart", "Cart")',
                         type: 'POST',
                         data: { spId: spId, soLuong: 1 },
                         success: function (response) {
@@ -67,13 +68,13 @@
                         error: function (xhr) {
                             if (xhr.status === 401) {
                                 alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
-                                window.location.href = '/Account/Login';
+                                window.location.href = '/Identity/Account/Login';
                             } else {
                                 alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
                             }
                         }
                     });
                 });
-        });
+            });
     </script>
 }

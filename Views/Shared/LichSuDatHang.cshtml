@@ -1,27 +1,76 @@
 ﻿@model DonHang
+@using System.Security.Claims
 @{
     ViewData["Title"] = "Lịch sử mua hàng ";
+    
 }
 <p>@ViewData["Title"]</p>
+
 @if (Model != null && Model.ChiTietDonHangs != null && Model.ChiTietDonHangs.Any())
 {
+    
+    int i=0;
     <div>
-        @foreach(var item in Model.ChiTietDonHangs)
+        @foreach (var item in Model.ChiTietDonHangs)
         {
-            <div>
-                <h1>Mã đơn hàng : @item.MaDonHang</h1>
-                <h2>Ngày đặt hàng : @item.DonHang.NgayTaoDonHang</h2>
-                <h2>Phương thức thanh toán : @item.DonHang.PTThanhToan</h2>
-                <button type="button"
-                        class="btn btn-danger remove-item-btn ms-3"
-                        data-spid="@item.MaSanPham">
-                    Xóa
-                </button>
-            </div>
+        
+            @if (item.DonHang != null && item.MaDonHang!=i) 
+            {
+                <div>
+
+                    <h1>Mã đơn hàng: @item.MaDonHang</h1>
+                    <h2>Ngày đặt hàng: @item.DonHang.NgayTaoDonHang</h2>
+                    <h2>Phương thức thanh toán: @item.DonHang.PTThanhToan</h2>
+                    <a href="@Url.Action("ChiTietDonHang", "Cart", new { maDonHang =item.MaDonHang })">Xem chi tiết</a>
+                       
+                    
+                    <button type="button"
+                            class="btn btn-danger remove-item-btn ms-3"
+                            data-spid="@item.MaDonHang">
+                        Hủy
+                    </button>
+                    
+                </div>
+            }
+            i = item.MaDonHang;
         }
     </div>
 }
 else
 {
     <div class="alert alert-info">Lịch sử mua hàng của bạn đang trống.</div>
+}
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+        // Xử lý nút "Hủy"
+                $('.remove-item-btn').click(function () {
+                    var maDonHang = $(this).data('spid'); // Lấy maDonHang từ data-spid
+
+                    if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
+                        $.ajax({
+                            url: '@Url.Action("CancelOrder", "Cart")',
+                            type: 'POST',
+                            data: { maDonHang: maDonHang },
+                            success: function (response) {
+                                if (response.success) {
+                                    alert(response.message);
+                                    location.reload(); // Tải lại trang để cập nhật danh sách đơn hàng
+                                } else {
+                                    alert(response.message || 'Không thể hủy đơn hàng.');
+                                }
+                            },
+                            error: function (xhr) {
+                                var errorMessage = xhr.responseJSON && xhr.responseJSON.message
+                                    ? xhr.responseJSON.message
+                                    : 'Có lỗi xảy ra khi hủy đơn hàng.';
+                                alert(errorMessage);
+                            }
+                        });
+                    }
+                });
+            });
+    </script>   
+            
+    
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Design;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 using Web_Adidas.Models;
 
 namespace Web_Adidas.repositories
@@ -13,5 +14,7 @@ namespace Web_Adidas.repositories
         Task<int> getCartItemCount(string userId);
         Task<bool> CheckOut(CheckOut model);
         //Task<string> GetUserId();
+        Task<bool> CancelOrder(int maDonHang);
+        Task<List<ChiTietDonHang>> GetOrderDetails(int maDonHang);
     }
 }

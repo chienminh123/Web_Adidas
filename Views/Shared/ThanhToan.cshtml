@@ -7,10 +7,11 @@
 <h2>Thông tin thanh toán</h2>
 
 <form asp-action="Checkout" asp-controller="Cart" method="post" class="mt-4">
+
     <div class="mb-3">
-        <label asp-for="name" class="form-label">Họ và tên</label>
-        <input asp-for="name" class="form-control" required />
-        <span asp-validation-for="name" class="text-danger"></span>
+        <label asp-for="Name" class="form-label">Họ và tên</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     
     <div class="mb-3">
@@ -33,7 +34,36 @@
         
         <span asp-validation-for="PtThanhToan" class="text-danger"></span>
     </div>
-        <button type="submit" >Đặt hàng</button>
+    <button type="submit" class="checkout-item-btn ms-3">Đặt hàng</button>
    
 </form>
+@section Scripts {
+    <script>
+                $(document).ready(function () {
+            $('.checkout-item-btn').click(function (e) {
+                e.preventDefault(); 
+                var ten = $('#name').val(); 
+                var sdt = $('#Sdt').val(); 
+                var diachi = $('#DiaChi').val(); 
+                var pttt = $('input[name="PtThanhToan"]:checked').val(); 
 
+                $.ajax({
+                    url: '@Url.Action("Checkout", "Cart")',
+                    type: 'POST',
+                    data: { Name: ten, Sdt: sdt, DiaChi: diachi, PtThanhToan: pttt },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert(response.message || "Có lỗi xảy ra.");
+                        }
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi yêu cầu.");
+                    }
+                });
+            });
+        });
+    </script>
+}

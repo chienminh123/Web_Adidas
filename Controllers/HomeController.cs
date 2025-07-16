@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Security.Claims;
 using Web_Adidas.Data;
 using Web_Adidas.Models;
 using Web_Adidas.repositories;
@@ -26,7 +27,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
         }
         ;
         return View(model);
@@ -37,7 +38,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
         };
         return View(model);
     }
@@ -45,7 +46,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
         };
         return View(model);
     }
@@ -53,7 +54,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
         };
         return View(model);
     }
@@ -61,7 +62,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
         };
         return View(model);
     }
@@ -69,7 +70,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
         };
         return View(model);
     }
@@ -77,7 +78,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>()
         };
         return View(model);
     }
@@ -85,7 +86,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>()
         };
         return View(model);
     }
@@ -93,7 +94,7 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>()
         };
         return View(model);
     }
@@ -101,18 +102,53 @@ public class HomeController : Controller
     {
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() // Khởi tạo danh sách rỗng nếu null
+            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
         };
         return View(model);
     }
-    public IActionResult TrangSanPham()
-    {
-        return View();
-    }
-   
-    
 
-    
+    [HttpGet]
+    public async Task<IActionResult> TrangSanPham(string hinhAnh)
+    {
+        if (string.IsNullOrEmpty(hinhAnh))
+        {
+            ViewBag.Message = "Hình ảnh sản phẩm không hợp lệ.";
+            return View(new TheLoai { SanPhams = new List<SanPham>() });
+        }
+
+        // Lấy tất cả sản phẩm có cùng HinhAnh
+        var sanPhams = await _context.DbSetSanPham
+            .Where(sp => sp.HinhAnh == hinhAnh)
+            .ToListAsync();
+
+        if (sanPhams == null || !sanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm.";
+            return View(new TheLoai { SanPhams = new List<SanPham>() });
+        }
+
+        var model = new TheLoai
+        {
+            SanPhams = sanPhams // Trả về danh sách sản phẩm với các kích thước
+        };
+        return View(model);
+    }
+
+    public IActionResult LichSuDatHang()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var chiTietDonHangs = _context.DbSetChiTietDonHang
+        .Include(ct => ct.DonHang) // Đảm bảo nạp dữ liệu DonHang
+        .Where(ct => ct.DonHang.MaNguoiDung == userId)
+        .ToList();
+        var model = new DonHang
+        {
+            ChiTietDonHangs = _context.DbSetChiTietDonHang.ToList() ?? new List<ChiTietDonHang>()
+        };
+        return View(model);
+    }
+
+
 
 
 
