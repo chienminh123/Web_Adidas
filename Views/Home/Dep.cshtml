@@ -5,34 +5,45 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+
+    // Icon
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
 }
-<a asp-controller="Home" asp-action="Index">Home</a>
-<p>@ViewData["Title"]</p>
-<select class="form-select" aria-label="Default select example">
-    <option selected>Bộ lọc </option>
+<nav class="breadcrumb">
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__back">
+        <span class="breadcrumb__icon">
+            <i class="ri-arrow-left-line"></i>
+        </span>
+        <span class="breadcrumb__text">BACK</span>
+    </a>
+    <span class="breadcrumb__divider">/</span>
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Home</a>
+    <span class="breadcrumb__divider">/</span>
+    <span class="breadcrumb__current">Superstar</span>
+</nav>
+<select class="filter__select" aria-label="Default select example">
+    <option selected>Bộ lọc</option>
     <option value="1">Giá (Thấp -> Cao)</option>
     <option value="2">Giá (Cao -> Thấp)</option>
 </select>
 
-<div>
-    <p>dep</p>
-    <div>
-
+<div class="product__container">
+    <p class="product__title">dep</p>
+    <div class="product-list">
         @if (Model != null && Model.SanPhams != null)
         {
             string anh = "";
-            
             foreach (var sp in Model.SanPhams)
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 8)
+                @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai == 8)
                 {
-                    <div>
+                    <div class="product-item">
                         <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
                             <img src="~/img/Dep/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="dep">
                         </a>
                         <div class="product-info">
                             <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-
                             <p class="price">@sp.Gia.ToString("N0") VND</p>
                             <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
                         </div>
