@@ -59,29 +59,37 @@
                 <span asp-validation-for="PtThanhToan" class="checkout__error text-danger"></span>
             </div>
         </form>
-        <button type="submit" class="checkout__submit">XÁC NHẬN ĐẶT HÀNG</button>
+        <button type="submit" class="checkout-item-btn">XÁC NHẬN ĐẶT HÀNG</button>
     </div>
 
-    @* <div class="checkout__summary"> *@
-    @*     <h3 class="checkout__summary-title">Tóm tắt đơn hàng</h3> *@
-        @* <div class="checkout__summary-item"> *@
-        @*     <div class="checkout__summary-details"> *@
-        @*         <img src="path-to-image" alt="Product Image" class="checkout__summary-image" /> *@
-        @*         <div class="checkout__summary-info"> *@
-        @*             <p class="checkout__summary-name">GIÀY SAMBA OG</p> *@
-        @*             <p class="checkout__summary-desc">CLOUD WHITE / CORE BLACK / CLEAR GRANITE</p> *@
-        @*             <p class="checkout__summary-size">Kích cỡ: 5.5 UK</p> *@
-        @*             <p class="checkout__summary-quantity">Số lượng: 1</p> *@
-        @*         </div> *@
-        @*     </div> *@
-        @*     <p class="checkout__summary-price">2,700,000 đ</p> *@
-        @* </div> *@
-        @* <div class="cart-summary__total">  *@
-        @*     <span>Tổng cộng</span> *@
-            
-             @* <span>@Model.ChiTietGioHangs.Sum(x => x.DonGia).ToString("N0") đ</span>  *@
-    @*   </div>   *@
-     
-    @* </div>  *@
-</div>
 
+@section Scripts {
+    <script>
+                $(document).ready(function () {
+            $('.checkout-item-btn').click(function (e) {
+                e.preventDefault(); 
+                var ten = $('#name').val(); 
+                var sdt = $('#Sdt').val(); 
+                var diachi = $('#DiaChi').val(); 
+                var pttt = $('input[name="PtThanhToan"]:checked').val(); 
+
+                $.ajax({
+                    url: '@Url.Action("Checkout", "Cart")',
+                    type: 'POST',
+                    data: { Name: ten, Sdt: sdt, DiaChi: diachi, PtThanhToan: pttt },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert(response.message || "Có lỗi xảy ra.");
+                        }
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi yêu cầu.");
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -7,16 +7,16 @@ namespace Web_Adidas.Models
 
         [Required]
         [MaxLength(100)]
-        public string? name { get; set; }
+        public string? Name { get; set; }
         
         [Required]
-        [MaxLength(20)]
+        [MaxLength(10)]
         public string? Sdt { get; set; }
+
         [Required]
         public string? DiaChi { get; set; }
         [Required]
         public string? PtThanhToan { get; set; }
-        //public virtual ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; }
         
     }
 }

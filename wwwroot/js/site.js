@@ -1,5 +1,7 @@
 ﻿
 
+<<<<<<< HEAD
+=======
 //Dieu chinh so luong san pham trong gio hang
         $(document).ready(function () {
             $('.cart-item__quantity-btn').click(function () {
@@ -70,3 +72,4 @@
                 });
         });
         
+>>>>>>> 9de24c9b220d3d27bb40506ba5f2651e03faf98b

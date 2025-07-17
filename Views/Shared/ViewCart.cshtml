@@ -24,10 +24,15 @@
 
 <main class="cart">
     <h1 class="cart__title">GIỎ HÀNG CỦA BẠN</h1>
+    <a asp-controller="Home" asp-action="LichSuDatHang" >Lịch sử mua hàng </a>
+   
 
-    @if (Model != null && Model.ChiTietGioHangs != null && Model.ChiTietGioHangs.Any())
-    {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+@if (Model != null && Model.ChiTietGioHangs != null && Model.ChiTietGioHangs.Any())
+{
+
+   
+    <div class="cart-list">
 
         <!-- Tổng cộng -->
         <p class="cart__total-text">

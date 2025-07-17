@@ -1,0 +1,104 @@
+﻿@model DonHang
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "ChiTietDonHang";
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+    
+}
+@if (Model != null && Model.ChiTietDonHangs != null && Model.ChiTietDonHangs.Any())
+{
+
+    double tong = 0;
+    <div class="cart-list">
+        
+        @foreach (var item in Model.ChiTietDonHangs)
+        {
+            
+            int chon = item.SanPham.MaTheLoai;
+
+            <div >
+                <div class="cart-img me-3">
+                    @switch (chon)
+                    {
+                        case 1:
+                            {
+                                <img src="~/img/Giay/Samba/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                     alt="@item.SanPham.TenSanPham"
+                                     style="width: 96px; height: 96px; object-fit: cover;" />
+                                break;
+                            }
+                        case 2:
+                            {
+                                <img src="~/img/Giay/Gazelle/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                     alt="@item.SanPham.TenSanPham"
+                                     style="width: 96px; height: 96px; object-fit: cover;" />
+                                break;
+                            }
+                        case 3:
+                            {
+                                <img src="~/img/Giay/Adizero/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                     alt="@item.SanPham.TenSanPham"
+                                     style="width: 96px; height: 96px; object-fit: cover;" />
+                                break;
+                            }
+                        case 4:
+                            {
+                                <img src="~/img/Giay/Superstar/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                     alt="@item.SanPham.TenSanPham"
+                                     style="width: 96px; height: 96px; object-fit: cover;" />
+                                break;
+                            }
+                        case 5 or 6 or 7:
+                            {
+                                <img src="~/img/Giay/The_Thao/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                     alt="@item.SanPham.TenSanPham"
+                                     style="width: 96px; height: 96px; object-fit: cover;" />
+                                break;
+                            }
+
+                        case 8:
+                            {
+                                <img src="~/img/Dep/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                     alt="@item.SanPham.TenSanPham"
+                                     style="width: 96px; height: 96px; object-fit: cover;" />
+                                break;
+                            }
+                        case 9:
+                            {
+                                <img src="~/img/Ao/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                     alt="@item.SanPham.TenSanPham"
+                                     style="width: 96px; height: 96px; object-fit: cover;" />
+                                break;
+                            }
+                        case 13:
+                            {
+                                <img src="~/img/Quan/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                     alt="@item.SanPham.TenSanPham"
+                                     style="width: 96px; height: 96px; object-fit: cover;" />
+                                break;
+                            }
+                    }
+
+
+
+                </div>
+                <div class="flex-grow-1">
+                    <h5>@item.SanPham.TenSanPham</h5>
+                    <div>Giá: @item.SanPham.Gia.ToString("N0") VND</div>
+
+                    <span class="cart-qty" > Số lượng : @item.SoLuong</span>
+
+
+                    <div class="fw-bold">Đơn giá : @item.DonGia.ToString("N0") VND</div>
+                </div>
+                @{
+                    tong +=item.DonGia;
+                }
+            </div>
+        }
+       
+    </div>
+    <p>Thành Tiền : @tong.ToString("N0") VND</p>
+}

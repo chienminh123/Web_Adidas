@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 using Web_Adidas.Data;
 using Web_Adidas.Models;
@@ -45,6 +46,27 @@ namespace Web_Adidas.Controllers
             return View();
         }
 
+        [Authorize] // Đảm bảo người dùng đã đăng nhập
+        public async Task<IActionResult> ChiTietDonHang(int maDonHang)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+
+            // Tìm đơn hàng của người dùng
+            var donHang = await _context.DbSetDonHang
+                .Include(dh => dh.ChiTietDonHangs)
+                    .ThenInclude(ct => ct.SanPham) // Nạp thông tin sản phẩm
+                .FirstOrDefaultAsync(dh => dh.MaDonHang == maDonHang && dh.MaNguoiDung == userId);
+
+            if (donHang == null)
+            {
+                ViewBag.Message = "Không tìm thấy đơn hàng.";
+                return View(new DonHang { ChiTietDonHangs = new List<ChiTietDonHang>() });
+            }
+
+            return View(donHang);
+        }
+
         [Authorize] // Yêu cầu người dùng đăng nhập để xem giỏ hàng
         public async Task<IActionResult> ViewCart()
         {
@@ -75,7 +97,7 @@ namespace Web_Adidas.Controllers
         // Action để thêm sản phẩm vào giỏ hàng (sử dụng POST)
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddItemToCart(int spId , int soLuong = 1)
+        public async Task<IActionResult> AddItemToCart(int spId , int soLuong )
         {
             try
             {
@@ -162,9 +184,11 @@ namespace Web_Adidas.Controllers
 
             try
             {
+
                 bool result = await _cartRepository.CheckOut(model);
                 if (result)
                 {
+                    
                     return Json(new { success = true, message = "Đặt hàng thành công!" });
                 }
                 else
@@ -185,6 +209,67 @@ namespace Web_Adidas.Controllers
             {
                 Console.WriteLine($"Lỗi khi xử lý checkout: {ex.Message}");
                 return StatusCode(500, new { success = false, message = "Có lỗi không xác định xảy ra khi đặt hàng." });
+            }
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CancelOrder(int maDonHang)
+        {
+            try
+            {
+                bool result = await _cartRepository.CancelOrder(maDonHang);
+                if (result)
+                {
+                    return Json(new { success = true, message = "Đã hủy đơn hàng thành công." });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Có lỗi xảy ra khi hủy đơn hàng. Vui lòng thử lại." });
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { success = false, message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi hủy đơn hàng: {ex.Message}");
+                return StatusCode(500, new { success = false, message = "Có lỗi không xác định xảy ra khi hủy đơn hàng." });
+            }
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> GetOrderDetails(int maDonHang)
+        {
+            try
+            {
+                var chiTietDonHangs = await _cartRepository.GetOrderDetails(maDonHang);
+                if (chiTietDonHangs == null || !chiTietDonHangs.Any())
+                {
+                    return Json(new { success = false, message = "Không tìm thấy chi tiết đơn hàng." });
+                }
+
+                var items = chiTietDonHangs.Select(ct => new
+                {
+                    TenSanPham = ct.SanPham?.TenSanPham ?? "Sản phẩm không xác định",
+                    SoLuong = ct.SoLuong,
+                    DonGia = ct.DonGia
+                }).ToList();
+
+                return Json(new { success = true, items });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi lấy chi tiết đơn hàng: {ex.Message}");
+                return StatusCode(500, new { success = false, message = "Có lỗi xảy ra khi lấy chi tiết đơn hàng." });
             }
         }
     }

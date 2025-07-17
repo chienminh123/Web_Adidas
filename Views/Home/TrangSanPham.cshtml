@@ -1,8 +1,151 @@
 ﻿@model TheLoai
 @{
-
+    ViewData["Title"] = "Chi Tiết Sản Phẩm";
 }
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
 
-<h1>Trang san pham</h1>
+<style>
+    .size-btn {
+        margin: 5px;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #f8f9fa;
+    }
 
+        .size-btn.selected {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
 
+        .size-btn.disabled {
+            background-color: #e9ecef;
+            color: #6c757d;
+            cursor: not-allowed;
+            border-color: #ced4da;
+        }
+</style>
+
+<div class="product-detail">
+    @if (Model != null && Model.SanPhams != null && Model.SanPhams.Any())
+    {
+        var sp = Model.SanPhams.First(); // Lấy sản phẩm đầu tiên để hiển thị thông tin chung
+                                         <div class="product-card">
+                                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                                             <div class="product-info">
+                                                 <h2>@(sp.TenSanPham ?? "Không có tên")</h2>
+                                                 <p class="price">@sp.Gia.ToString("N0") VND</p>
+                                                 <p>Mã sản phẩm: @sp.MaSanPham</p>
+
+                <!-- Hiển thị danh sách kích thước dưới dạng nút -->
+                <div class="form-group">
+                    <label>Kích thước:</label>
+                    <div id="size-buttons" class="d-flex flex-wrap">
+                        @foreach (var sanPham in Model.SanPhams)
+                        {
+                            <button type="button" class="size-btn @(sanPham.SoLuong == 0 ? "disabled" : "")"
+                                    data-id="@sanPham.MaSanPham"
+                                    data-max="@sanPham.SoLuong"
+                                    data-size="@sanPham.Size"
+                                    @(sanPham.SoLuong == 0 ? "disabled" : "")>
+                                @(string.IsNullOrEmpty(sanPham.Size) ? "Không có kích thước" : sanPham.Size) UK 
+                                @(sanPham.SoLuong == 0 ? " (Hết hàng)" : "")
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <!-- Trường nhập số lượng -->
+                <div class="form-group">
+                    <label for="soLuong">Số lượng:</label>
+                    <input type="number" id="soLuong" class="form-control" min="1" value="1" style="width: 100px;" />
+                </div>
+
+                <button type="button" class="btn btn-primary add-to-cart" disabled>Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>@(ViewBag.Message ?? "Không tìm thấy sản phẩm.")</p>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let selectedSizeId = null;
+
+            // Xử lý chọn kích thước
+            $('#size-buttons .size-btn').click(function () {
+                if ($(this).hasClass('disabled')) return; // Không cho chọn nếu hết hàng
+
+                $('#size-buttons .size-btn').removeClass('selected');
+                $(this).addClass('selected');
+                selectedSizeId = $(this).data('id');
+                var max = $(this).data('max');
+                $('#soLuong').attr('max', max);
+                if (parseInt($('#soLuong').val()) > max) {
+                    $('#soLuong').val(max);
+                }
+                $('.add-to-cart').prop('disabled', false); // Kích hoạt nút thêm vào giỏ hàng
+            });
+
+            // Khởi tạo với kích thước đầu tiên có sẵn
+            var firstAvailable = $('#size-buttons .size-btn:not(.disabled)').first();
+            if (firstAvailable.length) {
+                firstAvailable.click();
+            }
+
+            // Xử lý thêm vào giỏ hàng
+            $('.add-to-cart').click(function () {
+                if (!selectedSizeId) {
+                    alert("Vui lòng chọn kích thước.");
+                    return;
+                }
+
+                var soLuong = parseInt($('#soLuong').val());
+                var maxSoLuong = parseInt($('#soLuong').attr('max'));
+                var size = $('#size-buttons .size-btn.selected').data('size');
+
+                if (isNaN(soLuong) || soLuong < 1) {
+                    alert("Vui lòng nhập số lượng hợp lệ.");
+                    return;
+                }
+                if (soLuong > maxSoLuong) {
+                    alert("Số lượng vượt quá tồn kho cho kích thước " + size + " (" + maxSoLuong + ").");
+                    $('#soLuong').val(maxSoLuong);
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("AddItemToCart", "Cart")',
+                    type: 'POST',
+                    data: { spId: selectedSizeId, soLuong: soLuong },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            $.get('@Url.Action("GetCartItemCount", "Cart")', function (data) {
+                                $('#cart-item-count').text(data.totalCartItems);
+                            });
+                        } else {
+                            alert(response.message || "Có lỗi xảy ra khi thêm vào giỏ hàng.");
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
+                            window.location.href = '/Identity/Account/Login';
+                        } else {
+                            alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

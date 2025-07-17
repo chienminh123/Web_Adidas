@@ -91,7 +91,10 @@ namespace Web_Adidas.repositories
                     Console.WriteLine($"Sản phẩm với ID {spId} không tồn tại.");
                     return 0;
                 }
-
+                if (product.SoLuong < SoLuong)
+                {
+                    throw new InvalidOperationException($"Sản phẩm {spId} không đủ tồn kho. Yêu cầu: {SoLuong}, Tồn kho: {product.SoLuong}");
+                }
                 // Kiểm tra xem sản phẩm đã có trong chi tiết giỏ hàng của người dùng này chưa.
                 // Quan trọng: Phải kiểm tra MaGioHang và MaSanPham
                 var cartItem = await _dbContext.DbSetChiTietGioHang
@@ -268,12 +271,21 @@ namespace Web_Adidas.repositories
 
                 // Lấy tất cả các chi tiết sản phẩm trong giỏ hàng.
                 var ChiTietGiohang = await _dbContext.DbSetChiTietGioHang
+                    .Include(ct => ct.SanPham)
                     .Where(s => s.MaGioHang == cart.MaGioHang).ToListAsync();
                 if (ChiTietGiohang.Count == 0)
                 {
                     throw new InvalidOperationException("Giỏ hàng trống.");
                 }
-
+                foreach (var item in ChiTietGiohang)
+                {
+                    var product = await _dbContext.DbSetSanPham.FindAsync(item.MaSanPham);
+                    if (product == null || product.SoLuong < item.SoLuong)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException($"Sản phẩm {item.MaSanPham} không đủ tồn kho. Tồn kho: {product?.SoLuong ?? 0}, Yêu cầu: {item.SoLuong}");
+                    }
+                }
                 // Lấy trạng thái đơn hàng "Chờ xử lý".
                 var trangthaidonhang = await _dbContext.DbSetTrangThaiDonHang.FirstOrDefaultAsync(s => s.TenTrangThaiDonHang == "Chờ xử lý");
 
@@ -290,6 +302,7 @@ namespace Web_Adidas.repositories
                     SDT = model.Sdt,
                     PTThanhToan = model.PtThanhToan,
                     DiaChi = model.DiaChi,
+                    
                     ThanhToan = false, // Mặc định là chưa thanh toán.
                     MaTrangThaiDonHang = trangthaidonhang.MaTrangThaiDonHang // Gán ID trạng thái đơn hàng.
                 };
@@ -306,12 +319,16 @@ namespace Web_Adidas.repositories
                         SoLuong = item.SoLuong,
                         DonGia = item.DonGia,
                     };
-                    _dbContext.DbSetChiTietDonHang.Add(chitietdonhang); // Thêm chi tiết đơn hàng.
+                    _dbContext.DbSetChiTietDonHang.Add(chitietdonhang);
+
+                    var product = await _dbContext.DbSetSanPham.FindAsync(item.MaSanPham);
+                    product.SoLuong -= item.SoLuong;
+                    _dbContext.DbSetSanPham.Update(product);
 
                     // Xóa sản phẩm khỏi giỏ hàng sau khi đã chuyển vào đơn hàng.
                     _dbContext.DbSetChiTietGioHang.Remove(item);
                 }
-                await _dbContext.SaveChangesAsync(); // Lưu các thay đổi (thêm chi tiết đơn hàng, xóa chi tiết giỏ hàng).
+                await _dbContext.SaveChangesAsync(); 
 
                 transaction.Commit(); // Commit giao dịch nếu mọi thứ thành công.
                 return true;
@@ -323,11 +340,77 @@ namespace Web_Adidas.repositories
                 return false;
             }
         }
+        public async Task<bool> CancelOrder(int maDonHang)
+        {
+            using var transaction = _dbContext.Database.BeginTransaction();
+            try
+            {
+                var userId = GetUserId();
 
-       
-        /// Lấy ID của người dùng hiện tại từ HttpContext.
-        
-        /// <returns>ID người dùng dưới dạng chuỗi hoặc null nếu không có.</returns>
-        
+                // Tìm đơn hàng
+                var order = await _dbContext.DbSetDonHang
+                    .FirstOrDefaultAsync(o => o.MaDonHang == maDonHang && o.MaNguoiDung == userId);
+                if (order == null)
+                {
+                    throw new InvalidOperationException($"Không tìm thấy đơn hàng với mã {maDonHang}.");
+                }
+
+                // Kiểm tra trạng thái đơn hàng (chỉ cho phép hủy nếu đang "Chờ xử lý")
+                var trangThai = await _dbContext.DbSetTrangThaiDonHang
+                    .FirstOrDefaultAsync(t => t.MaTrangThaiDonHang == order.MaTrangThaiDonHang);
+                if (trangThai?.TenTrangThaiDonHang != "Chờ xử lý")
+                {
+                    throw new InvalidOperationException("Chỉ có thể hủy đơn hàng ở trạng thái 'Chờ xử lý'.");
+                }
+
+                // Lấy chi tiết đơn hàng
+                var chiTietDonHangs = await _dbContext.DbSetChiTietDonHang
+                    .Where(ct => ct.MaDonHang == maDonHang)
+                    .ToListAsync();
+
+                // Cập nhật số lượng tồn kho
+                foreach (var item in chiTietDonHangs)
+                {
+                    var product = await _dbContext.DbSetSanPham.FindAsync(item.MaSanPham);
+                    if (product == null)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException($"Sản phẩm {item.MaSanPham} không tồn tại.");
+                    }
+                    product.SoLuong += item.SoLuong;
+                    _dbContext.DbSetSanPham.Update(product);
+                }
+
+                // Xóa chi tiết đơn hàng
+                _dbContext.DbSetChiTietDonHang.RemoveRange(chiTietDonHangs);
+                // Xóa đơn hàng
+                _dbContext.DbSetDonHang.Remove(order);
+
+                await _dbContext.SaveChangesAsync();
+                transaction.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                Console.WriteLine($"Lỗi khi hủy đơn hàng: {ex.Message}");
+                return false;
+            }
+        }
+        public async Task<List<ChiTietDonHang>> GetOrderDetails(int maDonHang)
+        {
+            var userId = GetUserId();
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new UnauthorizedAccessException("Người dùng chưa đăng nhập.");
+            }
+
+            var chiTietDonHangs = await _dbContext.DbSetChiTietDonHang
+                .Include(ct => ct.SanPham)
+                .Where(ct => ct.MaDonHang == maDonHang && ct.DonHang.MaNguoiDung == userId)
+                .ToListAsync();
+
+            return chiTietDonHangs;
+        }
     }
 }
