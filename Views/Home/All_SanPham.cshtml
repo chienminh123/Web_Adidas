@@ -4,22 +4,32 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
-   
+
+
+    // Icon
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
+
 }
 @* <i class="bi bi-arrow-return-left">Back</i> *@
 
-<a asp-controller="Home" asp-action="Index">Home</a>
-<p>@ViewData["Title"]</p>
-<select class="form-select" aria-label="Default select example">
-    <option selected>Bộ lọc </option>
+<nav class="breadcrumb">
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__back">
+        <span class="breadcrumb__icon">
+            <i class="ri-arrow-left-line"></i>
+        </span>
+        <span class="breadcrumb__text">BACK</span>
+    </a>
+    <span class="breadcrumb__divider">/</span>
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Home</a>
+    <span class="breadcrumb__divider">/</span>
+    <span class="breadcrumb__current">ALL</span>
+</nav>
+<select class="filter__select" aria-label="Default select example">
+    <option selected>Bộ lọc</option>
     <option value="1">Giá (Thấp -> Cao)</option>
     <option value="2">Giá (Cao -> Thấp)</option>
 </select>
-<div>
-    @* ảnh của quảng cáo của samba  *@
-    <p>SamBa</p>
-</div>
-<div>
 
     @if (Model != null && Model.SanPhams != null)
     {
