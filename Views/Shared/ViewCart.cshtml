@@ -28,12 +28,8 @@
    
 
 
-@if (Model != null && Model.ChiTietGioHangs != null && Model.ChiTietGioHangs.Any())
-{
-
-   
-    <div class="cart-list">
-
+    @if(Model != null && Model.ChiTietGioHangs != null && Model.ChiTietGioHangs.Any())
+    {
         <!-- Tổng cộng -->
         <p class="cart__total-text">
             TỔNG CỘNG (@Model.ChiTietGioHangs.Count sản phẩm)
@@ -137,6 +133,7 @@
                     <span>Tổng</span>
                     <span>@Model.ChiTietGioHangs.Sum(x => x.DonGia).ToString("N0") đ</span>
                 </div>
+
                 <form asp-action="ThanhToan" asp-controller="Cart">
                     <button type="submit" class="cart-summary__checkout-btn">
                         THANH TOÁN

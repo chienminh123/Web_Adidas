@@ -11,15 +11,15 @@ namespace Web_Adidas.Controllers;
 
 public class HomeController : Controller
 {
-    //private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
-    
+    private readonly IHomeRepository _homeRepository;
 
 
-    public HomeController(ApplicationDbContext context, IcartRepository cartRepository)
+    public HomeController(ApplicationDbContext context, IHomeRepository homeRepository)
     {
         _context = context;
-        
+        _homeRepository = homeRepository;
     }
 
 
@@ -148,6 +148,34 @@ public class HomeController : Controller
         return View(model);
     }
 
+    
+    [HttpGet]
+    public async Task<IActionResult> SearchProducts(string query)
+    {
+        if (string.IsNullOrEmpty(query))
+        {
+            return Json(new List<SanPham>());
+        }
+
+        try
+        {
+            var products = await _homeRepository.GetSanPham(query);
+            var result = products.Select(sp => new
+            {
+                TenSanPham = sp.TenSanPham ?? "Không có tên",
+                HinhAnh = sp.HinhAnh ?? "",
+                Size = sp.Size ?? "N/A",
+                Gia = sp.Gia  
+            }).ToList();
+
+            return Json(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Lỗi khi tìm kiếm sản phẩm.");
+            return Json(new { error = "Có lỗi xảy ra khi tìm kiếm." });
+        }
+    }
 
 
 

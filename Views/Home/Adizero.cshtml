@@ -34,7 +34,7 @@
                                 <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
 
                                 <p class="price">@sp.Gia.ToString("N0") VND</p>
-                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                             </div>
                         </div>
                     }
@@ -68,7 +68,7 @@
                             <div class="product-info">
                                 <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
                                 <p class="price">@sp.Gia.ToString("N0") VND</p>
-                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                             </div>
                         </div>
                     }
@@ -87,7 +87,7 @@
           @if (Model != null && Model.SanPhams != null)
           {
                 string anh = "";
-                string ten = "Giay_Trainer_Samba_Low";
+                string ten = "Boston";
                 foreach (var sp in Model.SanPhams)
                 {
                     @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
@@ -100,7 +100,7 @@
                                 <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
 
                                 <p class="price">@sp.Gia.ToString("N0") VND</p>
-                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                             </div>
                         </div>
                     }
@@ -122,7 +122,7 @@
             @if (Model != null && Model.SanPhams != null)
             {
                 string anh = "";
-                string ten = "Giay_Trainer_Samba_Low";
+                string ten = "Giay_Adizero_EVO";
                 foreach (var sp in Model.SanPhams)
                 {
                     @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
@@ -135,7 +135,7 @@
                                 <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
 
                                 <p class="price">@sp.Gia.ToString("N0") VND</p>
-                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                             </div>
                         </div>
                     }
@@ -155,7 +155,7 @@
             @if (Model != null && Model.SanPhams != null)
             {
                 string anh = "";
-                string ten = "Giay_Trainer_Samba_Low";
+                string ten = "Giay_Adizero_SL_2";
                 foreach (var sp in Model.SanPhams)
                 {
                     @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
@@ -168,7 +168,7 @@
                                 <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
 
                                 <p class="price">@sp.Gia.ToString("N0") VND</p>
-                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                             </div>
                         </div>
                     }
@@ -188,7 +188,7 @@
             @if (Model != null && Model.SanPhams != null)
             {
                 string anh = "";
-                string ten = "Giay_Trainer_Samba_Low";
+                string ten = "Giay_Adizero_ZG";
                 foreach (var sp in Model.SanPhams)
                 {
                     @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
@@ -201,7 +201,7 @@
                                 <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
 
                                 <p class="price">@sp.Gia.ToString("N0") VND</p>
-                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                             </div>
                         </div>
                     }
@@ -215,66 +215,4 @@
      </div>
 </div>
 
-<div>
-      <p>Adizero_ZG<p>
-      <div>
 
-            @if (Model != null && Model.SanPhams != null)
-            {
-                string anh = "";
-                string ten = "Giay_Trainer_Samba_Low";
-                foreach (var sp in Model.SanPhams)
-                {
-                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
-                    {
-                        <div>
-                            <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                                <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
-                            </a>
-                            <div class="product-info">
-                                <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-
-                                <p class="price">@sp.Gia.ToString("N0") VND</p>
-                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
-                            </div>
-                        </div>
-                    }
-                     anh = sp.HinhAnh;
-                }
-            }
-            else
-            {
-                 <p>Không có sản phẩm để hiển thị.</p>
-            }
-      </div>
-</div>
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-                $('.add-to-cart-btn').click(function () {
-                    var spId = $(this).data('spid');
-                    $.ajax({
-                        url: '@Url.Action("AddItemToCart", "Cart")',
-                        type: 'POST',
-                        data: { spId: spId, soLuong: 1 }, // Gửi số lượng là 1
-                        success: function (response) {
-                            if (response.success) {
-                                alert(response.message);
-                                // Có thể cập nhật số lượng giỏ hàng ở đây nếu muốn
-                            } else {
-                                alert(response.message || "Có lỗi xảy ra.");
-                            }
-                        },
-                        error: function (xhr) {
-                            if (xhr.status === 401) {
-                                alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
-                                window.location.href = '/Identity/Account/Login';
-                            } else {
-                                alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
-                            }
-                        }
-                    });
-                });
-            });
-    </script>
-}

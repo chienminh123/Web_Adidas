@@ -43,7 +43,7 @@
 <div class="product-section">
     <div class="section-header">
         <h2>Adicolor</h2>
-        <a href="#">View All</a>
+        <a asp-controller="Home" asp-action="All_SanPham">View All</a>
     </div>
     <div class="product-list">
         @if (Model != null && Model.SanPhams != null)
@@ -74,33 +74,4 @@
         }
     </div>
 </div>
-@* @section Scripts {
-    <script>
-        $(document).ready(function () {
-                $('.trang-san-pham').click(function () {
-                    var  hinhanh= $(this).data('image');
-                    $.ajax({
-                        url: '@Url.Action("TrangSanPham", "Home")',
-                        type: 'POST',
-                        data: { hinhAnh:hinhanh}, // Gửi số lượng là 1
-                        success: function (response) {
-                            if (response.success) {
-                                alert(response.message);
-                                // Có thể cập nhật số lượng giỏ hàng ở đây nếu muốn
-                            } else {
-                                alert(response.message || "Có lỗi xảy ra.");
-                            }
-                        },
-                        error: function (xhr) {
-                            if (xhr.status === 401) {
-                                alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
-                                window.location.href = '/Identity/Account/Login';
-                            } else {
-                                alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
-                            }
-                        }
-                    });
-                });
-            });
-    </script>             
-} *@
+

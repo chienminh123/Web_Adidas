@@ -33,9 +33,39 @@
 <div class="product-detail">
     @if (Model != null && Model.SanPhams != null && Model.SanPhams.Any())
     {
-        var sp = Model.SanPhams.First(); // Lấy sản phẩm đầu tiên để hiển thị thông tin chung
+        var sp = Model.SanPhams.First();
+        int chon = sp.MaTheLoai;
+            
+                <div class="cart-item__image">
+                    @switch (chon)
+                    {
+                        case 1:
+                            <img src="~/img/Giay/Samba/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                            break;
+                        case 2:
+                            <img src="~/img/Giay/Gazelle/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                            break;
+                        case 3:
+                            <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                            break;
+                        case 4:
+                            <img src="~/img/Giay/Superstar/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                            break;
+                        case 5 or 6 or 7:
+                            <img src="~/img/Giay/The_Thao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                            break;
+                        case 8:
+                            <img src="~/img/Dep/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                            break;
+                        case 9:
+                            <img src="~/img/Ao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                            break;
+                        case 13:
+                            <img src="~/img/Quan/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
+                            break;
+                    }
+                </div>
                                          <div class="product-card">
-                                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
                                              <div class="product-info">
                                                  <h2>@(sp.TenSanPham ?? "Không có tên")</h2>
                                                  <p class="price">@sp.Gia.ToString("N0") VND</p>
@@ -52,7 +82,8 @@
                                     data-max="@sanPham.SoLuong"
                                     data-size="@sanPham.Size"
                                     @(sanPham.SoLuong == 0 ? "disabled" : "")>
-                                @(string.IsNullOrEmpty(sanPham.Size) ? "Không có kích thước" : sanPham.Size) UK 
+                  
+                                @(string.IsNullOrEmpty(sanPham.Size) ? "Không có kích thước" : sanPham.Size) 
                                 @(sanPham.SoLuong == 0 ? " (Hết hàng)" : "")
                             </button>
                         }
