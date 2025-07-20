@@ -27,9 +27,9 @@
         <h3 class="checkout__info-title">Thông tin thanh toán</h3>
         <form asp-action="Checkout" asp-controller="Cart" method="post" class="checkout__form mt-4">
             <div class="checkout__field mb-3">
-                <label asp-for="name" class="checkout__label form-label">Họ và tên</label>
-                <input asp-for="name" class="checkout__input form-control" required />
-                <span asp-validation-for="name" class="checkout__error text-danger"></span>
+                <label asp-for="Name" class="checkout__label form-label">Họ và tên</label>
+                <input asp-for="Name" class="checkout__input form-control" required />
+                <span asp-validation-for="Name" class="checkout__error text-danger"></span>
             </div>
 
             <div class="checkout__field mb-3">
@@ -68,7 +68,7 @@
                 $(document).ready(function () {
             $('.checkout-item-btn').click(function (e) {
                 e.preventDefault(); 
-                var ten = $('#name').val(); 
+                var ten = $('#Name').val(); 
                 var sdt = $('#Sdt').val(); 
                 var diachi = $('#DiaChi').val(); 
                 var pttt = $('input[name="PtThanhToan"]:checked').val(); 

@@ -6,66 +6,92 @@
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
 
-<style>
-    .size-btn {
-        margin: 5px;
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: #f8f9fa;
-    }
-
-        .size-btn.selected {
-            background-color: #007bff;
-            color: white;
-            border-color: #007bff;
-        }
-
-        .size-btn.disabled {
-            background-color: #e9ecef;
-            color: #6c757d;
-            cursor: not-allowed;
-            border-color: #ced4da;
-        }
-</style>
+@* // Icon *@
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet" />
 
 <div class="product-detail">
+    <nav class="breadcrumb">
+        <a href="#" class="breadcrumb__back" id="backButton">
+            <span class="breadcrumb__icon">
+                <i class="ri-arrow-left-line"></i>
+            </span>
+            <span class="breadcrumb__text">BACK</span>
+        </a>
+        <span class="breadcrumb__divider">/</span>
+        <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Home</a>
+    </nav>
     @if (Model != null && Model.SanPhams != null && Model.SanPhams.Any())
     {
-        var sp = Model.SanPhams.First(); // Lấy sản phẩm đầu tiên để hiển thị thông tin chung
-                                         <div class="product-card">
-                                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham" style="max-width: 300px; object-fit: cover;" />
-                                             <div class="product-info">
-                                                 <h2>@(sp.TenSanPham ?? "Không có tên")</h2>
-                                                 <p class="price">@sp.Gia.ToString("N0") VND</p>
-                                                 <p>Mã sản phẩm: @sp.MaSanPham</p>
+        var sp = Model.SanPhams.First();
+        <div class="product-detail__container">
+            <!-- Cột ảnh -->
+            <div class="product-detail__image">
+                <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham" />
+            </div>
 
-                <!-- Hiển thị danh sách kích thước dưới dạng nút -->
-                <div class="form-group">
-                    <label>Kích thước:</label>
-                    <div id="size-buttons" class="d-flex flex-wrap">
-                        @foreach (var sanPham in Model.SanPhams)
-                        {
-                            <button type="button" class="size-btn @(sanPham.SoLuong == 0 ? "disabled" : "")"
-                                    data-id="@sanPham.MaSanPham"
-                                    data-max="@sanPham.SoLuong"
-                                    data-size="@sanPham.Size"
-                                    @(sanPham.SoLuong == 0 ? "disabled" : "")>
-                                @(string.IsNullOrEmpty(sanPham.Size) ? "Không có kích thước" : sanPham.Size) UK 
-                                @(sanPham.SoLuong == 0 ? " (Hết hàng)" : "")
-                            </button>
-                        }
+            <!-- Cột thông tin -->
+            <div class="product-detail__info">
+                <h2 class="product-detail__name">@(sp.TenSanPham ?? "Không có tên")</h2>
+                <p class="product-detail__category">Originals</p>
+                <p class="product-detail__price">@sp.Gia.ToString("N0") VND</p>
+                <p class="product-detail__code">Mã sản phẩm: @sp.MaSanPham</p>
+
+                <!-- Kích thước -->
+                <div class="product-detail__size-header">
+                    <span class="product-detail__size-title">Kích cỡ:</span>
+                    <a href="#" class="product-detail__size-guide">Hướng dẫn chọn kích cỡ</a>
+                </div>
+
+                <div class="size-guide-popup" id="sizeGuidePopup">
+                    <span class="close-btn" onclick="closePopup()">×</span>
+                    <h3>Hướng Dẫn Chọn Kích Cỡ</h3>
+                    <p>Vui lòng đo chiều dài bàn chân và tham khảo bảng dưới đây:</p>
+                    <table class="size-guide-table">
+                        <thead>
+                            <tr>
+                                <th>Kích cỡ UK</th>
+                                <th>Chiều dài (cm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>3.5</td><td>22.0</td></tr>
+                            <tr><td>4</td><td>22.5</td></tr>
+                            <tr><td>4.5</td><td>23.0</td></tr>
+                            <tr><td>5</td><td>23.5</td></tr>
+                            <tr><td>5.5</td><td>24.0</td></tr>
+                            <tr><td>6</td><td>24.5</td></tr>
+                            <tr><td>6.5</td><td>25.0</td></tr>
+                            <tr><td>7</td><td>25.5</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Lưu ý: Chọn kích cỡ lớn hơn nếu bạn có bàn chân rộng.</p>
+                </div>
+
+                <div id="size-buttons" class="product-detail__sizes">
+                    @foreach (var sanPham in Model.SanPhams)
+                    {
+                        <button type="button" class="size-btn @(sanPham.SoLuong == 0 ? "disabled" : "")"
+                                data-id="@sanPham.MaSanPham"
+                                data-max="@sanPham.SoLuong"
+                                data-size="@sanPham.Size"
+                        @(sanPham.SoLuong == 0 ? "disabled" : "")>
+                            @(string.IsNullOrEmpty(sanPham.Size) ? "Không có kích thước" : sanPham.Size) UK
+                        </button>
+                    }
+                </div>
+
+                <!-- Số lượng -->
+                <div class="product-detail__quantity">
+                    <label for="soLuong">Số Lượng:</label>
+                    <div class="quantity-controls">
+                        <button type="button" class="quantity-btn" onclick="$('#soLuong').val(Math.max(1, parseInt($('#soLuong').val()) - 1))">-</button>
+                        <input type="number" id="soLuong" class="form-control" min="1" value="1" />
+                        <button type="button" class="quantity-btn" onclick="$('#soLuong').val(parseInt($('#soLuong').val()) + 1)">+</button>
                     </div>
                 </div>
 
-                <!-- Trường nhập số lượng -->
-                <div class="form-group">
-                    <label for="soLuong">Số lượng:</label>
-                    <input type="number" id="soLuong" class="form-control" min="1" value="1" style="width: 100px;" />
-                </div>
-
-                <button type="button" class="btn btn-primary add-to-cart" disabled>Thêm vào giỏ hàng</button>
+                <button type="button" class="btn btn-primary add-to-cart" disabled>Thêm Vào Giỏ Hàng</button>
             </div>
         </div>
     }
@@ -74,6 +100,8 @@
         <p>@(ViewBag.Message ?? "Không tìm thấy sản phẩm.")</p>
     }
 </div>
+
+
 
 @section Scripts {
     <script>
@@ -122,6 +150,9 @@
                     return;
                 }
 
+                // Vô hiệu hóa nút trong khi xử lý AJAX
+                $(this).prop('disabled', true);
+
                 $.ajax({
                     url: '@Url.Action("AddItemToCart", "Cart")',
                     type: 'POST',
@@ -135,6 +166,8 @@
                         } else {
                             alert(response.message || "Có lỗi xảy ra khi thêm vào giỏ hàng.");
                         }
+                        // Kích hoạt lại nút sau khi hoàn tất
+                        $('.add-to-cart').prop('disabled', false);
                     },
                     error: function (xhr) {
                         if (xhr.status === 401) {
@@ -143,9 +176,39 @@
                         } else {
                             alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
                         }
+                        // Kích hoạt lại nút nếu có lỗi
+                        $('.add-to-cart').prop('disabled', false);
                     }
                 });
             });
+
+            $('#backButton').click(function (e) {
+                e.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+                window.history.back(); // Quay lại trang trước đó
+            });
+
+             document.querySelector('.product-detail__size-guide').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('sizeGuidePopup').classList.add('show');
+        });
+
+        function closePopup() {
+            document.getElementById('sizeGuidePopup').classList.remove('show');
+        }
+
+        // Close popup when clicking outside
+        window.addEventListener('click', function(e) {
+            const popup = document.getElementById('sizeGuidePopup');
+            if (e.target == popup) {
+                popup.classList.remove('show');
+            }
+        });
+
+         // Ensure close button works correctly
+        document.querySelector('.close-btn').addEventListener('click', function(e) {
+            e.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+            closePopup();
+        });
         });
     </script>
 }

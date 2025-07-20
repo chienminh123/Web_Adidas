@@ -30,8 +30,8 @@
                 <span class="banner__box-line">
                     cách cổ điển. Tinh thần tiên phong.
                 </span>
-            </p> 
-                <a href="#!" class="banner__button">
+            </p>
+            <a asp-controller="Home" asp-action="SamBa" class="banner__button">
                     MUA NGAY
                 </a> 
              </div>
@@ -43,7 +43,7 @@
 <div class="product-section">
     <div class="section-header">
         <h2>Adicolor</h2>
-        <a href="#">View All</a>
+        <a asp-controller="Home" asp-action="SamBa">View All</a>
     </div>
     <div class="product-list">
         @if (Model != null && Model.SanPhams != null)
@@ -54,14 +54,14 @@
             {
                 @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
                 {
-                    <div>
+                    <div class="product-item">
                         <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                         </a>
                         <div class="product-info">
                             <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
                             <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
+                            <a class="btn btn-primary add-to-cart-btn " asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                         </div>
                     </div>
                 }
