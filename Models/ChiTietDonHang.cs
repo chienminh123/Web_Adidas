@@ -13,11 +13,11 @@ namespace Web_Adidas.Models
         public int SoLuong { get; set; }
         [Required]
         public double DonGia { get; set; }
-        // Foreign Key properties: Khóa ngoại tới SanPham và DonHang
+       
         public int MaSanPham { get; set; }
-        public int MaDonHang { get; set; } // MaDonHang là string trong DonHang
+        public int MaDonHang { get; set; } 
 
-        // Navigation properties: Tham chiếu đến các đối tượng liên quan
+        
         [ForeignKey("MaSanPham")]
         public SanPham SanPham { get; set; }
 

@@ -17,7 +17,7 @@ namespace Web_Adidas.Models
         public int MaGioHang { get; set; }
         public int MaSanPham { get; set; }
 
-        // Navigation properties: Tham chiếu đến các đối tượng liên quan
+        
         [ForeignKey("MaGioHang")]
         public GioHang GioHang { get; set; }
 

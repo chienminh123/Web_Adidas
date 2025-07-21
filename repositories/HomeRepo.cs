@@ -1,6 +1,7 @@
-﻿using Web_Adidas.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Web_Adidas.Data;
 using Web_Adidas.Models;
-using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Web_Adidas.repositories
 {
@@ -13,33 +14,92 @@ namespace Web_Adidas.repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<SanPham>> GetSanPham(string keySearch = "", int MaTheLoai = 0)
+        public async Task<IEnumerable<SanPham>> SearchProducts(string query)
         {
-            keySearch = keySearch.ToLower();
-            IQueryable<SanPham> query = _dbContext.DbSetSanPham;
-
-            if (!string.IsNullOrWhiteSpace(keySearch))
+            if (string.IsNullOrWhiteSpace(query))
             {
-                query = query.Where(sp => sp.TenSanPham != null && sp.TenSanPham.ToLower().Contains(keySearch));
+                return await Task.FromResult(Enumerable.Empty<SanPham>());
             }
 
-            if (MaTheLoai > 0)
-            {
-                query = query.Where(sp => sp.MaTheLoai == MaTheLoai);
-            }
-
-            return await query
+            return await _dbContext.DbSetSanPham
+                .Where(sp => sp.TenSanPham != null && sp.TenSanPham.ToLower().Contains(query.ToLower()))
                 .Select(sp => new SanPham
                 {
                     MaSanPham = sp.MaSanPham,
                     HinhAnh = sp.HinhAnh,
                     Gia = sp.Gia,
                     TenSanPham = sp.TenSanPham,
-                    TheLoai = sp.TheLoai,
-                    TenTheLoai = sp.TenTheLoai,
+                    Size = sp.Size,
                     SoLuong = sp.SoLuong
                 })
+                .Take(10)
                 .ToListAsync();
         }
-    }
+        public async Task<IEnumerable<SanPham>> SapXep(int maTheLoai, string filter = "")
+        {
+            if (maTheLoai == 0)
+            {
+                IQueryable<SanPham> query = _dbContext.DbSetSanPham;
+                    
+                Console.WriteLine($"Số sản phẩm trước khi lọc: {query.Count()}");
+                if (filter != "")
+                {
+                    if (filter == "1")
+                    {
+                        query = query.OrderBy(sp => sp.Gia);
+                    }
+                    else if (filter == "2")
+                    {
+                        query = query.OrderByDescending(sp => sp.Gia);
+                    }
+                }
+                var result = await query
+                    .Select(sp => new SanPham
+                    {
+                        MaSanPham = sp.MaSanPham,
+                        MaTheLoai = sp.MaTheLoai,
+                        HinhAnh = sp.HinhAnh,
+                        Gia = sp.Gia,
+                        TenSanPham = sp.TenSanPham,
+                        Size = sp.Size,
+                        SoLuong = sp.SoLuong
+                    })
+                    .ToListAsync();
+                Console.WriteLine($"Số sản phẩm sau khi lọc: {result.Count}");
+                return result;
+            }
+            else
+            {
+                IQueryable<SanPham> query = _dbContext.DbSetSanPham
+                    .Where(sp => sp.MaTheLoai == maTheLoai);
+                Console.WriteLine($"Số sản phẩm trước khi lọc: {query.Count()}");
+                if (filter != "")
+                {
+                    if (filter == "1")
+                    {
+                        query = query.OrderBy(sp => sp.Gia);
+                    }
+                    else if (filter == "2")
+                    {
+                        query = query.OrderByDescending(sp => sp.Gia);
+                    }
+                }
+                var result = await query
+                    .Select(sp => new SanPham
+                    {
+                        MaSanPham = sp.MaSanPham,
+                        MaTheLoai = sp.MaTheLoai,
+                        HinhAnh = sp.HinhAnh,
+                        Gia = sp.Gia,
+                        TenSanPham = sp.TenSanPham,
+                        Size = sp.Size,
+                        SoLuong = sp.SoLuong
+                    })
+                    .ToListAsync();
+                Console.WriteLine($"Số sản phẩm sau khi lọc: {result.Count}");
+                return result;
+            }
+                
+        }
+    } 
 }

@@ -167,83 +167,7 @@
             </div>
          
         </header>
-            @* <script>
-                $(document).ready(function () {
-                    function updateCartCount() {
-                        fetch('/Cart/GetCartItemCount')
-                            .then(response => {
-                                if (!response.ok) {
-                                
-                                    if (response.status === 401) {
-                                        window.location.href = '/Identity/Account/Login'; // Chuyển hướng đến trang đăng nhập
-                                    }
-                                    throw new Error('Network response was not ok.');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                const cartCountSpan = document.querySelector('.cart-count');
-                                if (cartCountSpan) {
-                                    cartCountSpan.textContent = data.totalCartItems;
-                                }
-                            })
-                            .catch(error => {
-                                console.error('There was a problem fetching the cart count:', error);
-                            });
-                    }
             
-                    // Gọi hàm khi trang tải
-                    document.addEventListener('DOMContentLoaded', updateCartCount);
-
-                    function searchProducts() {
-                    const query = $('#searchInput').val().trim();
-                    if (query.length < 1) {
-                        $('#searchResults').hide().empty();
-                        return;
-                    }
-
-                    $.ajax({
-                        url: '@Url.Action("SearchProducts", "Home")',
-                        type: 'GET',
-                        data: { query: query },
-                        success: function (response) {
-                            const resultsDiv = $('#searchResults');
-                            resultsDiv.empty();
-                            if (response.length > 0) {
-                                response.forEach(product => {
-                                    resultsDiv.append(
-                                        `<a href="/Home/TrangSanPham?hinhAnh=${encodeURIComponent(product.HinhAnh)}">
-                                                ${product.TenSanPham} (Size: ${product.Size}, Giá: ${product.Gia.toLocaleString()} VND)
-                                            </a>`
-                                    );
-                                });
-                                resultsDiv.show();
-                            } else {
-                                resultsDiv.append('<p>Không tìm thấy sản phẩm.</p>');
-                                resultsDiv.show();
-                            }
-                        },
-                        error: function () {
-                            $('#searchResults').html('<p>Có lỗi xảy ra khi tìm kiếm.</p>').show();
-                        }
-                    });
-                }
-
-                $('#searchInput').on('input', function () {
-                    searchProducts();
-                });
-
-                $('#searchButton').on('click', function () {
-                    searchProducts();
-                });
-
-                $(document).click(function (e) {
-                    if (!$(e.target).closest('.header__search').length) {
-                        $('#searchResults').hide();
-                    }
-                });
-            }
-            </script> *@
     
         <div class="main-content">    
             <main role="main" class="pb-3">
@@ -295,97 +219,109 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script>
-        // Đảm bảo jQuery được tải trước khi chạy mã
-        if (typeof jQuery === 'undefined') {
-            console.error('jQuery is not loaded!');
-        } else {
-            $(document).ready(function () {
-                // Cập nhật số lượng giỏ hàng
-                function updateCartCount() {
-                    fetch('/Cart/GetCartItemCount')
-                        .then(response => {
-                            if (!response.ok) {
-                                if (response.status === 401) {
-                                    window.location.href = '/Identity/Account/Login';
-                                }
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            const cartCountSpan = $('.cart-count');
-                            if (cartCountSpan.length) {
-                                cartCountSpan.text(data.totalCartItems || 0);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching cart count:', error);
-                        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const searchResults = document.getElementById('searchResults');
+            const cartCountSpan = document.querySelector('.cart-count');
+
+            // Hàm cập nhật số lượng giỏ hàng
+            async function updateCartCount() {
+                try {
+                    const response = await fetch('/Cart/GetCartItemCount');
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            console.warn('Chưa đăng nhập, chuyển hướng đến trang đăng nhập.');
+                            window.location.href = '/Identity/Account/Login';
+                            return;
+                        }
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    if (cartCountSpan) {
+                        cartCountSpan.textContent = data.totalCartItems || 0;
+                        console.log(`Cập nhật giỏ hàng: ${data.totalCartItems} sản phẩm`);
+                    }
+                } catch (error) {
+                    console.error('Lỗi khi cập nhật giỏ hàng:', error);
+                    if (cartCountSpan) {
+                        cartCountSpan.textContent = '0';
+                    }
                 }
+            }
 
-                // Hàm tìm kiếm sản phẩm
-                function searchProducts() {
-                const query = $('#searchInput').val().trim();
-                const resultsDiv = $('#searchResults');
-
-                if (query.length < 2) {
-                    resultsDiv.hide().empty();
+            // Hàm tìm kiếm và hiển thị kết quả
+            async function fetchSearchResults(query) {
+                if (!query.trim()) {
+                    searchResults.style.display = 'none';
+                    searchResults.innerHTML = '';
                     return;
                 }
 
-                console.log('Sending search request for:', query); // Debug
-                $.ajax({
-                    url: '@Url.Action("SearchProducts", "Home")',
-                    type: 'GET',
-                    data: { query: query },
-                    dataType: 'json',
-                    success: function (response) {
-                        console.log('Search response:', response); // Debug
-                        resultsDiv.empty();
-                        if (response && Array.isArray(response) && response.length > 0) {
-                            response.forEach(product => {
-                                const hinhAnh = encodeURIComponent(product.HinhAnh || '');
-                                const tenSanPham = (product.TenSanPham || 'Không có tên').replace(/"/g, '"');
-                                const size = (product.Size || 'N/A').replace(/"/g, '"');
-                                const gia = (product.Gia || 0).toLocaleString() + ' VND';
-
-                                const itemHtml = `
-                                    <a href="/Home/TrangSanPham?hinhAnh=${hinhAnh}" class="search-result-item">
-                                        ${tenSanPham} (Size: ${size}, Giá: ${gia})
-                                    </a>
-                                `;
-                                resultsDiv.append(itemHtml);
-                            });
-                            resultsDiv.show();
-                        } else {
-                            resultsDiv.append('<p>Không tìm thấy sản phẩm.</p>');
-                            resultsDiv.show();
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('AJAX Error:', error, xhr.responseText);
-                        resultsDiv.html('<p>Có lỗi xảy ra khi tìm kiếm.</p>').show();
+                try {
+                    const response = await fetch(`/Home/SearchProducts?query=${encodeURIComponent(query)}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
                     }
-                });
+                    const data = await response.json();
+
+                    searchResults.innerHTML = '';
+                    if (data.results.length === 0) {
+                        searchResults.innerHTML = `<div style="padding: 10px; color: #555;">${data.message}</div>`;
+                        searchResults.style.display = 'block';
+                        return;
+                    }
+
+                    data.results.forEach(product => {
+                        const resultItem = document.createElement('div');
+                        resultItem.style.padding = '10px';
+                        resultItem.style.borderBottom = '1px solid #eee';
+                        resultItem.style.cursor = 'pointer';
+                        resultItem.innerHTML = `
+                            <div style="display: flex; align-items: center;">
+                                <img src="${product.HinhAnh}" alt="${product.TenSanPham}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+                                <div>
+                                    <strong>${product.TenSanPham}</strong><br>
+                                    <span>Giá: ${product.Gia.toLocaleString('vi-VN')} VND</span><br>
+                                    <span>Size: ${product.Size}</span>
+                                </div>
+                            </div>
+                        `;
+                        resultItem.addEventListener('click', () => {
+                            window.location.href = `/Home/TrangSanPham?hinhAnh=${encodeURIComponent(product.HinhAnh)}`;
+                        });
+                        searchResults.appendChild(resultItem);
+                    });
+                    searchResults.style.display = 'block';
+                } catch (error) {
+                    console.error('Lỗi khi tìm kiếm:', error);
+                    searchResults.innerHTML = `<div style="padding: 10px; color: #555;">Lỗi khi tải kết quả tìm kiếm: ${error.message}</div>`;
+                    searchResults.style.display = 'block';
+                }
             }
 
+            // Gọi cập nhật giỏ hàng
             updateCartCount();
 
-            $('#searchInput').on('input', function () {
-                searchProducts();
+            // Sự kiện khi nhấn nút tìm kiếm
+            searchButton.addEventListener('click', () => {
+                const query = searchInput.value;
+                fetchSearchResults(query);
             });
 
-            $('#searchButton').on('click', function () {
-                searchProducts();
+            // Sự kiện khi nhập liệu
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value;
+                fetchSearchResults(query);
             });
 
-            $(document).on('click', function (e) {
-                if (!$(e.target).closest('.header__search').length) {
-                    $('#searchResults').hide();
+            // Ẩn kết quả khi nhấp ra ngoài
+            document.addEventListener('click', (event) => {
+                if (!searchResults.contains(event.target) && !searchInput.contains(event.target) && !searchButton.contains(event.target)) {
+                    searchResults.style.display = 'none';
                 }
             });
         });
-        }
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

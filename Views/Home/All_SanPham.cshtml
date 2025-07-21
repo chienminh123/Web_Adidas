@@ -25,11 +25,37 @@
     <span class="breadcrumb__divider">/</span>
     <span class="breadcrumb__current">ALL</span>
 </nav>
-<select class="filter__select" aria-label="Default select example">
-    <option selected>Bộ lọc</option>
-    <option value="1">Giá (Thấp -> Cao)</option>
-    <option value="2">Giá (Cao -> Thấp)</option>
-</select>
+<form asp-action="All-SanPham" asp-controller="Home" method="get">
+    <div class="form-group">
+        <label for="filter">Sắp xếp theo:</label>
+        <select class="form-select" name="filter" id="filter" onchange="this.form.submit()">
+            @if (ViewBag.SelectedFilter == "")
+            {
+                <option value="" selected>Bộ lọc</option>
+            }
+            else
+            {
+                <option value="">Bộ lọc</option>
+            }
+            @if (ViewBag.SelectedFilter == "1")
+            {
+                <option value="1" selected>Giá (Thấp -> Cao)</option>
+            }
+            else
+            {
+                <option value="1">Giá (Thấp -> Cao)</option>
+            }
+            @if (ViewBag.SelectedFilter == "2")
+            {
+                <option value="2" selected>Giá (Cao -> Thấp)</option>
+            }
+            else
+            {
+                <option value="2">Giá (Cao -> Thấp)</option>
+            }
+        </select>
+    </div>
+</form>
 
     @if (Model != null && Model.SanPhams != null)
     {
@@ -40,7 +66,7 @@
             @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 1)
             {
                 <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                         <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                     </a>
                     <div class="product-info">
@@ -74,7 +100,7 @@
             @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai == 2)
             {
                 <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                         <img src="~/img/Giay/Gazelle/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Gazelle">
                     </a>
                     <div class="product-info">
@@ -108,7 +134,7 @@
             @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 3)
             {
                 <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                         <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
                     </a>
                     <div class="product-info">
@@ -142,7 +168,7 @@
             @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 4)
             {
                 <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                         <img src="~/img/Giay/Superstar/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Superstar">
                     </a>
                     <div class="product-info">
@@ -176,7 +202,7 @@
             @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 5)
             {
                 <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                         <img src="~/img/Giay/The_Thao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Bong ro">
                     </a>
                     <div class="product-info">
@@ -199,73 +225,7 @@
     }
 </div>
 
-<div>
 
-    @if (Model != null && Model.SanPhams != null)
-    {
-        string anh = "";
-        
-        foreach (var sp in Model.SanPhams)
-        {
-            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai == 6)
-            {
-                <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                        <img src="~/img/Giay/The_Thao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="ChayBo">
-                    </a>
-                    <div class="product-info">
-                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-
-                        <p class="price">@sp.Gia.ToString("N0") VND</p>
-                        <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
-                    </div>
-                </div>
-            }
-            anh = sp.HinhAnh;
-        }
-
-
-    }
-
-    else
-    {
-        <p>Không có sản phẩm để hiển thị.</p>
-    }
-</div>
-
-<div>
-
-    @if (Model != null && Model.SanPhams != null)
-    {
-        string anh = "";
-        
-        foreach (var sp in Model.SanPhams)
-        {
-            @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 7)
-            {
-                <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                        <img src="~/img/Giay/The_Thao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="DaBong">
-                    </a>
-                    <div class="product-info">
-                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-
-                        <p class="price">@sp.Gia.ToString("N0") VND</p>
-                        <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
-                    </div>
-                </div>
-            }
-            anh = sp.HinhAnh;
-        }
-
-
-    }
-
-    else
-    {
-        <p>Không có sản phẩm để hiển thị.</p>
-    }
-</div>
 <p>Dep</p>
 <div>
 
@@ -278,7 +238,7 @@
             @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 8)
             {
                 <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                         <img src="~/img/Dep/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="dep">
                     </a>
                     <div class="product-info">
@@ -312,7 +272,7 @@
             @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 9)
             {
                 <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                         <img src="~/img/Ao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Ao">
                     </a>
                     <div class="product-info">
@@ -346,7 +306,7 @@
             @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 13)
             {
                 <div>
-                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                    <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                         <img src="~/img/Quan/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="quan">
                     </a>
                     <div class="product-info">

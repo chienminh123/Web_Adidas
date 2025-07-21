@@ -97,7 +97,7 @@ namespace Web_Adidas.Controllers
         // Action để thêm sản phẩm vào giỏ hàng (sử dụng POST)
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddItemToCart(int spId , int soLuong )
+        public async Task<IActionResult> AddItemToCart(int spId , int soLuong =1 )
         {
             try
             {
