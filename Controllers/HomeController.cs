@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -34,76 +35,140 @@ public class HomeController : Controller
         //return View();
 
     }
-    public IActionResult SamBa()
+    public async Task<IActionResult> SamBa(string filter="")
     {
+        var sanPhams = await _homeRepository.SapXep(1, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
-    public IActionResult Gazelle()
+    public async Task<IActionResult> Gazelle(string filter = "")
     {
+        var sanPhams = await _homeRepository.SapXep(2, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
-    public IActionResult Adizero()
+    public async Task<IActionResult> Adizero(string filter = "")
     {
+        var sanPhams = await _homeRepository.SapXep(3, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
-    public IActionResult Superstar()
+    public async Task<IActionResult> Superstar(string filter = "")
     {
+        var sanPhams = await _homeRepository.SapXep(4, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
-    public IActionResult Sports()
+    public async Task<IActionResult> Sports(string filter = "")
     {
+        var sanPhams = await _homeRepository.SapXep(5, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
-    public IActionResult Dep()
+    public async Task<IActionResult> Dep(string filter = "")
     {
+        var sanPhams = await _homeRepository.SapXep(8, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>()
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+        
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
-    public IActionResult Quan()
+    public async Task<IActionResult> Quan(string filter = "")
     {
+        var sanPhams = await _homeRepository.SapXep(13, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>()
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
-    public IActionResult Ao()
+    public async Task<IActionResult> Ao(string filter = "")
     {
+        var sanPhams = await _homeRepository.SapXep(9, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>()
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
-    public IActionResult All_SanPham()
+
+    public async Task<IActionResult> All_SanPham(string filter = "")
     {
+        var sanPhams = await _homeRepository.SapXep(0, filter);
         var model = new TheLoai
         {
-            SanPhams = _context.DbSetSanPham.ToList() ?? new List<SanPham>() 
+            SanPhams = sanPhams.ToList() ?? new List<SanPham>()
         };
+
+        ViewBag.SelectedFilter = filter;
+        if (!model.SanPhams.Any())
+        {
+            ViewBag.Message = "Không tìm thấy sản phẩm nào thuộc danh mục Áo.";
+        }
         return View(model);
     }
 
@@ -129,7 +194,7 @@ public class HomeController : Controller
 
         var model = new TheLoai
         {
-            SanPhams = sanPhams // Trả về danh sách sản phẩm với các kích thước
+            SanPhams = sanPhams 
         };
         return View(model);
     }
@@ -148,32 +213,39 @@ public class HomeController : Controller
         return View(model);
     }
 
-    
+
     [HttpGet]
     public async Task<IActionResult> SearchProducts(string query)
     {
-        if (string.IsNullOrEmpty(query))
+        if (string.IsNullOrWhiteSpace(query))
         {
-            return Json(new List<SanPham>());
+            return Json(new { results = new List<object>(), message = "Vui lòng nhập từ khóa tìm kiếm." });
         }
 
         try
         {
-            var products = await _homeRepository.GetSanPham(query);
+            var products = await _homeRepository.SearchProducts(query);
             var result = products.Select(sp => new
             {
+                MaSanPham = sp.MaSanPham,
                 TenSanPham = sp.TenSanPham ?? "Không có tên",
                 HinhAnh = sp.HinhAnh ?? "",
                 Size = sp.Size ?? "N/A",
-                Gia = sp.Gia  
+                Gia = sp.Gia,
+                SoLuong = sp.SoLuong
             }).ToList();
 
-            return Json(result);
+            if (!result.Any())
+            {
+                return Json(new { results = new List<object>(), message = "Không tìm thấy sản phẩm nào." });
+            }
+
+            return Json(new { results = result });
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Lỗi khi tìm kiếm sản phẩm.");
-            return Json(new { error = "Có lỗi xảy ra khi tìm kiếm." });
+            return Json(new { results = new List<object>(), message = "Có lỗi xảy ra khi tìm kiếm." });
         }
     }
 

@@ -21,15 +21,14 @@ namespace Web_Adidas.Models
         
         public int MaTheLoai { get; set; }
 
-        // Navigation property: Tham chiếu đến đối tượng TheLoai
         [ForeignKey("MaTheLoai")]
         public TheLoai TheLoai { get; set; }
 
-        // Navigation collections: Một sản phẩm có thể có trong nhiều chi tiết giỏ hàng và chi tiết đơn hàng
+    
         public List<ChiTietGioHang> ChiTietGioHangs { get; set; } = new List<ChiTietGioHang>();
         public List<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
 
-        [NotMapped] // Thuộc tính này không được ánh xạ vào cơ sở dữ liệu
+        [NotMapped] 
         public string TenTheLoai { get; set; }
     }
 }

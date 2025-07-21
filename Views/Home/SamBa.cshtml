@@ -25,11 +25,37 @@
     <span class="breadcrumb__divider">/</span>
     <span class="breadcrumb__current">Samba</span>
 </nav>
-<select class="filter__select" aria-label="Default select example">
-    <option selected>Bộ lọc</option>
-    <option value="1">Giá (Thấp -> Cao)</option>
-    <option value="2">Giá (Cao -> Thấp)</option>
-</select>
+<form asp-action="SamBa" asp-controller="Home" method="get">
+    <div class="form-group">
+        <label for="filter">Sắp xếp theo:</label>
+        <select class="form-select" name="filter" id="filter" onchange="this.form.submit()">
+            @if (ViewBag.SelectedFilter == "")
+            {
+                <option value="" selected>Bộ lọc</option>
+            }
+            else
+            {
+                <option value="">Bộ lọc</option>
+            }
+            @if (ViewBag.SelectedFilter == "1")
+            {
+                <option value="1" selected>Giá (Thấp -> Cao)</option>
+            }
+            else
+            {
+                <option value="1">Giá (Thấp -> Cao)</option>
+            }
+            @if (ViewBag.SelectedFilter == "2")
+            {
+                <option value="2" selected>Giá (Cao -> Thấp)</option>
+            }
+            else
+            {
+                <option value="2">Giá (Cao -> Thấp)</option>
+            }
+        </select>
+    </div>
+</form>
 
 <div class="product__container">
     <p class="product__title">Giày Samba Jane</p>

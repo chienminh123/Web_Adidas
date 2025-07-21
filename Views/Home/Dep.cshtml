@@ -1,7 +1,7 @@
 ﻿@model TheLoai
 
 @{
-    ViewData["Title"] = "Superstar";
+    ViewData["Title"] = "DEP";
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
@@ -22,13 +22,39 @@
     <span class="breadcrumb__divider">/</span>
     <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Home</a>
     <span class="breadcrumb__divider">/</span>
-    <span class="breadcrumb__current">Superstar</span>
+    <span class="breadcrumb__current">DÉP</span>
 </nav>
-<select class="filter__select" aria-label="Default select example">
-    <option selected>Bộ lọc</option>
-    <option value="1">Giá (Thấp -> Cao)</option>
-    <option value="2">Giá (Cao -> Thấp)</option>
-</select>
+<form asp-action="Dep" asp-controller="Home" method="get">
+    <div class="form-group">
+        <label for="filter">Sắp xếp theo:</label>
+        <select class="form-select" name="filter" id="filter" onchange="this.form.submit()">
+            @if (ViewBag.SelectedFilter == "")
+            {
+                <option value="" selected>Bộ lọc</option>
+            }
+            else
+            {
+                <option value="">Bộ lọc</option>
+            }
+            @if (ViewBag.SelectedFilter == "1")
+            {
+                <option value="1" selected>Giá (Thấp -> Cao)</option>
+            }
+            else
+            {
+                <option value="1">Giá (Thấp -> Cao)</option>
+            }
+            @if (ViewBag.SelectedFilter == "2")
+            {
+                <option value="2" selected>Giá (Cao -> Thấp)</option>
+            }
+            else
+            {
+                <option value="2">Giá (Cao -> Thấp)</option>
+            }
+        </select>
+    </div>
+</form>
 
 <div class="product__container">
     <p class="product__title">dep</p>
@@ -38,7 +64,7 @@
             string anh = "";
             foreach (var sp in Model.SanPhams)
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai == 8)
+                @if (anh.CompareTo(sp.HinhAnh) != 0 )
                 {
                     <div class="product-item">
                         <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
@@ -60,3 +86,5 @@
         }
     </div>
 </div>
+
+

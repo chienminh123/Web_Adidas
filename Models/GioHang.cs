@@ -10,7 +10,7 @@ namespace Web_Adidas.Models
         public int MaGioHang { get; set; }
         [Required]
         public string MaNguoiDung { get; set; }
-        public bool DaXoa { get; set; } = false;
+       
         public ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; }
     }
 }
