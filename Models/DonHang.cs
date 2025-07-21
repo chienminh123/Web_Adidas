@@ -13,11 +13,11 @@ namespace Web_Adidas.Models
         public DateTime NgayTaoDonHang { get; set; } = DateTime.UtcNow;
         // Foreign Key property: Khóa ngoại tới TrangThaiDonHang
         [Required]
-        public int MaTrangThaiDonHang { get; set; } // Đã sửa tên thuộc tính để rõ ràng hơn
+        public int MaTrangThaiDonHang { get; set; } 
 
-        public bool DaXoa { get; set; } = false;
+       
 
-        // Navigation property: Tham chiếu đến đối tượng TrangThaiDonHang
+        
         [ForeignKey("MaTrangThaiDonHang")]
         public TrangThaiDonHang TrangThaiDonHang { get; set; }
 
@@ -32,7 +32,7 @@ namespace Web_Adidas.Models
         public string? PTThanhToan { get; set; }
         public bool ThanhToan { get; set; } = false;
 
-        // Navigation collection: Một đơn hàng có thể có nhiều chi tiết đơn hàng
+       
         public List<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
     }
 }
