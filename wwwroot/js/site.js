@@ -1,7 +1,4 @@
 ﻿
-
-<<<<<<< HEAD
-=======
 //Dieu chinh so luong san pham trong gio hang
         $(document).ready(function () {
             $('.cart-item__quantity-btn').click(function () {
@@ -50,19 +47,19 @@
 
         //Dau x xoa san pham
             $(document).ready(function () {
-                $('.cart-item__remove').click(function () {
+                $('.cart-item__remove').off('click').on('click', function () {
                     var spId = $(this).data('spid');
-                    var $itemRow = $(this).closest('.flex.items-center');
+                    var $itemRow = $(this).closest('.cart-item');
                     $.ajax({
-                        url: '@Url.Action("RemoveItemFromCart", "Cart")',
+                        url: '/Cart/RemoveItemFromCart',
                         type: 'POST',
                         data: { spId: spId },
                         success: function (response) {
                             if (response.success) {
+                                $itemRow.remove();
                                 alert(response.message);
                                 // Xóa phần tử sản phẩm khỏi giao diện
-                                $itemRow.remove();
-                                location.reload();
+                                //location.reload();
                             } else {
                                 alert(response.message || "Có lỗi xảy ra.");
                             }
@@ -72,4 +69,4 @@
                 });
         });
         
->>>>>>> 9de24c9b220d3d27bb40506ba5f2651e03faf98b
+

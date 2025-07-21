@@ -834,6 +834,8 @@ a {
     }
 
 
+
+
 /*Gio hang*/
 .cart {
     flex-grow: 1;
@@ -1619,6 +1621,9 @@ a {
     color: #999;
 }
 
+.search-results {
+    padding: 10px;
+}
 
 /*_Manage Nav*/
 
@@ -1789,4 +1794,14 @@ a {
 
 
 
+    .search-results a {
+        display: block;
+        padding: 5px;
+        color: #000;
+        text-decoration: none;
+    }
+
+        .search-results a:hover {
+            background-color: #f0f0f0;
+        }
     

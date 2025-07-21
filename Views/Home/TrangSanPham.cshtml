@@ -24,11 +24,40 @@
     @if (Model != null && Model.SanPhams != null && Model.SanPhams.Any())
     {
         var sp = Model.SanPhams.First();
+
         <div class="product-detail__container">
             <!-- Cột ảnh -->
-            <div class="product-detail__image">
-                <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham" />
-            </div>
+            @{int chon = sp.MaTheLoai;}
+            
+                <div class="product-detail__image">
+                    @switch (chon)
+                    {
+                        case 1:
+                            <img src="~/img/Giay/Samba/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham"/>
+                            break;
+                        case 2:
+                            <img src="~/img/Giay/Gazelle/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham" />
+                            break;
+                        case 3:
+                            <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham"  />
+                            break;
+                        case 4:
+                            <img src="~/img/Giay/Superstar/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham"  />
+                            break;
+                        case 5 or 6 or 7:
+                            <img src="~/img/Giay/The_Thao/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham"  />
+                            break;
+                        case 8:
+                            <img src="~/img/Dep/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham"  />
+                            break;
+                        case 9:
+                            <img src="~/img/Ao/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham"  />
+                            break;
+                        case 13:
+                            <img src="~/img/Quan/@(sp.HinhAnh ?? "default.jpg")" class="product-detail__image-img" alt="@sp.TenSanPham" />
+                            break;
+                    }
+                </div>
 
             <!-- Cột thông tin -->
             <div class="product-detail__info">
@@ -63,6 +92,13 @@
                             <tr><td>6</td><td>24.5</td></tr>
                             <tr><td>6.5</td><td>25.0</td></tr>
                             <tr><td>7</td><td>25.5</td></tr>
+                            <tr><td>7.5</td><td>26.0</td></tr>
+                            <tr><td>8</td><td>26.5</td></tr>
+                            <tr><td>8.5</td><td>27.0</td></tr>
+                            <tr><td>9</td><td>27.5</td></tr>
+                            <tr><td>9.5</td><td>28.0</td></tr>
+                            <tr><td>10</td><td>28.5</td></tr>
+                            
                         </tbody>
                     </table>
                     <p>Lưu ý: Chọn kích cỡ lớn hơn nếu bạn có bàn chân rộng.</p>

@@ -29,203 +29,236 @@
     <option value="2">Giá (Cao -> Thấp)</option>
 </select>
 
-<div class="product__container">
-    <p class="product__title">Adizero_Adios</p>
-    <div class="product-list">
-        @if (Model != null && Model.SanPhams != null)
-        {
-            string anh = "";
-            string ten = "Giay_Adizero_Adios";
-            foreach (var sp in Model.SanPhams)
+            @if (Model != null && Model.SanPhams != null)
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                string anh = "";
+                string ten = "Giay_Adizero_Adios";
+                foreach (var sp in Model.SanPhams)
                 {
-                    <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                            <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
-                        </a>
-                        <div class="product-info">
-                            <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-                            <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                    {
+                        <div>
+                            <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                                <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
+                            </a>
+                            <div class="product-info">
+                                <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                                <p class="price">@sp.Gia.ToString("N0") VND</p>
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
+                            </div>
                         </div>
-                    </div>
-                }
-                anh = sp.HinhAnh;
+                    }
+                        anh = sp.HinhAnh;
+                    }
+
+
+                
             }
-        }
-        else
-        {
-            <p>Không có sản phẩm để hiển thị.</p>
-        }
+            else
+            {
+                <p>Không có sản phẩm để hiển thị.</p>
+            }
+        </div>
+</div>
+<div>
+        <p>Adizero_Aruku<p>
+        <div>
+            @if (Model != null && Model.SanPhams != null)
+            {
+                string anh = "";
+                string ten = "Giay_Adizero_Aruku";
+                foreach (var sp in Model.SanPhams)
+                {
+                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                    {
+                        <div>
+                            <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                                <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
+                            </a>
+                            <div class="product-info">
+                                <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+                                <p class="price">@sp.Gia.ToString("N0") VND</p>
+                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            </div>
+                        </div>
+                    }
+                    anh = sp.HinhAnh;
+                }
+            }
+            else
+            {
+                 <p>Không có sản phẩm để hiển thị.</p>
+            }
+        </div>
+</div>
+<div>
+     <p>Adizero_Boston<p>
+     <div>
+          @if (Model != null && Model.SanPhams != null)
+          {
+                string anh = "";
+                string ten = "Giay_Trainer_Samba_Low";
+                foreach (var sp in Model.SanPhams)
+                {
+                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                    {
+                        <div>
+                            <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                                <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
+                            </a>
+                            <div class="product-info">
+                                <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                                <p class="price">@sp.Gia.ToString("N0") VND</p>
+                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            </div>
+                        </div>
+                    }
+                        anh = sp.HinhAnh;
+                }
+
+
+           
+          }
+          else
+          {
+              <p>Không có sản phẩm để hiển thị.</p>
+          }
+     </div>
+</div>
+<div>
+      <p>Adizero_EVO<p>
+      <div>
+            @if (Model != null && Model.SanPhams != null)
+            {
+                string anh = "";
+                string ten = "Giay_Trainer_Samba_Low";
+                foreach (var sp in Model.SanPhams)
+                {
+                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                    {
+                        <div>
+                            <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                                <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
+                            </a>
+                            <div class="product-info">
+                                <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                                <p class="price">@sp.Gia.ToString("N0") VND</p>
+                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            </div>
+                        </div>
+                    }
+                        anh = sp.HinhAnh;
+                }
+            }
+            else
+            {
+                   <p>Không có sản phẩm để hiển thị.</p>
+            }
     </div>
 </div>
 
-<div class="product__container">
-    <p class="product__title">Adizero_Aruku</p>
-    <div class="product-list">
-        @if (Model != null && Model.SanPhams != null)
-        {
-            string anh = "";
-            string ten = "Giay_Adizero_Aruku";
-            foreach (var sp in Model.SanPhams)
+<div>
+     <p>Adizero_SL_2<p>
+     <div>
+            @if (Model != null && Model.SanPhams != null)
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                string anh = "";
+                string ten = "Giay_Trainer_Samba_Low";
+                foreach (var sp in Model.SanPhams)
                 {
-                    <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                            <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
-                        </a>
-                        <div class="product-info">
-                            <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-                            <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                }
-                anh = sp.HinhAnh;
-            }
-        }
-        else
-        {
-            <p>Không có sản phẩm để hiển thị.</p>
-        }
-    </div>
-</div>
+                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                    {
+                        <div>
+                            <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                                <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
+                            </a>
+                            <div class="product-info">
+                                <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
 
-<div class="product__container">
-    <p class="product__title">Adizero_Boston</p>
-    <div class="product-list">
-        @if (Model != null && Model.SanPhams != null)
-        {
-            string anh = "";
-            string ten = "Boston";
-            foreach (var sp in Model.SanPhams)
+                                <p class="price">@sp.Gia.ToString("N0") VND</p>
+                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            </div>
+                        </div>
+                    }
+                         anh = sp.HinhAnh;
+                }
+            }
+            else
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
-                {
-                    <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                            <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
-                        </a>
-                        <div class="product-info">
-                            <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-                            <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                }
-                anh = sp.HinhAnh;
+              <p>Không có sản phẩm để hiển thị.</p>
             }
-        }
-        else
-        {
-            <p>Không có sản phẩm để hiển thị.</p>
-        }
-    </div>
+     </div>
 </div>
 
-<div class="banner__container">
-    @* anh qunag caos *@
-</div>
-
-<div class="product__container">
-    <p class="product__title">Adizero_EVO</p>
-    <div class="product-list">
-        @if (Model != null && Model.SanPhams != null)
-        {
-            string anh = "";
-            string ten = "Giay_Adizero_EVO";
-            foreach (var sp in Model.SanPhams)
+<div>
+     <p>Adizero_ZG<p>
+     <div>
+            @if (Model != null && Model.SanPhams != null)
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                string anh = "";
+                string ten = "Giay_Trainer_Samba_Low";
+                foreach (var sp in Model.SanPhams)
                 {
-                    <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                            <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
-                        </a>
-                        <div class="product-info">
-                            <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-                            <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                }
-                anh = sp.HinhAnh;
-            }
-        }
-        else
-        {
-            <p>Không có sản phẩm để hiển thị.</p>
-        }
-    </div>
-</div>
+                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                    {
+                        <div>
+                            <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                                <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
+                            </a>
+                            <div class="product-info">
+                                <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
 
-<div class="product__container">
-    <p class="product__title">Adizero_SL_2</p>
-    <div class="product-list">
-        @if (Model != null && Model.SanPhams != null)
-        {
-            string anh = "";
-            string ten = "Giay_Adizero_SL_2";
-            foreach (var sp in Model.SanPhams)
+                                <p class="price">@sp.Gia.ToString("N0") VND</p>
+                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            </div>
+                        </div>
+                    }
+                         anh = sp.HinhAnh;
+                }
+            }
+            else
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
-                {
-                    <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                            <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
-                        </a>
-                        <div class="product-info">
-                            <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-                            <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                }
-                anh = sp.HinhAnh;
+                <p>Không có sản phẩm để hiển thị.</p>
             }
-        }
-        else
-        {
-            <p>Không có sản phẩm để hiển thị.</p>
-        }
-    </div>
+     </div>
 </div>
 
-<div class="product__container">
-    <p class="product__title">Adizero_ZG</p>
-    <div class="product-list">
-        @if (Model != null && Model.SanPhams != null)
-        {
-            string anh = "";
-            string ten = "Giay_Adizero_ZG";
-            foreach (var sp in Model.SanPhams)
+<div>
+      <p>Adizero_ZG<p>
+      <div>
+
+            @if (Model != null && Model.SanPhams != null)
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                string anh = "";
+                string ten = "Giay_Trainer_Samba_Low";
+                foreach (var sp in Model.SanPhams)
                 {
-                    <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
-                            <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
-                        </a>
-                        <div class="product-info">
-                            <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-                            <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                    @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
+                    {
+                        <div>
+                            <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                                <img src="~/img/Giay/Adizero/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Adizero">
+                            </a>
+                            <div class="product-info">
+                                <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+
+                                <p class="price">@sp.Gia.ToString("N0") VND</p>
+                                <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            </div>
                         </div>
-                    </div>
+                    }
+                     anh = sp.HinhAnh;
                 }
-                anh = sp.HinhAnh;
             }
-        }
-        else
-        {
-            <p>Không có sản phẩm để hiển thị.</p>
-        }
-    </div>
+            else
+            {
+                 <p>Không có sản phẩm để hiển thị.</p>
+            }
+      </div>
 </div>
-
-
 @section Scripts {
     <script>
         $(document).ready(function () {

@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
           rel="stylesheet" />
 }
-@* <i class="bi bi-arrow-return-left">Back</i> *@
+
 
 
 <nav class="breadcrumb">
@@ -44,13 +44,13 @@
                 @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
                 {
                     <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                         </a>
                         <div class="product-info">
                             <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
                             <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            <a class="btn btn-primary add-to-cart-btn" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                         </div>
                     </div>
                 }
@@ -77,13 +77,13 @@
                 @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
                 {
                     <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                         </a>
                         <div class="product-info">
                             <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
                             <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            <a class="btn btn-primary add-to-cart-btn" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                         </div>
                     </div>
                 }
@@ -110,13 +110,13 @@
                 @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
                 {
                     <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                         </a>
                         <div class="product-info">
                             <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
                             <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            <a class="btn btn-primary add-to-cart-btn" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                         </div>
                     </div>
                 }
@@ -147,13 +147,13 @@
                 @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
                 {
                     <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                         </a>
                         <div class="product-info">
                             <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
                             <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            <a class="btn btn-primary add-to-cart-btn" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                         </div>
                     </div>
                 }
@@ -180,13 +180,13 @@
                 @if (anh.CompareTo(sp.HinhAnh) != 0 && ten.CompareTo(sp.TenSanPham) == 0)
                 {
                     <div class="product-item">
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham">
+                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
                             <img src="~/img/Giay/SamBa/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Samba">
                         </a>
                         <div class="product-info">
                             <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
                             <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <button type="button" class="btn btn-primary add-to-cart-btn" data-spid="@sp.MaSanPham">Thêm vào giỏ hàng</button>
+                            <a class="btn btn-primary add-to-cart-btn" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                         </div>
                     </div>
                 }
@@ -199,34 +199,3 @@
         }
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-                $('.add-to-cart-btn').click(function () {
-                    var spId = $(this).data('spid');
-                    $.ajax({
-                        url: '@Url.Action("AddItemToCart", "Cart")',
-                        type: 'POST',
-                        data: { spId: spId, soLuong: 1 }, 
-                        success: function (response) {
-                            if (response.success) {
-                                alert(response.message);
-                                // Có thể cập nhật số lượng giỏ hàng ở đây nếu muốn
-                            } else {
-                                alert(response.message || "Có lỗi xảy ra.");
-                            }
-                        },
-                        error: function (xhr) {
-                            if (xhr.status === 401) {
-                                alert("Bạn cần đăng nhập để thêm vào giỏ hàng.");
-                                window.location.href = '/Identity/Account/Login';
-                            } else {
-                                alert("Có lỗi xảy ra khi thêm vào giỏ hàng.");
-                            }
-                        }
-                    });
-                });
-            });
-    </script>
-}
