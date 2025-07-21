@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Web_Adidas.repositories
 {
-    public class HomeRepo :IHomeRepository
+    public class HomeRepo : IHomeRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -13,27 +13,33 @@ namespace Web_Adidas.repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<SanPham>> GetSanPham(string keySeach = "", int MaTheLoai = 0)
+        public async Task<IEnumerable<SanPham>> GetSanPham(string keySearch = "", int MaTheLoai = 0)
         {
-            keySeach = keySeach.ToLower();
-            IEnumerable<SanPham> sanPham = await (from Sp in _dbContext.DbSetSanPham
-                                                  join theLoai in _dbContext.DbSetTheLoai
-                                                  on Sp.MaSanPham equals theLoai.MaTheLoai
-                                                  where string.IsNullOrWhiteSpace(keySeach) ||
-                                                        (Sp != null && Sp.TenSanPham != null && Sp.TenSanPham.ToLower().StartsWith(keySeach.ToLower()))
-                                                  select new SanPham
-                                                  {
-                                                      MaSanPham = Sp.MaSanPham,
-                                                      HinhAnh = Sp.HinhAnh,
-                                                      Gia = Sp.Gia,
-                                                      TenSanPham = Sp.TenSanPham,
-                                                      TheLoai = Sp.TheLoai,
-                                                      TenTheLoai = Sp.TenTheLoai,
-                                                      SoLuong = Sp.SoLuong
-                                                  }).ToListAsync();  
+            keySearch = keySearch.ToLower();
+            IQueryable<SanPham> query = _dbContext.DbSetSanPham;
 
-            return sanPham;
+            if (!string.IsNullOrWhiteSpace(keySearch))
+            {
+                query = query.Where(sp => sp.TenSanPham != null && sp.TenSanPham.ToLower().Contains(keySearch));
+            }
+
+            if (MaTheLoai > 0)
+            {
+                query = query.Where(sp => sp.MaTheLoai == MaTheLoai);
+            }
+
+            return await query
+                .Select(sp => new SanPham
+                {
+                    MaSanPham = sp.MaSanPham,
+                    HinhAnh = sp.HinhAnh,
+                    Gia = sp.Gia,
+                    TenSanPham = sp.TenSanPham,
+                    TheLoai = sp.TheLoai,
+                    TenTheLoai = sp.TenTheLoai,
+                    SoLuong = sp.SoLuong
+                })
+                .ToListAsync();
         }
-        
     }
 }

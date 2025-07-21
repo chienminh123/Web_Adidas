@@ -221,18 +221,6 @@ namespace Web_Adidas.repositories
         }
 
 
-        /// <summary>
-        /// Lấy giỏ hàng của người dùng theo ID giỏ hàng. (Có vẻ không cần thiết nếu đã có getCart(userId))
-        /// </summary>
-        /// <param name="id">ID của giỏ hàng.</param>
-        /// <returns>Đối tượng GioHang.</returns>
-        
-
-        /// <summary>
-        /// Lấy tổng số lượng sản phẩm trong giỏ hàng của một người dùng.
-        /// </summary>
-        /// <param name="userId">ID của người dùng.</param>
-        /// <returns>Tổng số lượng sản phẩm.</returns>
         public async Task<int> getCartItemCount(string userId)
         {
          

@@ -1619,5 +1619,18 @@ a {
     color: #999;
 }
 
+.search-results {
+    padding: 10px;
+}
 
+    .search-results a {
+        display: block;
+        padding: 5px;
+        color: #000;
+        text-decoration: none;
+    }
+
+        .search-results a:hover {
+            background-color: #f0f0f0;
+        }
     

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+    
     @* <link rel="stylesheet" href="~/Web_Adidas.styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -146,10 +147,12 @@
             
             <div class="header__actions">
                 <div class="header__search">
-                    <input class="header__search-input" type="text" placeholder="tìm kiếm">
-                    <button class="header__search-button">
+                    <input class="header__search-input" type="text" placeholder="tìm kiếm" id="searchInput">
+                    <button class="header__search-button" id="searchButton">
                         <img src="~/img/search.png" alt="Search">
                     </button>
+                    <!-- Thêm phần hiển thị kết quả tìm kiếm -->
+                    <div id="searchResults" class="search-results" style="display: none; position: absolute; background: white; border: 1px solid #ccc; width: 300px; z-index: 1000; max-height: 300px; overflow-y: auto;"></div>
                 </div>
                 <div class="header__icons">
                     <a class="header__icon-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" >
@@ -164,33 +167,83 @@
             </div>
          
         </header>
-            <script>
-                function updateCartCount() {
-                    fetch('/Cart/GetCartItemCount')
-                        .then(response => {
-                            if (!response.ok) {
-                                // Xử lý các phản hồi không thành công, ví dụ: chuyển hướng đến trang đăng nhập nếu không được ủy quyền
-                                if (response.status === 401) {
-                                    window.location.href = '/Identity/Account/Login'; // Chuyển hướng đến trang đăng nhập
+            @* <script>
+                $(document).ready(function () {
+                    function updateCartCount() {
+                        fetch('/Cart/GetCartItemCount')
+                            .then(response => {
+                                if (!response.ok) {
+                                
+                                    if (response.status === 401) {
+                                        window.location.href = '/Identity/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                                    }
+                                    throw new Error('Network response was not ok.');
                                 }
-                                throw new Error('Network response was not ok.');
+                                return response.json();
+                            })
+                            .then(data => {
+                                const cartCountSpan = document.querySelector('.cart-count');
+                                if (cartCountSpan) {
+                                    cartCountSpan.textContent = data.totalCartItems;
+                                }
+                            })
+                            .catch(error => {
+                                console.error('There was a problem fetching the cart count:', error);
+                            });
+                    }
+            
+                    // Gọi hàm khi trang tải
+                    document.addEventListener('DOMContentLoaded', updateCartCount);
+
+                    function searchProducts() {
+                    const query = $('#searchInput').val().trim();
+                    if (query.length < 1) {
+                        $('#searchResults').hide().empty();
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '@Url.Action("SearchProducts", "Home")',
+                        type: 'GET',
+                        data: { query: query },
+                        success: function (response) {
+                            const resultsDiv = $('#searchResults');
+                            resultsDiv.empty();
+                            if (response.length > 0) {
+                                response.forEach(product => {
+                                    resultsDiv.append(
+                                        `<a href="/Home/TrangSanPham?hinhAnh=${encodeURIComponent(product.HinhAnh)}">
+                                                ${product.TenSanPham} (Size: ${product.Size}, Giá: ${product.Gia.toLocaleString()} VND)
+                                            </a>`
+                                    );
+                                });
+                                resultsDiv.show();
+                            } else {
+                                resultsDiv.append('<p>Không tìm thấy sản phẩm.</p>');
+                                resultsDiv.show();
                             }
-                            return response.json();
-                        })
-                        .then(data => {
-                            const cartCountSpan = document.querySelector('.cart-count');
-                            if (cartCountSpan) {
-                                cartCountSpan.textContent = data.totalCartItems;
-                            }
-                        })
-                        .catch(error => {
-                            console.error('There was a problem fetching the cart count:', error);
-                        });
+                        },
+                        error: function () {
+                            $('#searchResults').html('<p>Có lỗi xảy ra khi tìm kiếm.</p>').show();
+                        }
+                    });
                 }
 
-                // Gọi hàm khi trang tải
-                document.addEventListener('DOMContentLoaded', updateCartCount);
-            </script>
+                $('#searchInput').on('input', function () {
+                    searchProducts();
+                });
+
+                $('#searchButton').on('click', function () {
+                    searchProducts();
+                });
+
+                $(document).click(function (e) {
+                    if (!$(e.target).closest('.header__search').length) {
+                        $('#searchResults').hide();
+                    }
+                });
+            }
+            </script> *@
     
         <div class="main-content">    
             <main role="main" class="pb-3">
@@ -239,7 +292,102 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-       <script src="~/js/site.js" asp-append-version="true"></script>   
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Đảm bảo jQuery được tải trước khi chạy mã
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery is not loaded!');
+        } else {
+            $(document).ready(function () {
+                // Cập nhật số lượng giỏ hàng
+                function updateCartCount() {
+                    fetch('/Cart/GetCartItemCount')
+                        .then(response => {
+                            if (!response.ok) {
+                                if (response.status === 401) {
+                                    window.location.href = '/Identity/Account/Login';
+                                }
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const cartCountSpan = $('.cart-count');
+                            if (cartCountSpan.length) {
+                                cartCountSpan.text(data.totalCartItems || 0);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching cart count:', error);
+                        });
+                }
+
+                // Hàm tìm kiếm sản phẩm
+                function searchProducts() {
+                const query = $('#searchInput').val().trim();
+                const resultsDiv = $('#searchResults');
+
+                if (query.length < 2) {
+                    resultsDiv.hide().empty();
+                    return;
+                }
+
+                console.log('Sending search request for:', query); // Debug
+                $.ajax({
+                    url: '@Url.Action("SearchProducts", "Home")',
+                    type: 'GET',
+                    data: { query: query },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log('Search response:', response); // Debug
+                        resultsDiv.empty();
+                        if (response && Array.isArray(response) && response.length > 0) {
+                            response.forEach(product => {
+                                const hinhAnh = encodeURIComponent(product.HinhAnh || '');
+                                const tenSanPham = (product.TenSanPham || 'Không có tên').replace(/"/g, '"');
+                                const size = (product.Size || 'N/A').replace(/"/g, '"');
+                                const gia = (product.Gia || 0).toLocaleString() + ' VND';
+
+                                const itemHtml = `
+                                    <a href="/Home/TrangSanPham?hinhAnh=${hinhAnh}" class="search-result-item">
+                                        ${tenSanPham} (Size: ${size}, Giá: ${gia})
+                                    </a>
+                                `;
+                                resultsDiv.append(itemHtml);
+                            });
+                            resultsDiv.show();
+                        } else {
+                            resultsDiv.append('<p>Không tìm thấy sản phẩm.</p>');
+                            resultsDiv.show();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error:', error, xhr.responseText);
+                        resultsDiv.html('<p>Có lỗi xảy ra khi tìm kiếm.</p>').show();
+                    }
+                });
+            }
+
+            updateCartCount();
+
+            $('#searchInput').on('input', function () {
+                searchProducts();
+            });
+
+            $('#searchButton').on('click', function () {
+                searchProducts();
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.header__search').length) {
+                    $('#searchResults').hide();
+                }
+            });
+        });
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
     
 </body>
