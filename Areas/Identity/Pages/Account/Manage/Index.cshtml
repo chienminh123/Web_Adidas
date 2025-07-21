@@ -5,22 +5,27 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
+<h3 class="profile__title">@ViewData["Title"]</h3>
+
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label"></label>
+
+<div class="profile">
+    <div class="profile__container">
+        <form id="profile-form" method="post" class="profile__form">
+            <div asp-validation-summary="ModelOnly" class="profile__error-summary text-danger"></div>
+
+            <div class="form__group">
+                <input asp-for="Username" class="form__input" disabled />
+                <label asp-for="Username" class="form__label"></label>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+
+            <div class="form__group">
+                <input asp-for="Input.PhoneNumber" class="form__input" />
+                <label asp-for="Input.PhoneNumber" class="form__label"></label>
+                <span asp-validation-for="Input.PhoneNumber" class="form__error text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+
+            <button id="update-profile-button" type="submit" class="form__button">Save</button>
         </form>
     </div>
 </div>
@@ -28,3 +33,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+

@@ -5,23 +5,28 @@
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h3>@ViewData["Title"]</h3>
+<h3 class="profile__title">@ViewData["Title"]</h3>
 
-<div class="row">
-    <div class="col-md-6">
-        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
-        <p>
+<div class="profile">
+    <div class="profile__container">
+        <p class="profile__text">
+            Your account contains personal data that you have given us. This page allows you to download or delete that data.
+        </p>
+        <p class="profile__text profile__warning">
             <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
         </p>
-        <form id="download-data" asp-page="DownloadPersonalData" method="post">
-            <button class="btn btn-primary" type="submit">Download</button>
-        </form>
-        <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a>
-        </p>
+
+        <div class="form__group form__group--actions">
+            <form id="download-data" asp-page="DownloadPersonalData" method="post">
+                <button class="form__button" type="submit">Download</button>
+            </form>
+
+            <a id="delete" asp-page="DeletePersonalData" class="form__button form__button--danger">Delete</a>
+        </div>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
