@@ -8,9 +8,11 @@ namespace Web_Adidas.Models
     {
         [Key]
         public int Id { get; set; }
-        public int MaChiTietDonHAng { get; set; }
-        [ForeignKey(" MaChiTietDonHAng")]
-        public ChiTietDonHang ChiTietDonHang { get; set; }
+        public string MaNguoiDung {  get; set; }
+        [Required]
+        public int MaDonHang { get; set; }
+        [ForeignKey(" MaDonHang")]
+        public  DonHang DonHang { get; set; }
         [Required]
         public string? PhanHoi { get; set; }
     }

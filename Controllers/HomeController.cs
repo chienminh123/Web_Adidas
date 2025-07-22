@@ -203,7 +203,7 @@ public class HomeController : Controller
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var chiTietDonHangs = _context.DbSetChiTietDonHang
-        .Include(ct => ct.DonHang) // Đảm bảo nạp dữ liệu DonHang
+        .Include(ct => ct.DonHang) 
         .Where(ct => ct.DonHang.MaNguoiDung == userId)
         .ToList();
         var model = new DonHang

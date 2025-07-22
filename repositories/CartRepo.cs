@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Web_Adidas.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using AspNetCoreGeneratedDocument;
 
 namespace Web_Adidas.repositories
 {
@@ -293,7 +294,7 @@ namespace Web_Adidas.repositories
                     
                     ThanhToan = false, // Mặc định là chưa thanh toán.
                     MaTrangThaiDonHang = trangthaidonhang.MaTrangThaiDonHang // Gán ID trạng thái đơn hàng.
-                };
+                };             
                 _dbContext.DbSetDonHang.Add(order);
                 await _dbContext.SaveChangesAsync(); // Lưu đơn hàng để có MaDonHang.
 
@@ -399,6 +400,31 @@ namespace Web_Adidas.repositories
                 .ToListAsync();
 
             return chiTietDonHangs;
+        }
+        public async Task<bool> Complaint(int maDonHang,string phanHoi)
+        {
+            
+            try
+            {
+                var userId = GetUserId();
+                var model = new DanhGiaPhanHoi
+                {
+                    MaNguoiDung= userId,
+                    MaDonHang= maDonHang,
+                    PhanHoi=phanHoi
+                };
+
+                _dbContext.DbSetDanhGiaPhanHoi.Add(model);
+                await _dbContext.SaveChangesAsync();
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine($"Lỗi khi gửi khiếu nại: {ex.Message}");
+                return false;
+            }
         }
     }
 }
