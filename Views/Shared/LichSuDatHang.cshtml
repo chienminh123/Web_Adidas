@@ -22,13 +22,22 @@
                     <h2>Ngày đặt hàng: @item.DonHang.NgayTaoDonHang</h2>
                     <h2>Phương thức thanh toán: @item.DonHang.PTThanhToan</h2>
                     <a href="@Url.Action("ChiTietDonHang", "Cart", new { maDonHang =item.MaDonHang })">Xem chi tiết</a>
-                       
+
+                    @if (item.DonHang.MaTrangThaiDonHang == 1)
+                    {
+                        <button type="button"
+                                class="btn btn-danger remove-item-btn ms-3"
+                                data-spid="@item.MaDonHang">
+                            Hủy
+                        </button>
+                    }
+                    else if (item.DonHang.MaTrangThaiDonHang == 4 )
+                    {
+                        
+                            <a asp-controller="Cart" asp-action="KhieuNai" asp-route-maDonHang="@item.MaDonHang"> Khiếu nại </a>
+                        
+                    }
                     
-                    <button type="button"
-                            class="btn btn-danger remove-item-btn ms-3"
-                            data-spid="@item.MaDonHang">
-                        Hủy
-                    </button>
                     
                 </div>
             }
@@ -39,6 +48,7 @@
 else
 {
     <div class="alert alert-info">Lịch sử mua hàng của bạn đang trống.</div>
+    
 }
 @section Scripts{
     <script>
@@ -70,6 +80,8 @@ else
                     }
                 });
             });
+            $(document).ready(function () {
+        
     </script>   
             
     

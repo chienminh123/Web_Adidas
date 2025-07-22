@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -14,6 +15,7 @@ namespace Web_Adidas.Controllers
         private readonly IHomeRepository _homeRepository;
         private readonly ApplicationDbContext _context;
         private readonly IcartRepository _cartRepository;
+        private readonly UserManager<IdentityUser> _userManager;
         public CartController(ApplicationDbContext context, IcartRepository cartRepository)
         {
             _context = context;
@@ -272,5 +274,53 @@ namespace Web_Adidas.Controllers
                 return StatusCode(500, new { success = false, message = "Có lỗi xảy ra khi lấy chi tiết đơn hàng." });
             }
         }
+        [HttpGet]
+        public IActionResult KhieuNai(int maDonHang)
+        {
+            
+            var model = new DanhGiaPhanHoi
+            {
+                
+                MaDonHang = maDonHang
+            };
+            return View(model);
+        }
+
+        public async Task<IActionResult> Complain(int maDonHang,string phanHoi)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ.", errors });
+            }
+
+            try
+            {
+              
+
+                
+                var result = await _cartRepository.Complaint(maDonHang,phanHoi);
+                if (result)
+                {
+                    return Json(new { success = true, message = "Gửi khiếu nại thành công! Đợi Shop check rồi phản hồi lại bạn nhé <3 " });
+                }
+                return StatusCode(500, new { success = false, message = "Có lỗi xảy ra khi gửi khiếu nại." });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { success = false, message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi gửi khiếu nại: {ex.Message}");
+                return StatusCode(500, new { success = false, message = "Có lỗi không xác định xảy ra khi gửi khiếu nại." });
+            }
+        }
     }
 }
+
+

@@ -1,0 +1,66 @@
+﻿@model DanhGiaPhanHoi
+
+@{
+    ViewData["Title"] = "Gửi Khiếu Nại";
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+}
+
+@*   Font chu *@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap"
+      rel="stylesheet" />
+
+<h2 class="complain__title">ĐƠN KHIẾU NẠI</h2>
+<div class="complain__container">
+    <div class="complain__info">
+        <h3 class="complain__info-title">Nội dung khiếu nại</h3>
+        <form asp-action="Complain" asp-controller="Cart" method="post" class="complain__form mt-4">
+            <input type="hidden" asp-for="MaDonHang" />
+            <div class="form-group">
+                <label asp-for="PhanHoi" class="control-label">Nội dung khiếu nại</label>
+                <textarea asp-for="PhanHoi" class="form-control" rows="5" required placeholder="Vui lòng nhập nội dung khiếu nại..."></textarea>
+                <span asp-validation-for="PhanHoi" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Gửi Khiếu Nại</button>
+                <a asp-controller="Cart" asp-action="ChiTietDonHang" asp-route-maDonHang="@Model.MaDonHang" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+    
+@section Scripts {
+    <script>
+             $(document).ready(function () {
+            $('.complain__form').submit(function (e) {
+                e.preventDefault();
+                 var maDonHang = $('#MaDonHang').val();
+                var phanHoi = $('#PhanHoi').val();
+                        console.log("MaDonHang:", $('#MaDonHang').val());
+        console.log("PhanHoi:", $('#PhanHoi').val());
+                $.ajax({
+                    url: '@Url.Action("Complain", "Cart")',
+                    type: 'POST',
+                    data: {MaDonHang:maDonHang,PhanHoi:phanHoi},
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            window.location.href = '@Url.Action("index", "Home")';
+                        } else {
+                            alert(response.message || "Có lỗi xảy ra khi gửi khiếu nại.");
+                        }
+                    },
+                    error: function (xhr) {
+                        alert("Lỗi: " + (xhr.responseJSON?.message || "Không thể gửi yêu cầu."));
+                    }
+                });
+            });
+        });
+    </script>
+}
+

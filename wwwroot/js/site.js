@@ -49,9 +49,9 @@
             $(document).ready(function () {
                 $('.cart-item__remove').click(function () {
                     var spId = $(this).data('spid');
-                    var $itemRow = $(this).closest('.flex.items-center');
+                    var $itemRow = $(this).closest('.cart-item');
                     $.ajax({
-                        url: '@Url.Action("RemoveItemFromCart", "Cart")',
+                        url: '/Cart/RemoveItemFromCart',
                         type: 'POST',
                         data: { spId: spId },
                         success: function (response) {
@@ -59,7 +59,7 @@
                                 alert(response.message);
                                 // Xóa phần tử sản phẩm khỏi giao diện
                                 $itemRow.remove();
-                                location.reload();
+                                //location.reload();
                             } else {
                                 alert(response.message || "Có lỗi xảy ra.");
                             }
