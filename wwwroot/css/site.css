@@ -3,16 +3,19 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Sora", sans-serif;
+    
 }
 
 
 
 html, body {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
+    
+    
 }
 
 .main-content {
@@ -351,16 +354,56 @@ a {
         text-decoration: underline;
     }
 
+form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0 30px 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
     .form-group label {
-        display: block;
-        margin-bottom: 15px;
-        color: #555;
-        font-size: 14px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #111;
+        margin-bottom: 6px;
     }
+
+
+.form-select {
+    padding: 10px 16px;
+    font-size: 15px;
+    color: #111;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    appearance: none;
+    transition: border 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+    .form-select:hover {
+        border-color: #000;
+    }
+
+    .form-select:focus {
+        border-color: #000;
+        box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+        outline: none;
+    }
+
+
+
 
     .form-group input {
         width: 100%;
@@ -1198,7 +1241,7 @@ a {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     z-index: 1000;
     border-radius: 8px;
-    max-width: 400px;
+    max-width: 700px;
     text-align: center;
 }
 
@@ -1234,14 +1277,38 @@ a {
 .size-guide-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 15px 0;
+    table-layout: fixed; 
 }
 
-    .size-guide-table th, .size-guide-table td {
-        border: 1px solid #ddd;
-        padding: 8px;
+    
+    .size-guide-table th,
+    .size-guide-table td {
+        padding: 10px 8px;
         text-align: center;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        white-space: nowrap;
     }
+
+        
+        .size-guide-table th:nth-child(1),
+        .size-guide-table td:nth-child(1) {
+            width: 16%; 
+        }
+
+        .size-guide-table th:nth-child(2),
+        .size-guide-table td:nth-child(2),
+        .size-guide-table th:nth-child(3),
+        .size-guide-table td:nth-child(3),
+        .size-guide-table th:nth-child(4),
+        .size-guide-table td:nth-child(4) {
+            width: 20%;
+        }
+
+        .size-guide-table th:nth-child(5),
+        .size-guide-table td:nth-child(5) {
+            width: 24%; 
+        }
 
     .size-guide-table th {
         background-color: #f5f5f5;
@@ -1418,9 +1485,10 @@ a {
 .breadcrumb {
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 20px;
     gap: 8px;
+    margin-top: 3px;
 }
 
 .breadcrumb__back {
@@ -1804,4 +1872,69 @@ a {
         .search-results a:hover {
             background-color: #f0f0f0;
         }
+
+/*Nut cuon len dau trang*/
+#back-to-top {
+    display: none; 
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+    #back-to-top:hover {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+
+    
+    #back-to-top.show {
+        display: block;
+    }
+
+/*Thanh dieu huong*/
+
+#shoe-nav {
+    position: sticky;
+    top: 60px;
+    z-index: 1000;
+    background-color: white;
+    display: flex;
+    gap: 20px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+    
+    #shoe-nav a {
+        text-decoration: none;
+        color: #000;
+        font-weight: 500;
+        padding: 6px 10px;
+        transition: color 0.2s;
+    }
+
+        
+        #shoe-nav a:hover {
+            color: #e60023; 
+        }
+
+
+        #shoe-nav a.active {
+            border-bottom: 2px solid #e60023;
+            font-weight: bold;
+            color: #e60023;
+        }
+
+
     

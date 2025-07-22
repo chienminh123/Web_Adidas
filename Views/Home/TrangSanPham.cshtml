@@ -16,10 +16,10 @@
             <span class="breadcrumb__icon">
                 <i class="ri-arrow-left-line"></i>
             </span>
-            <span class="breadcrumb__text">BACK</span>
+            <span class="breadcrumb__text">Trở lại</span>
         </a>
         <span class="breadcrumb__divider">/</span>
-        <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Home</a>
+        <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Trang chủ</a>
     </nav>
     @if (Model != null && Model.SanPhams != null && Model.SanPhams.Any())
     {
@@ -75,33 +75,84 @@
                 <div class="size-guide-popup" id="sizeGuidePopup">
                     <span class="close-btn" onclick="closePopup()">×</span>
                     <h3>Hướng Dẫn Chọn Kích Cỡ</h3>
-                    <p>Vui lòng đo chiều dài bàn chân và tham khảo bảng dưới đây:</p>
-                    <table class="size-guide-table">
-                        <thead>
-                            <tr>
-                                <th>Kích cỡ UK</th>
-                                <th>Chiều dài (cm)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>3.5</td><td>22.0</td></tr>
-                            <tr><td>4</td><td>22.5</td></tr>
-                            <tr><td>4.5</td><td>23.0</td></tr>
-                            <tr><td>5</td><td>23.5</td></tr>
-                            <tr><td>5.5</td><td>24.0</td></tr>
-                            <tr><td>6</td><td>24.5</td></tr>
-                            <tr><td>6.5</td><td>25.0</td></tr>
-                            <tr><td>7</td><td>25.5</td></tr>
-                            <tr><td>7.5</td><td>26.0</td></tr>
-                            <tr><td>8</td><td>26.5</td></tr>
-                            <tr><td>8.5</td><td>27.0</td></tr>
-                            <tr><td>9</td><td>27.5</td></tr>
-                            <tr><td>9.5</td><td>28.0</td></tr>
-                            <tr><td>10</td><td>28.5</td></tr>
-                            
-                        </tbody>
-                    </table>
-                    <p>Lưu ý: Chọn kích cỡ lớn hơn nếu bạn có bàn chân rộng.</p>
+                    @if (chon == 9) // Áo
+                    {
+                        <p>Vui lòng đo số đo cơ thể (ngực, eo, chiều dài áo, chiều dài tay áo) và tham khảo bảng dưới đây:</p>
+                        <table class="size-guide-table">
+                            <thead>
+                                <tr>
+                                    <th>Kích cỡ</th>
+                                    <th>Ngực (cm)</th>
+                                    <th>Eo (cm)</th>
+                                    <th>Chiều dài áo (cm)</th>
+                                    <th>Chiều dài tay áo (cm)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>XS</td><td>80-84</td><td>60-64</td><td>60-62</td><td>58-60</td></tr>
+                                <tr><td>S</td><td>85-89</td><td>65-69</td><td>62-64</td><td>60-62</td></tr>
+                                <tr><td>M</td><td>90-94</td><td>70-74</td><td>64-66</td><td>62-64</td></tr>
+                                <tr><td>L</td><td>95-99</td><td>75-79</td><td>66-68</td><td>64-66</td></tr>
+                                <tr><td>XL</td><td>100-104</td><td>80-84</td><td>68-70</td><td>66-68</td></tr>
+                                <tr><td>XXL</td><td>105-109</td><td>85-89</td><td>70-72</td><td>68-70</td></tr>
+                            </tbody>
+                        </table>
+                        <p>Lưu ý: Chọn kích cỡ lớn hơn nếu bạn muốn mặc rộng rãi.</p>
+                    }
+                    else if (chon == 13) // Quần
+                    {
+                        <p>Vui lòng đo số đo cơ thể (eo, hông, độ dài quần, chiều rộng ống quần) và tham khảo bảng dưới đây:</p>
+                        <table class="size-guide-table">
+                            <thead>
+                                <tr>
+                                    <th>Kích cỡ</th>
+                                    <th>Vòng eo<br>(cm)</th>
+                                    <th>Vòng hông<br>(cm)</th>
+                                    <th>Độ dài quần<br>(cm)</th>
+                                    <th>Chiều rộng ống quần<br>(cm)</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr><td>XS</td><td>60-64</td><td>84-88</td><td>98-100</td><td>15-17</td></tr>
+                                <tr><td>S</td><td>65-69</td><td>89-93</td><td>100-102</td><td>17-19</td></tr>
+                                <tr><td>M</td><td>70-74</td><td>94-98</td><td>102-104</td><td>19-21</td></tr>
+                                <tr><td>L</td><td>75-79</td><td>99-103</td><td>104-106</td><td>21-23</td></tr>
+                                <tr><td>XL</td><td>80-84</td><td>104-108</td><td>106-108</td><td>23-25</td></tr>
+                                <tr><td>XXL</td><td>85-89</td><td>109-113</td><td>108-110</td><td>25-27</td></tr>
+                            </tbody>
+                        </table>
+                        <p>Lưu ý: Chọn kích cỡ lớn hơn nếu bạn muốn mặc thoải mái hoặc có chân dài hơn.</p>
+                    }
+                    else // Giày dép
+                    {
+                        <p>Vui lòng đo chiều dài bàn chân và tham khảo bảng dưới đây:</p>
+                        <table class="size-guide-table">
+                            <thead>
+                                <tr>
+                                    <th>Kích cỡ UK</th>
+                                    <th>Chiều dài (cm)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>3.5</td><td>22.0</td></tr>
+                                <tr><td>4</td><td>22.5</td></tr>
+                                <tr><td>4.5</td><td>23.0</td></tr>
+                                <tr><td>5</td><td>23.5</td></tr>
+                                <tr><td>5.5</td><td>24.0</td></tr>
+                                <tr><td>6</td><td>24.5</td></tr>
+                                <tr><td>6.5</td><td>25.0</td></tr>
+                                <tr><td>7</td><td>25.5</td></tr>
+                                <tr><td>7.5</td><td>26.0</td></tr>
+                                <tr><td>8</td><td>26.5</td></tr>
+                                <tr><td>8.5</td><td>27.0</td></tr>
+                                <tr><td>9</td><td>27.5</td></tr>
+                                <tr><td>9.5</td><td>28.0</td></tr>
+                                <tr><td>10</td><td>28.5</td></tr>
+                            </tbody>
+                        </table>
+                        <p>Lưu ý: Chọn kích cỡ lớn hơn nếu bạn có bàn chân rộng.</p>
+                    }
                 </div>
 
                 <div id="size-buttons" class="product-detail__sizes">
