@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
 
-    
+    @* // Icon *@
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
 
     }
 
@@ -16,6 +18,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap"
           rel="stylesheet" />
 
+
+<nav class="breadcrumb">
+    <a href="@Url.Action("ViewCart", "Cart")" class="breadcrumb__back">
+        <span class="breadcrumb__icon">
+            <i class="ri-arrow-left-line"></i>
+        </span>
+        <span class="breadcrumb__text">Trở lại</span>
+    </a>
+
+    <span class="breadcrumb__divider">/</span>
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Trang chủ</a>
+</nav>
 
 <h2 class="checkout__title">THANH TOÁN ĐƠN HÀNG</h2>
 
@@ -56,12 +70,15 @@
                 <span asp-validation-for="PtThanhToan" class="checkout__error text-danger"></span>
             </div>
         </form>
-        <button type="submit" class="checkout-item-btn">XÁC NHẬN ĐẶT HÀNG</button>
+        <button type="submit" class="checkout-item-btn btn btn-primary add-to-cart-btn">XÁC NHẬN ĐẶT HÀNG</button>
     </div>
 
 
 @section Scripts {
     <script>
+                                 
+
+
                 $(document).ready(function () {
             $('.checkout-item-btn').click(function (e) {
                 e.preventDefault(); 
@@ -88,5 +105,7 @@
                 });
             });
         });
+
+            
     </script>
 }

@@ -5,10 +5,24 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+
+    // Icon
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
    
 }
-<a asp-controller="Home" asp-action="Index">Home</a>
-<p>@ViewData["Title"]</p>
+<nav class="breadcrumb">
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__back">
+        <span class="breadcrumb__icon">
+            <i class="ri-arrow-left-line"></i>
+        </span>
+        <span class="breadcrumb__text">Trở lại</span>
+    </a>
+    <span class="breadcrumb__divider">/</span>
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Trang chủ</a>
+    <span class="breadcrumb__divider">/</span>
+    <span class="breadcrumb__current">Quần</span>
+</nav>
 <form asp-action="Ao" asp-controller="Home" method="get">
     <div class="form-group">
         <label for="filter">Sắp xếp theo:</label>
@@ -41,31 +55,24 @@
     </div>
 </form>
 
-<div>
-    <p>Ao</p>
-    <div>
-
-        @if (Model != null && Model.SanPhams != null)
+<div class="product__container">
+    <p class="product__title">Áo</p>
+    <div class="product-list">
+        @if (Model != null && Model.SanPhams != null && Model.SanPhams.Any())
         {
-            string anh = "";
-           
-            foreach (var sp in Model.SanPhams)
+            var uniqueProducts = Model.SanPhams.Where(sp => sp.MaTheLoai == 9).GroupBy(sp => sp.HinhAnh).Select(g => g.First());
+            foreach (var sp in uniqueProducts)
             {
-                @if (anh.CompareTo(sp.HinhAnh) != 0 && sp.MaTheLoai== 9)
-                {
-                    <div>
-                        <a class="product-card" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
-                            <img src="~/img/Ao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="Ao">
-                        </a>
-                        <div class="product-info">
-                            <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
-
-                            <p class="price">@sp.Gia.ToString("N0") VND</p>
-                            <a class="btn btn-primary" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
-                        </div>
+                <div class="product-item">
+                    <a asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">
+                        <img src="~/img/Ao/@(sp.HinhAnh ?? "default.jpg")" class="card-img-top" alt="@sp.TenSanPham">
+                    </a>
+                    <div class="product-info">
+                        <h5>@(sp.TenSanPham ?? "Không có tên")</h5>
+                        <p class="price">@sp.Gia.ToString("N0") VND</p>
+                        <a class="btn btn-primary add-to-cart-btn" asp-controller="Home" asp-action="TrangSanPham" asp-route-hinhAnh="@sp.HinhAnh">Chi Tiết Sản Phẩm</a>
                     </div>
-                }
-                anh = sp.HinhAnh;
+                </div>
             }
         }
         else

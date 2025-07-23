@@ -22,22 +22,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap"
           rel="stylesheet" />
+
+    @* // Icon *@
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
 }
+
+
 <nav class="breadcrumb">
-    <a asp-controller="Home" asp-action="Index" class="breadcrumb__back">
+    <a href="#" class="breadcrumb__back" id="backButton">
         <span class="breadcrumb__icon">
             <i class="ri-arrow-left-line"></i>
         </span>
-        <span class="breadcrumb__text">BACK</span>
+        <span class="breadcrumb__text">Trở lại</span>
     </a>
     <span class="breadcrumb__divider">/</span>
-    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Home</a>
-    <span class="breadcrumb__divider">/</span>
-    <span class="breadcrumb__current">Giỏ hàng</span>
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Trang chủ</a>
 </nav>
+
+
 <main class="cart">
     <h1 class="cart__title">GIỎ HÀNG CỦA BẠN</h1>
-    <a asp-controller="Home" asp-action="LichSuDatHang" >Lịch sử mua hàng </a>
+    <a asp-controller="Home" asp-action="LichSuDatHang" class="cart__history">Lịch sử mua hàng </a>
    
 
 
@@ -160,6 +166,11 @@
     {
         <div class="alert alert-info">Giỏ hàng của bạn đang trống.</div>
     }
+
+    
 </main>
+
+
+
 
 

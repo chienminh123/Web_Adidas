@@ -3,16 +3,19 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Sora", sans-serif;
+    
 }
 
 
 
 html, body {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
+    
+    
 }
 
 .main-content {
@@ -351,16 +354,50 @@ a {
         text-decoration: underline;
     }
 
+
+
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
     .form-group label {
-        display: block;
-        margin-bottom: 15px;
-        color: #555;
-        font-size: 14px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #111;
+        margin-bottom: 6px;
     }
+
+
+.form-select {
+    padding: 10px 16px;
+    font-size: 15px;
+    color: #111;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    appearance: none;
+    transition: border 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+    .form-select:hover {
+        border-color: #000;
+    }
+
+    .form-select:focus {
+        border-color: #000;
+        box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+        outline: none;
+    }
+
+
+
 
     .form-group input {
         width: 100%;
@@ -834,6 +871,8 @@ a {
     }
 
 
+
+
 /*Gio hang*/
 .cart {
     flex-grow: 1;
@@ -1196,7 +1235,7 @@ a {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     z-index: 1000;
     border-radius: 8px;
-    max-width: 400px;
+    max-width: 700px;
     text-align: center;
 }
 
@@ -1232,14 +1271,38 @@ a {
 .size-guide-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 15px 0;
+    table-layout: fixed; 
 }
 
-    .size-guide-table th, .size-guide-table td {
-        border: 1px solid #ddd;
-        padding: 8px;
+    
+    .size-guide-table th,
+    .size-guide-table td {
+        padding: 10px 8px;
         text-align: center;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        white-space: nowrap;
     }
+
+        
+        .size-guide-table th:nth-child(1),
+        .size-guide-table td:nth-child(1) {
+            width: 16%; 
+        }
+
+        .size-guide-table th:nth-child(2),
+        .size-guide-table td:nth-child(2),
+        .size-guide-table th:nth-child(3),
+        .size-guide-table td:nth-child(3),
+        .size-guide-table th:nth-child(4),
+        .size-guide-table td:nth-child(4) {
+            width: 20%;
+        }
+
+        .size-guide-table th:nth-child(5),
+        .size-guide-table td:nth-child(5) {
+            width: 24%; 
+        }
 
     .size-guide-table th {
         background-color: #f5f5f5;
@@ -1416,9 +1479,10 @@ a {
 .breadcrumb {
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 20px;
     gap: 8px;
+    margin-top: 3px;
 }
 
 .breadcrumb__back {
@@ -1643,6 +1707,7 @@ a {
     transition: background-color 0.2s;
 }
 
+
     .search-results div:hover {
         background-color: #f0f0f0;
     }
@@ -1658,6 +1723,347 @@ a {
     color: #555;
     text-align: center;
     font-style: italic;
+
+/*_Manage Nav*/
+
+
+
+.sidebar {
+    background-color: #fff;
+    padding: 30px 0;
+    border-radius: 12px 0 0 12px;
+    height: auto;
+}
+
+    
+    .sidebar .nav-link {
+        background-color: #fff;
+        color: black;
+        font-weight: 500;
+        padding: 12px 20px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        /* Hover */
+        .sidebar .nav-link:hover {
+            background-color: #f0f0f0;
+            color: black;
+        }
+
+        /* Active */
+        .sidebar .nav-link.active {
+            background-color: #000;
+            color: white;
+            font-weight: bold;
+        }
+
+
+
+/*Account profile*/
+.profile {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+}
+
+.profile__container {
+    width: 100%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile__title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form__group {
+    position: relative;
+}
+
+.form__label {
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    background: white;
+    padding: 0 4px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.form__input {
+    width: 100%;
+    padding: 14px 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background-color: #fff;
+    transition: border 0.3s;
+}
+
+    .form__input:focus {
+        outline: none;
+        border-color: #000;
+    }
+
+.form__error {
+    font-size: 13px;
+    color: red;
+    margin-top: 5px;
+}
+
+.form__button {
+    background-color: #000;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+    .form__button:hover {
+        background-color: #333;
+    }
+
+.profile__subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 30px 0 15px;
+}
+
+.form__group--actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.form__button {
+    background-color: #000;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+    .form__button:hover {
+        background-color: #333;
+    }
+
+/*Person data account*/
+.profile__text {
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.profile__warning {
+    color: #dc3545;
+}
+
+.form__button--danger {
+    background-color: #dc3545;
+}
+
+    .form__button--danger:hover {
+        background-color: #b02a37;
+    }
+
+
+
+    .search-results a {
+        display: block;
+        padding: 5px;
+        color: #000;
+        text-decoration: none;
+    }
+
+        .search-results a:hover {
+            background-color: #f0f0f0;
+        }
+
+/*Nut cuon len dau trang*/
+#back-to-top {
+    display: none; 
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+    #back-to-top:hover {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+
+    
+    #back-to-top.show {
+        display: block;
+    }
+
+/*Thanh dieu huong*/
+
+#shoe-nav {
+    position: sticky;
+    top: 60px;
+    z-index: 1000;
+    background-color: white;
+    display: flex;
+    gap: 20px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+    
+    #shoe-nav a {
+        text-decoration: none;
+        color: #000;
+        font-weight: 500;
+        padding: 6px 10px;
+        transition: color 0.2s;
+    }
+
+        
+        #shoe-nav a:hover {
+            color: #e60023; 
+        }
+
+
+        #shoe-nav a.active {
+            border-bottom: 2px solid #e60023;
+            font-weight: bold;
+            color: #e60023;
+        }
+
+
+/*Chi tiet don hang*/
+.order-details__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.order-details__cart-list {
+    margin-bottom: 20px;
+}
+
+.order-details__item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-details__item-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 30px;
+}
+
+.order-details__item-content {
+    flex-grow: 1;
+    margin-bottom: 65px;
+}
+
+.order-details__item-title {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.order-details__item-detail {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.order-details__item-qty {
+    display: inline-block;
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.order-details__item-price {
+    font-weight: bold;
+    font-size: 15px;
+    color: #333;
+}
+
+.order-details__total {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 10px;
+    color: #000;
+}
+
+/*Lich sua mua hang*/
+.cart__history {
+    display: block;
+    margin-bottom: 20px;
+    
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+    .cart__history:hover {
+        background-color: #e9ecef;
+        text-decoration: underline;
+        color: #000;
+    }
+
+.cart {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.cart__title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+
 }
 
 

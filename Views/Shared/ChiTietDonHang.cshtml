@@ -5,100 +5,108 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+
+    @* // Icon *@
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
     
 }
-@if (Model != null && Model.ChiTietDonHangs != null && Model.ChiTietDonHangs.Any())
-{
 
-    double tong = 0;
-    <div class="cart-list">
-        
-        @foreach (var item in Model.ChiTietDonHangs)
-        {
-            
-            int chon = item.SanPham.MaTheLoai;
+<nav class="breadcrumb">
+    <a href="@Url.Action("LichSuDatHang", "Home")" class="breadcrumb__back">
+        <span class="breadcrumb__icon">
+            <i class="ri-arrow-left-line"></i>
+        </span>
+        <span class="breadcrumb__text">Trở lại</span>
+    </a>
+    <span class="breadcrumb__divider">/</span>
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Trang chủ</a>
+</nav>
 
-            <div >
-                <div class="cart-img me-3">
-                    @switch (chon)
-                    {
-                        case 1:
-                            {
-                                <img src="~/img/Giay/Samba/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 2:
-                            {
-                                <img src="~/img/Giay/Gazelle/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 3:
-                            {
-                                <img src="~/img/Giay/Adizero/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 4:
-                            {
-                                <img src="~/img/Giay/Superstar/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 5 or 6 or 7:
-                            {
-                                <img src="~/img/Giay/The_Thao/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-
-                        case 8:
-                            {
-                                <img src="~/img/Dep/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 9:
-                            {
-                                <img src="~/img/Ao/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
-                        case 13:
-                            {
-                                <img src="~/img/Quan/@(item.SanPham.HinhAnh ?? "default.jpg")"
-                                     alt="@item.SanPham.TenSanPham"
-                                     style="width: 96px; height: 96px; object-fit: cover;" />
-                                break;
-                            }
+<div class="order-details__container">
+    @if (Model != null && Model.ChiTietDonHangs != null && Model.ChiTietDonHangs.Any())
+    {
+        double tong = 0;
+        <div class="order-details__cart-list">
+            @foreach (var item in Model.ChiTietDonHangs)
+            {
+                int chon = item.SanPham.MaTheLoai;
+                <div class="order-details__item">
+                    <div class="order-details__item-image">
+                        @switch (chon)
+                        {
+                            case 1:
+                                {
+                                    <img src="~/img/Giay/Samba/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                         alt="@item.SanPham.TenSanPham"
+                                         class="order-details__item-image" />
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    <img src="~/img/Giay/Gazelle/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                         alt="@item.SanPham.TenSanPham"
+                                         class="order-details__item-image" />
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    <img src="~/img/Giay/Adizero/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                         alt="@item.SanPham.TenSanPham"
+                                         class="order-details__item-image" />
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    <img src="~/img/Giay/Superstar/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                         alt="@item.SanPham.TenSanPham"
+                                         class="order-details__item-image" />
+                                    break;
+                                }
+                            case 5 or 6 or 7:
+                                {
+                                    <img src="~/img/Giay/The_Thao/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                         alt="@item.SanPham.TenSanPham"
+                                         class="order-details__item-image" />
+                                    break;
+                                }
+                            case 8:
+                                {
+                                    <img src="~/img/Dep/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                         alt="@item.SanPham.TenSanPham"
+                                         class="order-details__item-image" />
+                                    break;
+                                }
+                            case 9:
+                                {
+                                    <img src="~/img/Ao/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                         alt="@item.SanPham.TenSanPham"
+                                         class="order-details__item-image" />
+                                    break;
+                                }
+                            case 13:
+                                {
+                                    <img src="~/img/Quan/@(item.SanPham.HinhAnh ?? "default.jpg")"
+                                         alt="@item.SanPham.TenSanPham"
+                                         class="order-details__item-image" />
+                                    break;
+                                }
+                        }
+                    </div>
+                    <div class="order-details__item-content">
+                        <h5 class="order-details__item-title">@item.SanPham.TenSanPham</h5>
+                        <div class="order-details__item-detail">Giá: @item.SanPham.Gia.ToString("N0") VND</div>
+                        <span class="order-details__item-qty">Số lượng: @item.SoLuong</span>
+                        <div class="order-details__item-price">Đơn giá: @item.DonGia.ToString("N0") VND</div>
+                    </div>
+                    @{
+                        tong += item.DonGia;
                     }
-
-
-
                 </div>
-                <div class="flex-grow-1">
-                    <h5>@item.SanPham.TenSanPham</h5>
-                    <div>Giá: @item.SanPham.Gia.ToString("N0") VND</div>
+            }
+        </div>
+        <p class="order-details__total">Thành Tiền: @tong.ToString("N0") VND</p>
+    }
+</div>
 
-                    <span class="cart-qty" > Số lượng : @item.SoLuong</span>
 
-
-                    <div class="fw-bold">Đơn giá : @item.DonGia.ToString("N0") VND</div>
-                </div>
-                @{
-                    tong +=item.DonGia;
-                }
-            </div>
-        }
-       
-    </div>
-    <p>Thành Tiền : @tong.ToString("N0") VND</p>
-}
