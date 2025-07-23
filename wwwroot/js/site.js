@@ -1,4 +1,10 @@
 ﻿
+document.getElementById('backButton').addEventListener('click', function (event) {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+    window.history.back();  // Quay lại trang trước đó
+});
+
+
 //Dieu chinh so luong san pham trong gio hang
         $(document).ready(function () {
             $('.cart-item__quantity-btn').click(function () {
@@ -67,6 +73,11 @@
 
                     });
                 });
-        });
+            });
+
+
+
+ 
+
         
 
