@@ -1684,8 +1684,45 @@ a {
 }
 
 .search-results {
-    padding: 10px;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    top: 100%; /* Đặt danh sách kết quả ngay dưới thanh tìm kiếm */
+    
+    margin-top: 5px; /* Khoảng cách nhỏ để tách biệt */
 }
+
+.search-results div {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+
+    .search-results div:hover {
+        background-color: #f0f0f0;
+    }
+
+.search-results img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.search-results .no-results {
+    color: #555;
+    text-align: center;
+    font-style: italic;
 
 /*_Manage Nav*/
 
@@ -2026,6 +2063,7 @@ a {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 15px;
+
 }
 
 

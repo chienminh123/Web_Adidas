@@ -13,7 +13,9 @@
     
     }
 
-    // <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" /> 
+    // Icon
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
 
     // Font chu
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,6 +28,7 @@
           rel="stylesheet" />
 }
 
+
 <nav class="breadcrumb">
     <a href="#" class="breadcrumb__back" id="backButton">
         <span class="breadcrumb__icon">
@@ -36,6 +39,7 @@
     <span class="breadcrumb__divider">/</span>
     <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Trang chủ</a>
 </nav>
+
 
 <main class="cart">
     <h1 class="cart__title">GIỎ HÀNG CỦA BẠN</h1>
@@ -81,7 +85,7 @@
                                 case 4:
                                     <img src="~/img/Giay/Superstar/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
                                     break;
-                                case 5 or 6 or 7:
+                                case 5 :
                                     <img src="~/img/Giay/The_Thao/@(item.SanPham.HinhAnh ?? "default.jpg")" alt="@item.SanPham.TenSanPham" />
                                     break;
                                 case 8:

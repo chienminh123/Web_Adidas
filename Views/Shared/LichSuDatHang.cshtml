@@ -2,11 +2,25 @@
 @using System.Security.Claims
 @{
     ViewData["Title"] = "Lịch sử mua hàng ";
-    
+    // Icon
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
 }
+<nav class="breadcrumb">
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__back">
+        <span class="breadcrumb__icon">
+            <i class="ri-arrow-left-line"></i>
+        </span>
+        <span class="breadcrumb__text">BACK</span>
+    </a>
+    <span class="breadcrumb__divider">/</span>
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Home</a>
+    <span class="breadcrumb__divider">/</span>
+    <span class="breadcrumb__current">Lịch sử đặt hàng</span>
+</nav>
 <p>@ViewData["Title"]</p>
 
-@if (Model != null && Model.ChiTietDonHangs != null && Model.ChiTietDonHangs.Any())
+@if (Model != null && Model.ChiTietDonHangs != null)
 {
     
     int i=0;
@@ -65,7 +79,7 @@ else
                             success: function (response) {
                                 if (response.success) {
                                     alert(response.message);
-                                    location.reload(); // Tải lại trang để cập nhật danh sách đơn hàng
+                                    location.reload(); 
                                 } else {
                                     alert(response.message || 'Không thể hủy đơn hàng.');
                                 }
@@ -80,7 +94,7 @@ else
                     }
                 });
             });
-            $(document).ready(function () {
+            
         
     </script>   
             
