@@ -25,7 +25,7 @@ namespace Web_Adidas.Models
         [MaxLength(200)]
         public string? DiaChi { get; set; }
         [Required]
-        [MaxLength(20)]
+        [MaxLength(10)]
         public string? SDT { get; set; }
         [Required]
         [MaxLength(20)]

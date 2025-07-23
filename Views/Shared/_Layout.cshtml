@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+
     
     @* <link rel="stylesheet" href="~/Web_Adidas.styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet"
@@ -20,6 +21,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <div class="wrapper">
@@ -147,12 +149,11 @@
             
             <div class="header__actions">
                 <div class="header__search">
-                    <input class="header__search-input" type="text" placeholder="tìm kiếm" id="searchInput">
+                    <input class="header__search-input" type="text" placeholder="Tìm kiếm sản phẩm..." id="searchInput">
                     <button class="header__search-button" id="searchButton">
                         <img src="~/img/search.png" alt="Search">
                     </button>
-                    <!-- Thêm phần hiển thị kết quả tìm kiếm -->
-                    <div id="searchResults" class="search-results" style="display: none; position: absolute; background: white; border: 1px solid #ccc; width: 300px; z-index: 1000; max-height: 300px; overflow-y: auto;"></div>
+                    <div id="searchResults" class="search-results"></div>
                 </div>
                 <div class="header__icons">
                     <a class="header__icon-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" >
@@ -184,19 +185,19 @@
                 <div class="footer-col">
                     <h3>HỖ TRỢ</h3>
                     <ul>
-                        <li><a href="#">Trung tâm trợ giúp</a></li>
-                        <li><a href="#">Hướng dẫn mua hàng</a></li>
-                        <li><a href="#">Chính sách đổi trả</a></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a asp-controller="Home" asp-action="foot_TTTGiup">Trung tâm trợ giúp</a></li>
+                        <li><a asp-controller="Home" asp-action="foot_HDmua">Hướng dẫn mua hàng</a></li>
+                        <li><a asp-controller="Home" asp-action="foot_DoiTra">Chính sách đổi trả</a></li>
+                        <li><a asp-controller="Home" asp-action="LienHe">Liên hệ</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3>VỀ ADIDAS</h3>
                     <ul>
-                        <li><a href="#">Câu chuyện thương hiệu</a></li>
-                        <li><a href="#">Tin tức</a></li>
-                        <li><a href="#">Tuyển dụng</a></li>
-                        <li><a href="#">Cửa hàng</a></li>
+                        <li><a asp-controller="Home" asp-action="CauChuyen">Câu chuyện thương hiệu</a></li>
+                        <li><a asp-controller="Home" asp-action="TinTuc">Tin tức</a></li>
+                        <li><a asp-controller="Home" asp-action="TuyenDung">Tuyển dụng</a></li>
+                        <li><a asp-controller="Home" asp-action="CuaHang">Cửa hàng</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -250,6 +251,7 @@
                 }
             }
 
+
             // Hàm tìm kiếm và hiển thị kết quả
             async function fetchSearchResults(query) {
                 if (!query.trim()) {
@@ -259,43 +261,82 @@
                 }
 
                 try {
+                    console.log(`Đang tìm kiếm với từ khóa: "${query}"`);
                     const response = await fetch(`/Home/SearchProducts?query=${encodeURIComponent(query)}`);
                     if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
+                        let message = 'Lỗi khi tải kết quả tìm kiếm.';
+                        if (response.status === 400) {
+                            message = 'Từ khóa tìm kiếm không hợp lệ.';
+                        } else if (response.status === 500) {
+                            message = 'Lỗi máy chủ, vui lòng thử lại sau.';
+                        }
+                        throw new Error(message);
                     }
-                    const data = await response.json();
 
-                    searchResults.innerHTML = '';
-                    if (data.results.length === 0) {
-                        searchResults.innerHTML = `<div style="padding: 10px; color: #555;">${data.message}</div>`;
-                        searchResults.style.display = 'block';
-                        return;
-                    }
+                    const data = await response.json();
+                    console.log('Phản hồi từ server:', data);
+
+                   
 
                     data.results.forEach(product => {
+                        
+                        if (!product || typeof product !== 'object') {
+                            console.warn('Sản phẩm không hợp lệ:', product);
+                            return;
+                        }
+
+                        let imagePath = '/img/'; 
+                    switch (product.maTheLoai) { // switch case của JavaScript
+                        case 1:
+                            imagePath += 'Giay/Samba/';
+                            break;
+                        case 2:
+                            imagePath += 'Giay/Gazelle/';
+                            break;
+                        case 3:
+                            imagePath += 'Giay/Adizero/'; 
+                            break;
+                        case 4:
+                            imagePath += 'Giay/Superstar/';
+                            break;
+                        case 5:
+                            imagePath += 'Giay/The_Thao/';
+                            break;
+                        case 8:
+                            imagePath += 'Dep/';
+                            break;
+                        case 9:
+                            imagePath += 'Ao/';
+                            break;
+                        case 13:
+                            imagePath += 'Quan/';
+                            break;
+                        default:
+                            console.log("Sản phẩm chưa có mã sản phẩm !")
+                            break;
+                    }
                         const resultItem = document.createElement('div');
-                        resultItem.style.padding = '10px';
-                        resultItem.style.borderBottom = '1px solid #eee';
-                        resultItem.style.cursor = 'pointer';
+                        resultItem.className = 'search-result-item';
                         resultItem.innerHTML = `
-                            <div style="display: flex; align-items: center;">
-                                <img src="${product.HinhAnh}" alt="${product.TenSanPham}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
-                                <div>
-                                    <strong>${product.TenSanPham}</strong><br>
-                                    <span>Giá: ${product.Gia.toLocaleString('vi-VN')} VND</span><br>
-                                    <span>Size: ${product.Size}</span>
-                                </div>
+                        
+                            <img src="${imagePath}${product.hinhAnh ?? 'default.jpg'}" alt="${product.tenSanPham || 'Sản phẩm'}">
+                            <div>
+                                <strong>${product.tenSanPham ?? 'Không có tên'}</strong><br>
+                                <span>Giá: ${(product.gia ?? 0).toLocaleString('vi-VN')} VNĐ</span><br>
+                                <span>Size: ${product.size ?? 'N/A'}</span>
+                                
                             </div>
                         `;
                         resultItem.addEventListener('click', () => {
-                            window.location.href = `/Home/TrangSanPham?hinhAnh=${encodeURIComponent(product.HinhAnh)}`;
+                            console.log(`Chuyển hướng đến sản phẩm: ${product.tenSanPham ?? 'Không có tên'}`);
+                            window.location.href = `/Home/TrangSanPham?hinhAnh=${encodeURIComponent(product.hinhAnh || '')}`;
                         });
                         searchResults.appendChild(resultItem);
                     });
                     searchResults.style.display = 'block';
                 } catch (error) {
                     console.error('Lỗi khi tìm kiếm:', error);
-                    searchResults.innerHTML = `<div style="padding: 10px; color: #555;">Lỗi khi tải kết quả tìm kiếm: ${error.message}</div>`;
+                    searchResults.innerHTML = `<div class="no-results">${error.message}</div>`;
                     searchResults.style.display = 'block';
                 }
             }
@@ -309,10 +350,23 @@
                 fetchSearchResults(query);
             });
 
-            // Sự kiện khi nhập liệu
+            // Sự kiện khi nhập liệu (debounce)
+            let debounceTimer;
             searchInput.addEventListener('input', () => {
-                const query = searchInput.value;
-                fetchSearchResults(query);
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const query = searchInput.value;
+                    fetchSearchResults(query);
+                }, 300);
+            });
+
+            // Sự kiện khi nhấn phím Enter
+            searchInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    const query = searchInput.value;
+                    fetchSearchResults(query);
+                }
             });
 
             // Ẩn kết quả khi nhấp ra ngoài
@@ -322,6 +376,7 @@
                 }
             });
         });
+          
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
