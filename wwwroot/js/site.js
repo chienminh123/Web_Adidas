@@ -65,7 +65,7 @@ document.getElementById('backButton').addEventListener('click', function (event)
                                 $itemRow.remove();
                                 alert(response.message);
                                 // Xóa phần tử sản phẩm khỏi giao diện
-                                //location.reload();
+                                location.reload();
                             } else {
                                 alert(response.message || "Có lỗi xảy ra.");
                             }

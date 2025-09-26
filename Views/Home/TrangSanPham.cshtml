@@ -190,8 +190,43 @@
 
 
 
-@section Scripts {
+
+   @section Scripts{
     <script>
+
+
+        const cartCountSpan = document.getElementById('cart-item-count');
+
+
+
+        async function updateCartCount() {
+                     try {
+            const response = await fetch('/Cart/GetCartItemCount');
+            if (!response.ok) {
+                if (response.status === 401) {
+                    console.warn('Chưa đăng nhập, chuyển hướng đến trang đăng nhập.');
+                    window.location.href = '/Identity/Account/Login';
+                    return;
+                }
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+
+            // Lấy phần tử span hiển thị số lượng
+            const cartCountSpan = document.getElementById('cart-item-count');
+            if (cartCountSpan) {
+                cartCountSpan.textContent = data.totalCartItems || 0;
+                console.log(`Cập nhật giỏ hàng: ${data.totalCartItems} sản phẩm`);
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật giỏ hàng:', error);
+            const cartCountSpan = document.getElementById('cart-item-count');
+            if (cartCountSpan) {
+                cartCountSpan.textContent = '0';
+            }
+        }
+            }
+
         $(document).ready(function () {
             let selectedSizeId = null;
 
@@ -250,6 +285,7 @@
                             $.get('@Url.Action("GetCartItemCount", "Cart")', function (data) {
                                 $('#cart-item-count').text(data.totalCartItems);
                             });
+                            updateCartCount();
                         } else {
                             alert(response.message || "Có lỗi xảy ra khi thêm vào giỏ hàng.");
                         }
@@ -298,4 +334,4 @@
         });
         });
     </script>
-}
+   }

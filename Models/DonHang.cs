@@ -34,5 +34,7 @@ namespace Web_Adidas.Models
 
        
         public List<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
+        [NotMapped]
+        public string TenTrangThaiDonHang { get; set; }
     }
 }

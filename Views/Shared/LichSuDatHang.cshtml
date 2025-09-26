@@ -2,43 +2,70 @@
 @using System.Security.Claims
 @{
     ViewData["Title"] = "Lịch sử mua hàng ";
-    
+    @* // Icon *@
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+          rel="stylesheet" />
+
 }
-<p>@ViewData["Title"]</p>
+
+<nav class="breadcrumb">
+    <a href="@Url.Action("ViewCart", "Cart")" class="breadcrumb__back">
+        <span class="breadcrumb__icon">
+            <i class="ri-arrow-left-line"></i>
+        </span>
+        <span class="breadcrumb__text">Trở lại</span>
+    </a>
+
+    <span class="breadcrumb__divider">/</span>
+    <a asp-controller="Home" asp-action="Index" class="breadcrumb__link">Trang chủ</a>
+</nav>
+
+<h2 class="order-history__title">@ViewData["Title"]</h2>
 
 @if (Model != null && Model.ChiTietDonHangs != null && Model.ChiTietDonHangs.Any())
 {
-    
-    int i=0;
-    <div>
+    int i = 0;
+    <div class="order-history__list">
         @foreach (var item in Model.ChiTietDonHangs)
         {
-        
-            @if (item.DonHang != null && item.MaDonHang!=i) 
+            @if (item.DonHang != null && item.MaDonHang != i)
             {
-                <div>
+                <div class="order-card">
+                    <div class="order-card__info">
+                        <div class="order-card__row">
+                            <span class="order-card__label">Mã đơn hàng:</span>
+                            <span class="order-card__value">@item.MaDonHang</span>
+                        </div>
+                        <div class="order-card__row">
+                            <span class="order-card__label">Ngày đặt hàng:</span>
+                            <span class="order-card__value">@item.DonHang.NgayTaoDonHang</span>
+                        </div>
+                        <div class="order-card__row">
+                            <span class="order-card__label">Thanh toán:</span>
+                            <span class="order-card__value">@item.DonHang.PTThanhToan</span>
+                        </div>
+                        @* <div class="order-card__row"> *@
+                        @*     <span class="order-card__label">Trạng thái đơn hàng:</span> *@
+                        @*     <span class="order-card__value">@item.DonHang.TenTrangThaiDonHang</span> *@
+                        @* </div> *@
+                    </div>
 
-                    <h1>Mã đơn hàng: @item.MaDonHang</h1>
-                    <h2>Ngày đặt hàng: @item.DonHang.NgayTaoDonHang</h2>
-                    <h2>Phương thức thanh toán: @item.DonHang.PTThanhToan</h2>
-                    <a href="@Url.Action("ChiTietDonHang", "Cart", new { maDonHang =item.MaDonHang })">Xem chi tiết</a>
+                    <div class="order-card__actions">
+                        <a href="@Url.Action("ChiTietDonHang", "Cart", new { maDonHang = item.MaDonHang })" class="order-card__link">Xem chi tiết</a>
 
-                    @if (item.DonHang.MaTrangThaiDonHang == 1)
-                    {
-                        <button type="button"
-                                class="btn btn-danger remove-item-btn ms-3"
-                                data-spid="@item.MaDonHang">
-                            Hủy
-                        </button>
-                    }
-                    else if (item.DonHang.MaTrangThaiDonHang == 4 )
-                    {
-                        
-                            <a asp-controller="Cart" asp-action="KhieuNai" asp-route-maDonHang="@item.MaDonHang"> Khiếu nại </a>
-                        
-                    }
-                    
-                    
+                        @if (item.DonHang.MaTrangThaiDonHang == 1)
+                        {
+                            <button type="button"
+                                    class="order-card__button order-card__button--cancel remove-item-btn"
+                                    data-spid="@item.MaDonHang">
+                                Hủy
+                            </button>
+                        }
+                        else if (item.DonHang.MaTrangThaiDonHang == 4)
+                        {
+                            <a asp-controller="Cart" asp-action="KhieuNai" asp-route-maDonHang="@item.MaDonHang" class="order-card__link order-card__link--complain ">Khiếu nại</a>
+                        }
+                    </div>
                 </div>
             }
             i = item.MaDonHang;
@@ -47,8 +74,7 @@
 }
 else
 {
-    <div class="alert alert-info">Lịch sử mua hàng của bạn đang trống.</div>
-    
+    <div class="order-history__empty">Lịch sử mua hàng của bạn đang trống.</div>
 }
 @section Scripts{
     <script>
@@ -80,7 +106,7 @@ else
                     }
                 });
             });
-            $(document).ready(function () {
+          
         
     </script>   
             

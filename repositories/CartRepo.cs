@@ -293,7 +293,8 @@ namespace Web_Adidas.repositories
                     DiaChi = model.DiaChi,
                     
                     ThanhToan = false, // Mặc định là chưa thanh toán.
-                    MaTrangThaiDonHang = trangthaidonhang.MaTrangThaiDonHang // Gán ID trạng thái đơn hàng.
+                    MaTrangThaiDonHang = trangthaidonhang.MaTrangThaiDonHang, // Gán ID trạng thái đơn hàng.
+                    TenTrangThaiDonHang = trangthaidonhang.TenTrangThaiDonHang
                 };             
                 _dbContext.DbSetDonHang.Add(order);
                 await _dbContext.SaveChangesAsync(); // Lưu đơn hàng để có MaDonHang.

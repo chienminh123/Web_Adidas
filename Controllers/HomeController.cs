@@ -203,6 +203,7 @@ public class HomeController : Controller
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var chiTietDonHangs = _context.DbSetChiTietDonHang
+        
         .Include(ct => ct.DonHang) 
         .Where(ct => ct.DonHang.MaNguoiDung == userId)
         .ToList();
@@ -212,7 +213,6 @@ public class HomeController : Controller
         };
         return View(model);
     }
-
 
     [HttpGet]
     public async Task<IActionResult> SearchProducts(string query)
@@ -225,19 +225,21 @@ public class HomeController : Controller
         try
         {
             var products = await _homeRepository.SearchProducts(query);
-            var result = products.Select(sp => new
+            var result = products.Select(sp => new 
             {
                 MaSanPham = sp.MaSanPham,
                 TenSanPham = sp.TenSanPham ?? "Không có tên",
                 HinhAnh = sp.HinhAnh ?? "",
                 Size = sp.Size ?? "N/A",
                 Gia = sp.Gia,
-                SoLuong = sp.SoLuong
+                SoLuong = sp.SoLuong,
+                MaTheLoai=sp.MaTheLoai
+                
             }).ToList();
 
             if (!result.Any())
             {
-                return Json(new { results = new List<object>(), message = "Không tìm thấy sản phẩm nào." });
+                return Json(new { results = new List<object>(), message = "Không tìm thấy sản phẩm nnnnnnào." });
             }
 
             return Json(new { results = result });
@@ -249,9 +251,40 @@ public class HomeController : Controller
         }
     }
 
+    //footer
 
-
-
+    public IActionResult foot_TTTGiup()
+    {
+        return View();
+    }
+    public IActionResult foot_HDmua()
+    {
+        return View();
+    }
+    public IActionResult foot_DoiTra()
+    {
+        return View();
+    }
+    public IActionResult CuaHang()
+    {
+        return View();
+    }
+    public IActionResult TuyenDung()
+    {
+        return View();
+    }
+    public IActionResult TinTuc()
+    {
+        return View();
+    }
+    public IActionResult CauChuyen()
+    {
+        return View();
+    }
+    public IActionResult LienHe()
+    {
+        return View();
+    }
 
 
 

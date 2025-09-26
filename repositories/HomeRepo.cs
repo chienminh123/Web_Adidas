@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Web_Adidas.Data;
 using Web_Adidas.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -21,8 +22,9 @@ namespace Web_Adidas.repositories
                 return await Task.FromResult(Enumerable.Empty<SanPham>());
             }
 
-            return await _dbContext.DbSetSanPham
-                .Where(sp => sp.TenSanPham != null && sp.TenSanPham.ToLower().Contains(query.ToLower()))
+            Console.WriteLine($"Tìm kiếm với query: {query}");
+            var results = await _dbContext.DbSetSanPham
+                .Where(sp => sp.TenSanPham.ToLower().Contains(query.ToLower()))
                 .Select(sp => new SanPham
                 {
                     MaSanPham = sp.MaSanPham,
@@ -30,11 +32,15 @@ namespace Web_Adidas.repositories
                     Gia = sp.Gia,
                     TenSanPham = sp.TenSanPham,
                     Size = sp.Size,
-                    SoLuong = sp.SoLuong
+                    SoLuong = sp.SoLuong,
+                    MaTheLoai=sp.MaTheLoai
                 })
-                .Take(10)
+                
                 .ToListAsync();
+            Console.WriteLine($"Số sản phẩm tìm thấy: {results.Count}");
+            return results;
         }
+
         public async Task<IEnumerable<SanPham>> SapXep(int maTheLoai, string filter = "")
         {
             if (maTheLoai == 0)

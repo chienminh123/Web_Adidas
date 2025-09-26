@@ -1,4 +1,4 @@
-* {
+﻿* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -1685,6 +1685,7 @@ a {
 
 .search-results {
     padding: 10px;
+    display: none;
 }
 
 /*_Manage Nav*/
@@ -2027,6 +2028,283 @@ a {
     font-weight: 700;
     margin-bottom: 15px;
 }
+
+.search-results {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    top: 100%; /* Đặt danh sách kết quả ngay dưới thanh tìm kiếm */
+
+    margin-top: 5px; /* Khoảng cách nhỏ để tách biệt */
+}
+.search-results div {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+    .search-results div:hover {
+        background-color: #f0f0f0;
+    }
+
+.search-results img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.search-results .no-results {
+    color: #555;
+    text-align: center;
+    font-style: italic;
+}
+
+/*Lich su mua hang*/
+
+
+.order-history__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.order-history__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.order-card__info {
+    margin-bottom: 15px;
+}
+
+.order-card__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.order-card__label {
+    font-weight: 600;
+    color: #555;
+}
+
+.order-card__value {
+    color: #222;
+}
+
+.order-card__actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.order-card__link {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    border: 2px solid #000;
+    background-color: #fff;
+    
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: 'Sora', sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+    .order-card__link:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+.order-card__link--complain {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    
+    border: 2px solid #000;
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    font-family: 'Sora', sans-serif;
+    text-decoration: none;
+}
+
+    .order-card__link--complain:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+
+.order-card__button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.order-card__button--cancel {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 4px;
+    
+    cursor: pointer;
+    font-family: 'Sora', sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+    .order-card__button--cancel:hover {
+        background-color: #000;
+        color: #fff;
+    }
+.order-history__empty {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+/*Khieu nai*/
+/* Complain Page Styling */
+.complain__container {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    font-family: 'Sora', sans-serif;
+}
+
+.complain__title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #111;
+    margin-top: 30px;
+    font-family: 'Sora', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.complain__info-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 20px;
+    border-left: 4px solid #000;
+    padding-left: 10px;
+}
+
+.complain__form .form-group {
+    margin-bottom: 20px;
+}
+
+.complain__form textarea {
+    resize: vertical;
+    min-height: 140px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    font-size: 15px;
+    padding: 10px 14px;
+    font-family: 'Sora', sans-serif;
+    background-color: #fff;
+    color: #111;
+}
+
+.complain__form .form-control:focus {
+    border-color: #000;
+    box-shadow: none;
+    outline: none;
+}
+
+/* ========== BUTTON STYLE (Adidas) ========== */
+.complain__form button.btn {
+    margin-bottom: 15px;
+    padding: 10px 24px;
+    border-radius: 0;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Sora', sans-serif;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid #000;
+}
+
+
+.complain__form .btn-primary {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+    .complain__form .btn-primary:hover {
+        /*        background-color: #fff;
+        color: #000;*/
+        background-color: #333;
+        color: #fff;
+    }
+
+
+.complain__form .btn-secondary {
+    background-color: #fff;
+    color: #000;
+    border-color: #000;
+    
+}
+
+    .complain__form .btn-secondary:hover {
+        /*        background-color: #000;
+        color: #fff;*/
+        background-color: #f0f0f0;
+        color: #000;
+    }
+
+
+.complain__form .form-group.mt-3 {
+    display: flex;
+    gap: 10px;
+}
+
+.complain__form .btn {
+    flex: 1;
+    text-align: center;
+}
+
+
+
+
 
 
     
